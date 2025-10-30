@@ -1,10 +1,10 @@
 import * as PIXI from "pixi.js";
 import { ChunkArea } from "../data/chunk";
 
-// 上記のGLSLコードを文字列として読み込む
-const fragmentShader = `
+// フラグメントシェーダーのコード（レガシー：gl_FragColor / texture2D を使用）
+const fragmentCode = `
     varying vec2 vTextureCoord;
-    uniform sampler2D uDataTexture; 
+    uniform sampler2D uDataTexture; // 渡すデータテクスチャ
 
     void main(void) {
         float geoValue = texture2D(uDataTexture, vTextureCoord).r;
@@ -21,8 +21,9 @@ const fragmentShader = `
     }
 `;
 
+
 /**
- * チャンクの「見た目」を管理するクラス
+ * チャンクの「見た目」を管理するクラス (v8形式)
  */
 export class ChunkVisual {
     public sprite: PIXI.Sprite;
@@ -32,37 +33,31 @@ export class ChunkVisual {
     constructor(chunkData: ChunkArea) {
         this.data = chunkData;
 
-        // 1. 「材料」 (Uniforms) を定義
-        const uniforms = {
-            // GLSL側の uDataTexture に、データテクスチャを渡す
-            uDataTexture: this.data.chunkTexture, 
-        };
+        // Filter は従来のシグネチャで生成し、uniforms を第3引数で渡す
+        this.filter = new PIXI.Filter({
+            fragment: fragmentCode,            // フラグメントシェーダー
+            uniforms: { uDataTexture: this.data.chunkTexture } // uniforms
+        });
 
-        // 2. 「調理台」 (Filter) を作成
-        // 引数に関するエラー、実装上の問題がないのでignore
-        // @ts-ignore
-        this.filter = new PIXI.Filter(null, fragmentShader, uniforms);
-
-        // 3. フィルターを適用する「土台」のスプライトを作成
-        //    Texture.WHITEは 1x1 の白い四角形。これを引き伸ばして使う。
+        // 2. フィルターを適用する土台のスプライトを作成
         this.sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
         this.sprite.width = ChunkArea.width;
         this.sprite.height = ChunkArea.height;
         
-        // 4. チャンクのワールド座標を設定
+        // 3. チャンクのワールド座標を設定
         this.sprite.position.set(
             this.data.position.x * ChunkArea.width,
             this.data.position.y * ChunkArea.height
         );
         
-        // 5. フィルターを適用！
+        // 4. フィルターを適用
         this.sprite.filters = [this.filter];
     }
     
-    /**
-     * もしデータが更新されたら、GPUに通知する
-     */
     public updateTexture() {
-        this.data.chunkTexture.source.update();
+        // データソース更新（必要に応じて）
+        this.data.chunkTexture.source.update?.();
+        // テクスチャが差し替わる可能性がある場合は uniforms を明示更新
+        this.filter.uniforms.uDataTexture = this.data.chunkTexture;
     }
 }
