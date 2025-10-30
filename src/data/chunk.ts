@@ -13,6 +13,7 @@ export class ChunkArea {
     constructor(position : Vector2){
         this.position = position ;
         this.chunkTexture = PIXI.Texture.from({
+            // @ts-ignore
             resource :this.geographyData,
             width : ChunkArea.width ,
             height : ChunkArea.height ,

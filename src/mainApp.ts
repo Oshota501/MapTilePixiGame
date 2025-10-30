@@ -51,7 +51,7 @@ export class MainApp extends Application {
 
     this.stage.addChild(this.viewport);
 
-
+    // @ts-ignore
     this.ticker.add((time) => {
       // animation/update logic
       // animation 60fps tick 
