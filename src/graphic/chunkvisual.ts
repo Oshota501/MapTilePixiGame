@@ -21,43 +21,43 @@ const vertex = `
 `;
 
 const fragment = `
-// v8 (GLSL 3.00 ES) 対応の
-// フラグメントシェーダー
-#version 300 es
-precision highp float;
+    // v8 (GLSL 3.00 ES) 対応の
+    // フラグメントシェーダー
+    #version 300 es
+    precision highp float;
 
-in vec2 vTextureCoord; // (vFilterCoord が正しい名前かもしれません。頂点シェーダーの out を確認してください)
-in vec2 vFilterCoord;  // 頂点シェーダーから渡される座標 (0.0 ~ 1.0)
-uniform sampler2D uSampler; // 元のテクスチャ (PIXI.Texture.WHITE)
-    
-// Uniform Group
-uniform myUniforms {
-    vec2 uCoords;
-};
+    in vec2 vTextureCoord; // (vFilterCoord が正しい名前かもしれません。頂点シェーダーの out を確認してください)
+    in vec2 vFilterCoord;  // 頂点シェーダーから渡される座標 (0.0 ~ 1.0)
+    uniform sampler2D uSampler; // 元のテクスチャ (PIXI.Texture.WHITE)
+        
+    // Uniform Group
+    uniform myUniforms {
+        vec2 uCoords;
+    };
 
-// ★ 256x256 のデータテクスチャ
-uniform sampler2D uDataSampler;
+    // ★ 256x256 のデータテクスチャ
+    uniform sampler2D uDataSampler;
 
-out vec4 fragColor;
+    out vec4 fragColor;
 
-void main(void)
-{
-    // vFilterCoord を使って uDataSampler から値をサンプリング
-    // vFilterCoord (例: 0.5, 0.5) -> uDataSampler (256x256) の (128, 128) ピクセルの値
-    // 'r8unorm' なので、値は .r チャンネルに 0.0 ~ 1.0 の float として入っています
-    float dataValue = texture(uDataSampler, vFilterCoord).r;
+    void main(void)
+    {
+        // vFilterCoord を使って uDataSampler から値をサンプリング
+        // vFilterCoord (例: 0.5, 0.5) -> uDataSampler (256x256) の (128, 128) ピクセルの値
+        // 'r8unorm' なので、値は .r チャンネルに 0.0 ~ 1.0 の float として入っています
+        float dataValue = texture(uDataSampler, vFilterCoord).r;
 
-    // dataValue (0.0 ~ 1.0) を使って色を決定
-    // 例: dataValue をそのままグレースケールとして描画
-    fragColor = vec4(dataValue, dataValue, dataValue, 1.0);
+        // dataValue (0.0 ~ 1.0) を使って色を決定
+        // 例: dataValue をそのままグレースケールとして描画
+        //fragColor = vec4(dataValue, dataValue, dataValue, 1.0);
 
-    // 例: dataValue が 0.5 (元の値 128) より大きい場合のみ赤くする
-    if (dataValue > 0.5) {
-        fragColor = vec4(1.0, 0.0, 0.0, 1.0);
-    } else {
-        fragColor = vec4(0.0, 0.0, 1.0, 1.0);
+        // 例: dataValue が 0.5 (元の値 128) より大きい場合のみ赤くする
+        if (dataValue > 0.5) {
+            fragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        } else {
+            fragColor = vec4(0.0, 0.0, 1.0, 1.0);
+        }
     }
-}
 `;
 
 
@@ -68,22 +68,31 @@ export class ChunkVisual {
     public sprite: PIXI.Sprite;
     private filter: PIXI.Filter;
     private data: ChunkArea;
-    private myUniforms: PIXI.UniformGroup;
+    // private myUniforms: PIXI.UniformGroup;
 
     constructor(chunkData: ChunkArea) {
         this.data = chunkData;
 
-        this.myUniforms = new PIXI.UniformGroup({
-            uCoords: { value: [ChunkArea.width, ChunkArea.height], type: 'vec2<f32>' }
-
-        });
+        // this.myUniforms = new PIXI.UniformGroup({
+        //     uCoords: { 
+        //         value: [ChunkArea.width, ChunkArea.height], 
+        //         type: 'vec2<f32>' 
+        //     }
+        // });
+        
         this.filter = new PIXI.Filter({
             glProgram : new PIXI.GlProgram({
                 fragment:fragment, 
                 vertex:vertex,
             }),
             resources : {
-                myUniforms: this.myUniforms,
+                // myUniforms: this.myUniforms,
+                myUniforms: {
+                    uCoords: { 
+                        value: [ChunkArea.width, ChunkArea.height], 
+                        type: 'vec2<f32>' 
+                    }
+                },
                 uDataSampler: this.data.chunkTexture
             }
         });
