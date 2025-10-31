@@ -3,12 +3,7 @@ import { ChunkArea } from "./data/chunk";
 import { ChunkVisual } from "./graphic/chunkvisual";
 import { Vector2 } from "./type";
 
-export const game = new MainApp({
-    width : 5 ,
-    height : 5 ,
-}) ;
-
-setTimeout(()=>{
+const testfunc = ()=>{
     // in MainApp.ts
 
     // ... viewport のセットアップ ...
@@ -33,4 +28,12 @@ setTimeout(()=>{
     const chunkData2 = new ChunkArea(new Vector2(1, 0));
     const chunkVisual2 = new ChunkVisual(chunkData2);
     game.viewport.addChild(chunkVisual2.sprite);
-},1000 ) ;
+
+    chunkVisual.updateTexture();
+    chunkVisual2.updateTexture();
+}
+
+export const game = new MainApp({
+    width : 5 ,
+    height : 5 ,
+},testfunc ) ;

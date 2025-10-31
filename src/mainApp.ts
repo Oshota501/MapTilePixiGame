@@ -15,9 +15,13 @@ export class MainApp extends Application {
   public render10: Render10Manager ;
   public render60: Render60Manager ;
   public worldSize : size ;
-  
-  constructor(worldSize : size){
+  public debugTestFunction : Function ;
+  constructor(
+    worldSize : size ,
+    testfunc : Function
+  ){
     super() ;
+    this.debugTestFunction = testfunc ;
     this.render10 = new Render10Manager();
     this.render60 = new Render60Manager();
     this.gamedata = new GameDatas(worldSize)
@@ -63,6 +67,7 @@ export class MainApp extends Application {
         this.fpsCounter = 0 ;
       }
     });
+    this.debugTestFunction()
   }
 }
 

@@ -21,37 +21,28 @@ const vertex = `
 `;
 
 const fragment = `
-    // v8 (GLSL 3.00 ES) 対応の
-    // フラグメントシェーダー
     #version 300 es
     precision highp float;
 
-    in vec2 vTextureCoord; // (vFilterCoord が正しい名前かもしれません。頂点シェーダーの out を確認してください)
-    in vec2 vFilterCoord;  // 頂点シェーダーから渡される座標 (0.0 ~ 1.0)
-    uniform sampler2D uSampler; // 元のテクスチャ (PIXI.Texture.WHITE)
+    in vec2 vTextureCoord; 
+    in vec2 vFilterCoord; 
+    uniform sampler2D uSampler;
         
-    // Uniform Group
-    uniform myUniforms {
-        vec2 uCoords;
-    };
+    // // Uniform Group
+    // uniform myUniforms {
+    //     vec2 uCoords;
+    // };
 
-    // ★ 256x256 のデータテクスチャ
     uniform sampler2D uDataSampler;
 
     out vec4 fragColor;
 
     void main(void)
     {
-        // vFilterCoord を使って uDataSampler から値をサンプリング
-        // vFilterCoord (例: 0.5, 0.5) -> uDataSampler (256x256) の (128, 128) ピクセルの値
-        // 'r8unorm' なので、値は .r チャンネルに 0.0 ~ 1.0 の float として入っています
         float dataValue = texture(uDataSampler, vFilterCoord).r;
-
-        // dataValue (0.0 ~ 1.0) を使って色を決定
-        // 例: dataValue をそのままグレースケールとして描画
-        //fragColor = vec4(dataValue, dataValue, dataValue, 1.0);
-
-        // 例: dataValue が 0.5 (元の値 128) より大きい場合のみ赤くする
+        // if (uCoords.x > 0.0) {
+        //     dataValue = dataValue * 1.0; // 処理を変えずに uCoords を参照する
+        // }
         if (dataValue > 0.5) {
             fragColor = vec4(1.0, 0.0, 0.0, 1.0);
         } else {
@@ -86,13 +77,13 @@ export class ChunkVisual {
                 vertex:vertex,
             }),
             resources : {
-                // myUniforms: this.myUniforms,
-                myUniforms: {
-                    uCoords: { 
-                        value: [ChunkArea.width, ChunkArea.height], 
-                        type: 'vec2<f32>' 
-                    }
-                },
+                // myUniforms: this.myUniforms, 
+                // myUniforms: {
+                //     uCoords: { 
+                //         value: [ChunkArea.width, ChunkArea.height], 
+                //         type: 'vec2<f32>' 
+                //     }
+                // },
                 uDataSampler: this.data.chunkTexture
             }
         });
