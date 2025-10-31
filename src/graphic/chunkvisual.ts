@@ -21,6 +21,7 @@ const vertex = `
 `;
 
 const fragment = `
+
     #version 300 es
     precision highp float;
 
@@ -28,10 +29,10 @@ const fragment = `
     in vec2 vFilterCoord; 
     uniform sampler2D uSampler;
         
-    // // Uniform Group
-    // uniform myUniforms {
-    //     vec2 uCoords;
-    // };
+    // Uniform Group
+    uniform myUniforms {
+        vec2 uCoords;
+    };
 
     uniform sampler2D uDataSampler;
 
@@ -40,9 +41,9 @@ const fragment = `
     void main(void)
     {
         float dataValue = texture(uDataSampler, vFilterCoord).r;
-        // if (uCoords.x > 0.0) {
-        //     dataValue = dataValue * 1.0; // 処理を変えずに uCoords を参照する
-        // }
+        if (uCoords.x > 0.0) {
+            dataValue = dataValue * 1.0; // 処理を変えずに uCoords を参照する
+        }
         if (dataValue > 0.5) {
             fragColor = vec4(1.0, 0.0, 0.0, 1.0);
         } else {
@@ -77,7 +78,7 @@ export class ChunkVisual {
                 vertex:vertex,
             }),
             resources : {
-                // myUniforms: this.myUniforms, 
+                // myUniforms: this.myUniforms,
                 // myUniforms: {
                 //     uCoords: { 
                 //         value: [ChunkArea.width, ChunkArea.height], 
