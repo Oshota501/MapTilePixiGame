@@ -59,9 +59,15 @@ export class ChunkVisual {
     public sprite: PIXI.Sprite;
     private filter: PIXI.Filter;
     private data: ChunkArea;
+    private myUniforms: PIXI.UniformGroup;
 
     constructor(chunkData: ChunkArea) {
         this.data = chunkData;
+
+        this.myUniforms = new PIXI.UniformGroup({
+            uCoords: { value: [ChunkArea.width, ChunkArea.height], type: 'vec2<f32>' }
+
+        });
         this.filter = new PIXI.Filter({
             glProgram : new PIXI.GlProgram({
                 fragment:fragment, 
@@ -69,7 +75,7 @@ export class ChunkVisual {
             }),
             resources : {
                 myUniforms: {
-                    uCoords: { value: [100, 200], type: 'vec2<f32>' } ,
+                    myUniforms: this.myUniforms,
                 },
                 uDataSampler: this.data.chunkTexture
             }

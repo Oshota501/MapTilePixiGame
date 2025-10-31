@@ -11,6 +11,9 @@ export class ChunkArea {
     public chunkTexture: PIXI.TextureSource;
     
     constructor(position : Vector2){
+        for(let i = 0 ; i < ChunkArea.width*ChunkArea.height ; i ++ ){
+            this.geographyData[i] = Math.floor(Math.random()*255) ;
+        }
         this.position = position ;
         this.chunkTexture = new PIXI.TextureSource({
             resource: this.geographyData, // Uint8Array (BufferImageSource)
@@ -19,9 +22,7 @@ export class ChunkArea {
             format: 'r8unorm',         // データのフォーマット
             // type: 'unsigned_byte' // Uint8Array (GL_UNSIGNED_BYTE)
         });
-                // for(let i = 0 ; i < ChunkArea.width*ChunkArea.height ; i ++ ){
-        //     this.geographyData[i] = 0 ;
-        // }
+
     }
 
     public getGeographyData(x:number, y:number): number;
