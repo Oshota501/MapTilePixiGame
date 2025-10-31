@@ -21,34 +21,43 @@ const vertex = `
 `;
 
 const fragment = `
-    #version 300 es
-    precision highp float;
+// v8 (GLSL 3.00 ES) 対応の
+// フラグメントシェーダー
+#version 300 es
+precision highp float;
 
-    in vec2 vTextureCoord;
-    uniform sampler2D uSampler;
+in vec2 vTextureCoord; // (vFilterCoord が正しい名前かもしれません。頂点シェーダーの out を確認してください)
+in vec2 vFilterCoord;  // 頂点シェーダーから渡される座標 (0.0 ~ 1.0)
+uniform sampler2D uSampler; // 元のテクスチャ (PIXI.Texture.WHITE)
     
-    // UBO (Uniform Group)
-    uniform myUniforms {
-        vec2 uCoords;
-    };
-    
-    // Sampler (Texture)
-    uniform sampler2D uDataSampler;
+// Uniform Group
+uniform myUniforms {
+    vec2 uCoords;
+};
 
-    out vec4 fragColor; // gl_FragColor の代わり
+// ★ 256x256 のデータテクスチャ
+uniform sampler2D uDataSampler;
 
-    void main(void)
-    {
-        // texture2D() の代わりに texture() を使用
-        float dataValue = texture(uDataSampler, vTextureCoord).r;
-        vec4 dataColor = vec4(dataValue, dataValue, dataValue, 1.0);
-        
-        if (vTextureCoord.x > uCoords.x) {
-             fragColor = dataColor;
-        } else {
-             fragColor = texture(uSampler, vTextureCoord);
-        }
+out vec4 fragColor;
+
+void main(void)
+{
+    // vFilterCoord を使って uDataSampler から値をサンプリング
+    // vFilterCoord (例: 0.5, 0.5) -> uDataSampler (256x256) の (128, 128) ピクセルの値
+    // 'r8unorm' なので、値は .r チャンネルに 0.0 ~ 1.0 の float として入っています
+    float dataValue = texture(uDataSampler, vFilterCoord).r;
+
+    // dataValue (0.0 ~ 1.0) を使って色を決定
+    // 例: dataValue をそのままグレースケールとして描画
+    fragColor = vec4(dataValue, dataValue, dataValue, 1.0);
+
+    // 例: dataValue が 0.5 (元の値 128) より大きい場合のみ赤くする
+    if (dataValue > 0.5) {
+        fragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    } else {
+        fragColor = vec4(0.0, 0.0, 1.0, 1.0);
     }
+}
 `;
 
 
@@ -74,9 +83,7 @@ export class ChunkVisual {
                 vertex:vertex,
             }),
             resources : {
-                myUniforms: {
-                    myUniforms: this.myUniforms,
-                },
+                myUniforms: this.myUniforms,
                 uDataSampler: this.data.chunkTexture
             }
         });
