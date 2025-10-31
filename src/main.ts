@@ -4,7 +4,7 @@ import { ChunkVisual } from "./graphic/chunkvisual";
 import { Vector2 } from "./type";
 
 export const game = new MainApp({
-    width : 9 ,
+    width : 5 ,
     height : 5 ,
 }) ;
 

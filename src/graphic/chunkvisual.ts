@@ -1,23 +1,53 @@
 import * as PIXI from "pixi.js";
 import { ChunkArea } from "../data/chunk";
 
-// フラグメントシェーダーのコード（レガシー：gl_FragColor / texture2D を使用）
-const fragmentCode = `
-    varying vec2 vTextureCoord;
-    uniform sampler2D uDataTexture; // 渡すデータテクスチャ
+const vertex = `
+    #version 300 es
+    precision highp float;
 
-    void main(void) {
-        float geoValue = texture2D(uDataTexture, vTextureCoord).r;
-        vec4 color;
+    in vec2 aPosition;
+    uniform mat3 projectionMatrix;
+    uniform mat3 filterMatrix;
+    
+    out vec2 vTextureCoord;
+    out vec2 vFilterCoord;
+
+    void main(void)
+    {
+        gl_Position = vec4((projectionMatrix * vec3(aPosition, 1.0)).xy, 0.0, 1.0);
+        vFilterCoord = (filterMatrix * vec3(aPosition, 1.0)).xy;
+        vTextureCoord = aPosition;
+    }
+`;
+
+const fragment = `
+    #version 300 es
+    precision highp float;
+
+    in vec2 vTextureCoord;
+    uniform sampler2D uSampler;
+    
+    // UBO (Uniform Group)
+    uniform myUniforms {
+        vec2 uCoords;
+    };
+    
+    // Sampler (Texture)
+    uniform sampler2D uDataSampler;
+
+    out vec4 fragColor; // gl_FragColor の代わり
+
+    void main(void)
+    {
+        // texture2D() の代わりに texture() を使用
+        float dataValue = texture(uDataSampler, vTextureCoord).r;
+        vec4 dataColor = vec4(dataValue, dataValue, dataValue, 1.0);
         
-        if (geoValue < 0.01) { 
-            color = vec4(0.1, 0.2, 0.8, 1.0); // 水
-        } else if (geoValue < 0.5) {
-            color = vec4(0.2, 0.7, 0.3, 1.0); // 草
+        if (vTextureCoord.x > uCoords.x) {
+             fragColor = dataColor;
         } else {
-            color = vec4(0.5, 0.5, 0.5, 1.0); // 岩
+             fragColor = texture(uSampler, vTextureCoord);
         }
-        gl_FragColor = color;
     }
 `;
 
@@ -32,11 +62,17 @@ export class ChunkVisual {
 
     constructor(chunkData: ChunkArea) {
         this.data = chunkData;
-
-        // Filter は従来のシグネチャで生成し、uniforms を第3引数で渡す
         this.filter = new PIXI.Filter({
-            fragment: fragmentCode,            // フラグメントシェーダー
-            uniforms: { uDataTexture: this.data.chunkTexture } // uniforms
+            glProgram : new PIXI.GlProgram({
+                fragment:fragment, 
+                vertex:vertex,
+            }),
+            resources : {
+                myUniforms: {
+                    uCoords: { value: [100, 200], type: 'vec2<f32>' } ,
+                },
+                uDataSampler: this.data.chunkTexture
+            }
         });
 
         // 2. フィルターを適用する土台のスプライトを作成
@@ -58,6 +94,6 @@ export class ChunkVisual {
         // データソース更新（必要に応じて）
         this.data.chunkTexture.source.update?.();
         // テクスチャが差し替わる可能性がある場合は uniforms を明示更新
-        this.filter.uniforms.uDataTexture = this.data.chunkTexture;
+        this.filter.resources.uDataSampler = this.data.chunkTexture;
     }
 }

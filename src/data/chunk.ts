@@ -8,20 +8,18 @@ export class ChunkArea {
     public geographyData : Uint8Array = new Uint8Array(
         ChunkArea.width*ChunkArea.height
     ) ; 
-    public chunkTexture: PIXI.Texture;
+    public chunkTexture: PIXI.TextureSource;
     
     constructor(position : Vector2){
         this.position = position ;
-        this.chunkTexture = PIXI.Texture.from({
-            resource :this.geographyData,
-            width : ChunkArea.width ,
-            height : ChunkArea.height ,
-            options: { 
-                format: 'red',
-                type: 'uint8'
-            }
+        this.chunkTexture = new PIXI.TextureSource({
+            resource: this.geographyData, // Uint8Array (BufferImageSource)
+            width: ChunkArea.width,
+            height: ChunkArea.height,
+            format: 'r8unorm',         // データのフォーマット
+            // type: 'unsigned_byte' // Uint8Array (GL_UNSIGNED_BYTE)
         });
-        // for(let i = 0 ; i < ChunkArea.width*ChunkArea.height ; i ++ ){
+                // for(let i = 0 ; i < ChunkArea.width*ChunkArea.height ; i ++ ){
         //     this.geographyData[i] = 0 ;
         // }
     }
