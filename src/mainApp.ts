@@ -4,21 +4,25 @@ import { GameDatas } from "./data/gamedata" ;
 import { ChunkArea } from "./data/chunk";
 import { size } from "./type";
 import { testfunc } from "./test";
+import { MapTag20 } from "./data/maptag20";
 
 
 export class MainApp extends Application {
-  public gamedata! : GameDatas ;
-
   public fpsCounter : number = 0 ;
 
   public viewport!: Viewport ;
   public render10: Container ;
+    public gamedata! : GameDatas ;
+    public maptag20 : MapTag20 ;
+  
   public worldSize : size ;
+
   constructor(
     worldSize : size ,
   ){
     super() ;
     this.render10 = new Container();
+    this. maptag20 = new MapTag20();
     this.worldSize = worldSize ;
     this.start();
   }
@@ -42,6 +46,7 @@ export class MainApp extends Application {
     // chunk読み込み
     this.gamedata = new GameDatas(this.worldSize)
     this.render10.addChild(this.gamedata);
+    this.render10.addChild(this.maptag20)
 
     this.viewport.addChild(this.render10);
 

@@ -1,15 +1,15 @@
 {
   "frames": {
     "desert_dot": {
-      "frame": { "x": 0, "y": 0, "w": 1, "h": 1 },
+      "frame": { "x": 8, "y": 1, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "plank_dot": {
-      "frame": { "x": 2, "y": 0, "w": 1, "h": 1 },
+      "frame": { "x": 2, "y": 3, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "water_dot": {
-      "frame": { "x": 4, "y": 0, "w": 1, "h": 1 },
+      "frame": { "x": 0, "y": 0, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     }
   },
