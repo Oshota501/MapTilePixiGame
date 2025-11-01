@@ -1,6 +1,6 @@
 import { MainApp } from "./mainApp";
 
 export const game = new MainApp({
-    width : 1 ,
+    width : 2 ,
     height : 1 ,
 }) ;
