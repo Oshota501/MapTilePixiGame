@@ -2,7 +2,9 @@ import { size } from "../type";
 import { ChunkArea } from "./chunk";
 import { biomes ,biome} from "./biomes";
 import { Vector2 } from "../type";
-type biomeCreateLogicType = {
+import { biomeTag } from "../test";
+
+export type biomeCreateLogicType = {
     p : Vector2 ,
     b : biome 
 }
@@ -18,6 +20,8 @@ export const createMapLogic_1 = function(mapsize:size,c:ChunkArea[]):ChunkArea[]
             b : biomes[Math.floor(Math.random()*biomes.length)] ,
         })
     }
+
+    biomeTag(b);
 
     for(let x = 0 ; x < mapsize.width ; x ++)for(let y = 0 ; y < mapsize.height ; y ++){
         const arr = c[x+y*mapsize.width].geographyData ;

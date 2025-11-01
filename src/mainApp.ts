@@ -13,7 +13,7 @@ export class MainApp extends Application {
   public viewport!: Viewport ;
   public render10: Container ;
     public gamedata! : GameDatas ;
-    public maptag20! : MapTag20 ;
+    public maptag20 : MapTag20 ;
   
   public worldSize : size ;
 
@@ -22,6 +22,7 @@ export class MainApp extends Application {
   ){
     super() ;
     this.render10 = new Container();
+    this. maptag20 = new MapTag20();
     this.worldSize = worldSize ;
     this.start();
   }
