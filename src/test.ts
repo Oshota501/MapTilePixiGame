@@ -20,7 +20,7 @@ export async function biomeTag(b:biomeCreateLogicType[]){
         s.anchor.set(0.3);
         s.on("pointerdown",(event)=>{
             event.stopPropagation();
-            console.log(b[i])
+            console.log(b[i].b.name)
         })
         game.maptag20.addChild(s);
     }
