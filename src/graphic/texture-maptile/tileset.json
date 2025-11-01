@@ -1,0 +1,21 @@
+{
+  "frames": {
+    "desert_dot": {
+      "frame": { "x": 0, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "plank_dot": {
+      "frame": { "x": 2, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "water_dot": {
+      "frame": { "x": 4, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    }
+  },
+  "meta": {
+    "image": "tileset.png",
+    "size": { "w": 16, "h": 16 },
+    "scale": "1"
+  }
+}

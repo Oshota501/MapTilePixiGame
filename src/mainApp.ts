@@ -1,34 +1,31 @@
-import { Application } from "pixi.js";
-import { Render10Manager } from "./data/render10container";
-import { Render60Manager } from "./data/render60container";
+import { Application , Assets, Container } from "pixi.js";
 import { Viewport } from "pixi-viewport";
 import { GameDatas } from "./data/gamedata" ;
 import { ChunkArea } from "./data/chunk";
 import { size } from "./type";
 import { testfunc } from "./test";
-import { ChunkVisual } from "./graphic/chunkvisual";
+
 
 export class MainApp extends Application {
-  public gamedata : GameDatas ;
+  public gamedata! : GameDatas ;
 
   public fpsCounter : number = 0 ;
 
   public viewport!: Viewport ;
-  public render10: Render10Manager ;
-  public render60: Render60Manager ;
+  public render10: Container ;
   public worldSize : size ;
   constructor(
     worldSize : size ,
   ){
     super() ;
-    this.render10 = new Render10Manager();
-    this.render60 = new Render60Manager();
-    this.gamedata = new GameDatas(worldSize)
+    this.render10 = new Container();
     this.worldSize = worldSize ;
     this.start();
   }
 
   public async start() {
+    await Assets.load('src/graphic/texture-maptile/tileset.json');
+    //tilesetTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
     await this.init({ background: '#1099bb', resizeTo: window });
     document.body.appendChild(this.canvas);
 
@@ -42,9 +39,11 @@ export class MainApp extends Application {
       // ユーザー操作の有効化
       events: this.renderer.events
     })
+    // chunk読み込み
+    this.gamedata = new GameDatas(this.worldSize)
+    this.render10.addChild(this.gamedata);
 
     this.viewport.addChild(this.render10);
-    this.viewport.addChild(this.render60);
 
     this.viewport
       .drag()
@@ -52,29 +51,16 @@ export class MainApp extends Application {
       .wheel()
       .decelerate();
 
+    this.viewport.scale = 7 ;
     this.stage.addChild(this.viewport);
 
     // @ts-ignore
     this.ticker.add((time) => {
-      // animation/update logic
-      // animation 60fps tick 
 
-      this.fpsCounter ++ ;
-      if(this.fpsCounter >= 6 ){
-        // animation 10fps tick
-        // console.log(this.fpsCounter) ;
-        this.fpsCounter = 0 ;
-      }
     });
+
+
     testfunc()
-  }
-
-  // chunk view 
-
-  public showChunk (chunk : ChunkArea){
-    const cv = new ChunkVisual(chunk);
-    this.render10.addChild(cv.sprite);
-    cv.updateTexture() ;
   }
 }
 

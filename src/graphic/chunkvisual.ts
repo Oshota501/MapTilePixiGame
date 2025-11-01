@@ -1,113 +1,71 @@
-import * as PIXI from "pixi.js";
+//import * as PIXI from "pixi.js";
+import { CompositeTilemap } from "@pixi/tilemap"; // 👈 tilemapからインポート
 import { ChunkArea } from "../data/chunk";
-
-const vertex = `
-    #version 300 es
-    precision highp float;
-
-    in vec2 aPosition;
-    uniform mat3 projectionMatrix;
-    uniform mat3 filterMatrix;
-    
-    out vec2 vTextureCoord;
-    out vec2 vFilterCoord;
-
-    void main(void)
-    {
-        gl_Position = vec4((projectionMatrix * vec3(aPosition, 1.0)).xy, 0.0, 1.0);
-        vFilterCoord = (filterMatrix * vec3(aPosition, 1.0)).xy;
-        vTextureCoord = aPosition;
-    }
-`;
-
-const fragment = `
-
-    #version 300 es
-    precision highp float;
-
-    in vec2 vTextureCoord; 
-    in vec2 vFilterCoord; 
-    uniform sampler2D uSampler;
-        
-    // Uniform Group
-    // uniform myUniforms {
-    //     vec2 uCoords;
-    // };
-
-    uniform sampler2D uDataSampler;
-
-    out vec4 fragColor;
-
-    void main(void)
-    {
-        float dataValue = texture(uDataSampler, vFilterCoord).r;
-        // if (uCoords.x > 0.0) {
-        //     dataValue = dataValue * 1.0; // 処理を変えずに uCoords を参照する
-        // }
-        if (dataValue > 0.5) {
-            fragColor = vec4(1.0, 0.0, 0.0, 1.0);
-        } else {
-            fragColor = vec4(0.0, 0.0, 1.0, 1.0);
-        }
-    }
-`;
-
+import { biomes } from "../data/biomes";
 
 /**
- * チャンクの「見た目」を管理するクラス (v8形式)
+ * チャンクの「見た目」を管理するクラス (Tilemap 1pxドット版)
  */
 export class ChunkVisual {
-    public sprite: PIXI.Sprite;
-    private filter: PIXI.Filter;
+    public tilemap: CompositeTilemap;
     private data: ChunkArea;
-    // private myUniforms: PIXI.UniformGroup;
+    //private tilesetName = "tileset.json"; // 👈 ロードしたアセット名
 
     constructor(chunkData: ChunkArea) {
         this.data = chunkData;
 
-        // this.myUniforms = new PIXI.UniformGroup({
-        //     uCoords: { 
-        //         value: [ChunkArea.width, ChunkArea.height], 
-        //         type: 'vec2<f32>' 
-        //     }
-        // });
-        
-        this.filter = new PIXI.Filter({
-            glProgram : new PIXI.GlProgram({
-                fragment:fragment, 
-                vertex:vertex,
-            }),
-            resources : {
-                // myUniforms: this.myUniforms,
-                // myUniforms: {
-                //     uCoords: { 
-                //         value: [ChunkArea.width, ChunkArea.height], 
-                //         type: 'vec2<f32>' 
-                //     }
-                // },
-                uDataSampler: this.data.chunkTexture
-            }
-        });
+        // 1. タイルマップのインスタンスを作成
+        this.tilemap = new CompositeTilemap();
 
-        // 2. フィルターを適用する土台のスプライトを作成
-        this.sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
-        this.sprite.width = ChunkArea.width;
-        this.sprite.height = ChunkArea.height;
-        
-        // 3. チャンクのワールド座標を設定
-        this.sprite.position.set(
+        // 2. チャンクのワールド座標を設定
+        // ※ 1タイル1pxなので、(0,0)チャンクは (0,0) に、
+        //   (1,0)チャンクは (256, 0) に配置します
+        this.tilemap.position.set(
             this.data.position.x * ChunkArea.width,
             this.data.position.y * ChunkArea.height
         );
         
-        // 4. フィルターを適用
-        this.sprite.filters = [this.filter];
+        // 3. チャンクデータをループして、1pxドットを配置
+        this.buildMap();
     }
     
-    public updateTexture() {
-        // データソース更新（必要に応じて）
-        this.data.chunkTexture.source.update?.();
-        // テクスチャが差し替わる可能性がある場合は uniforms を明示更新
-        this.filter.resources.uDataSampler = this.data.chunkTexture;
+    public buildMap() {
+        this.tilemap.clear();
+
+        const data = this.data.geographyData;
+        const width = ChunkArea.width;
+       
+
+        for (let i = 0; i < data.length; i++) {
+            const geoValue = data[i];
+            
+            const x = (i % width);
+            const y = Math.floor(i / width);
+            
+            let tileName :string = "water_dot"; 
+
+            for(let i = 0 ; i < biomes.length ; i ++){
+                if(geoValue === biomes[i].id ){
+                    tileName = biomes[i].img ;
+                    break ;
+                }
+            }
+            
+            
+            // 5. タイルマップに 1px のタイルを追加
+            this.tilemap.tile(
+                tileName, // 使うタイル（ドット）の名前
+                x,        // 貼り付ける X 座標 (0~255)
+                y,        // 貼り付ける Y 座標 (0~255)
+                //{ tilesetName: this.tilesetName }
+            );
+        }
+    }
+    
+    /**
+     * データが変更されたら、マップを再構築する
+     */
+    public updateMap() {
+        this.buildMap();
     }
 }
