@@ -33,11 +33,10 @@ export const createMapLogic_1 = function(mapsize:size,c:ChunkArea[]):ChunkArea[]
                 sum += biome_distance[j] ;
             }
             const biome_random = Math.random()*sum ;
-            // minを引いたやつをシグモイドして
             const lg_biome_distance : number [] = [] ;
             const minDistance = Math.min(...biome_distance);
             for(let j = 0 ; j < b.length ; j ++){
-                
+                lg_biome_distance[j] = (1-Math.tanh(biome_distance[j]-minDistance))
             }
             let sum2 = 0 ;
             for(let j = 0 ; j < b.length ; j ++){

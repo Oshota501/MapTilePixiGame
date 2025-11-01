@@ -1,1 +1,7 @@
-pixi.jsのカスタムシェーダーがなぜか使えないので一旦諦めます。
+## app
+### viewport
+- render10
+    - gamedata
+        - chunk
+    - maptag
+        - sprite
