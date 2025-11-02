@@ -3,17 +3,53 @@ import { Vector2 } from "../type";
 import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
 
-const paramater = {
-    terrain_clutter : 10 ,
-    min_radiusOfTerrain : 6 ,
-    Detailed_terrain_search_ange : 1 ,
+type CreateMapParamater = {
+    terrain_clutter : number ,
+    min_radiusOfTerrain : number ,
+    Detailed_terrain_search_ange : number ,
+    continental_density :number ,
+    before_biome_id : number ,
+    after_biome_id : number ,
 }
-export const createMapLogic_1 = function(gamadata:GameDatas):ChunkArea[]{
+export const createMapLogic_1 = function(gamedata:GameDatas):void{
+    mapClear(gamedata,1)
+    // 大陸生成
+    const p0 : CreateMapParamater= {
+        terrain_clutter : 35 ,
+        min_radiusOfTerrain : 3 ,
+        Detailed_terrain_search_ange : 2 ,
+        continental_density : 1 ,
+        before_biome_id : 1 ,
+        after_biome_id : 2 ,
+    }
+    createContinents(gamedata,p0)
+    // 島生成
+    const p1 : CreateMapParamater= {
+        terrain_clutter : 11 ,
+        min_radiusOfTerrain : 0 ,
+        Detailed_terrain_search_ange : 1 ,
+        continental_density : 1 ,
+        before_biome_id : 1 ,
+        after_biome_id : 2 ,
+    }
+    createContinents(gamedata,p1)
+
+}
+const mapClear = function(gamedata:GameDatas,clearid:number){
+    const mapsize = gamedata.s ;
+    const c = gamedata.chunks ;
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
+        const arr = c[x+y*mapsize.width].geographyData ;
+        for(let i = 0 ; i < arr.length ; i ++){
+            arr[i] = clearid
+        }
+    }
+}
+const createContinents = function(gamadata:GameDatas,paramater:CreateMapParamater):void{
     const mapsize = gamadata.s ;
     const c = gamadata.chunks ;
-    // 大陸生成
     const continents : Vector2[] = [] ;
-    for(let i = 0 ; i < mapsize.width * mapsize.height * 4 ; i ++){
+    for(let i = 0 ; i < mapsize.width * mapsize.height * paramater.continental_density ; i ++){
         continents.push(new Vector2(
             Math.floor(random.next()*mapsize.width*ChunkArea.width),
             Math.floor(random.next()*mapsize.height*ChunkArea.height)
@@ -27,22 +63,19 @@ export const createMapLogic_1 = function(gamadata:GameDatas):ChunkArea[]{
                 y*ChunkArea.height + Math.floor(i/ChunkArea.height)
             )
             const continents_distance : number[] = [] ;
-            let flag = false ;
             for(let j = 0 ; j < continents.length ; j ++){
                 continents_distance[i]= Vector2.distance(position,continents[j])
                 if(continents_distance[i]<paramater.min_radiusOfTerrain){
-                    arr[i] = 2 ;
-                    flag = true;
+                    arr[i] = paramater.after_biome_id ;
                     break;
                 }else {
                     if(random.next()>(Math.tanh((continents_distance[i]-paramater.min_radiusOfTerrain)/paramater.terrain_clutter))){
-                        arr[i] = 2 ;
-                        flag = true;
+                        arr[i] = paramater.after_biome_id ;
                         break;
                     }
                 }
             }
-            if(!flag)arr[i] = 1 ;
+            
         }
     }
     // 細かい地形生成
@@ -65,13 +98,14 @@ export const createMapLogic_1 = function(gamadata:GameDatas):ChunkArea[]{
                 sea *= sea -minnum ;
                 land *= land -minnum ;
                 if(random.next()*(sea+land) > sea){
-                    arr[i] = 2;
+                    arr[i] = paramater.after_biome_id;
                 }else{
-                    arr[i] = 1
+                    arr[i] = paramater.before_biome_id;
                 }
+            }else{
+                arr[i] = paramater.before_biome_id;
             }
         }
         
     }
-    return c ;
 }
