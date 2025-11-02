@@ -1,19 +1,25 @@
-import { size } from "../type";
 import { ChunkArea } from "./chunk";
-import { biome} from "./biomes";
-import { terrain } from "./terrain";
 import { Vector2 } from "../type";
+import { GameDatas } from "./gamedata";
+import { random } from "../mt/random";
 
-export const createMapLogic_1 = function(mapsize:size,c:ChunkArea[]):ChunkArea[]{
+const paramater = {
+    terrain_clutter : 10 ,
+    min_radiusOfTerrain : 6 ,
+    Detailed_terrain_search_ange : 1 ,
+}
+export const createMapLogic_1 = function(gamadata:GameDatas):ChunkArea[]{
+    const mapsize = gamadata.s ;
+    const c = gamadata.chunks ;
     // 大陸生成
     const continents : Vector2[] = [] ;
     for(let i = 0 ; i < mapsize.width * mapsize.height * 4 ; i ++){
         continents.push(new Vector2(
-            Math.floor(Math.random()*mapsize.width*ChunkArea.width),
-            Math.floor(Math.random()*mapsize.height*ChunkArea.height)
+            Math.floor(random.next()*mapsize.width*ChunkArea.width),
+            Math.floor(random.next()*mapsize.height*ChunkArea.height)
         ))
     }
-    for(let x = 0 ; x < mapsize.width ; x ++)for(let y = 0 ; y < mapsize.height ; y ++){
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
             const position = new Vector2(
@@ -24,12 +30,12 @@ export const createMapLogic_1 = function(mapsize:size,c:ChunkArea[]):ChunkArea[]
             let flag = false ;
             for(let j = 0 ; j < continents.length ; j ++){
                 continents_distance[i]= Vector2.distance(position,continents[j])
-                if(continents_distance[i]<6){
+                if(continents_distance[i]<paramater.min_radiusOfTerrain){
                     arr[i] = 2 ;
                     flag = true;
                     break;
                 }else {
-                    if(Math.random()>(Math.tanh((continents_distance[i]-6)/5))){
+                    if(random.next()>(Math.tanh((continents_distance[i]-paramater.min_radiusOfTerrain)/paramater.terrain_clutter))){
                         arr[i] = 2 ;
                         flag = true;
                         break;
@@ -40,14 +46,32 @@ export const createMapLogic_1 = function(mapsize:size,c:ChunkArea[]):ChunkArea[]
         }
     }
     // 細かい地形生成
-    for(let x = 0 ; x < mapsize.width ; x ++)for(let y = 0 ; y < mapsize.height ; y ++){
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
             const position = new Vector2(
                 x*ChunkArea.width + i%ChunkArea.width ,
                 y*ChunkArea.height + Math.floor(i/ChunkArea.height)
             )
+            const [nearData,isSuccess] = gamadata.getAreaBiome(position,paramater.Detailed_terrain_search_ange) ;
+            if(isSuccess){
+                let sea = 0 ;
+                let land = 0 ;
+                for(let j = 0 ; j < nearData.length ; j++){
+                    if(nearData[j] == 1)sea ++ ;
+                    else land ++ ;
+                }
+                const minnum = Math.min(sea,land)
+                sea *= sea -minnum ;
+                land *= land -minnum ;
+                if(random.next()*(sea+land) > sea){
+                    arr[i] = 2;
+                }else{
+                    arr[i] = 1
+                }
+            }
         }
+        
     }
     return c ;
 }

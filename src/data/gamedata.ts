@@ -32,15 +32,15 @@ export class GameDatas extends Container{
     constructor(worldSize : size){
         super();
         this.s = worldSize ;
-        for(let x = 0 ; x < worldSize.width ; x ++){
-            for(let y = 0 ; y < worldSize.height ; y ++){
+        for(let y = 0 ; y < worldSize.height ; y ++){
+            for(let x = 0 ; x < worldSize.width ; x ++){
                 this.chunks.push(new ChunkArea(new Vector2(
                     x ,
                     y
                 )))
             }
         }
-        createMapLogic_1(this.s,this.chunks)
+        createMapLogic_1(this)
         this.setupChunk();
     }
     private setupChunk (){
@@ -151,7 +151,7 @@ export class GameDatas extends Container{
      * 0 <= position.x < ChunkArea.width * mapsize.width
      * 0 <= position.y < ChunkArea.height * mapsize.height
      */
-    public getPositionBiome (position : Vector2):[number|null, boolean]{
+    public getPositionBiome (position : Vector2):[number, true]|[null,false]{
         if (position.x < 0 || position.y < 0) {
             return [null, false];
         }
@@ -187,7 +187,7 @@ export class GameDatas extends Container{
     public getAreaBiome (
         center_position : Vector2,
         scale:number
-    ) : [Uint8Array|null,boolean] {
+    ) : [Uint8Array,true] | [null ,false] {
             if (scale < 0 || !Number.isInteger(scale)) {
                 return [null, false];
             }
