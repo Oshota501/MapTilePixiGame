@@ -4,7 +4,7 @@ export type biome = {
     max_population : number 
     id:number
 }
-export const biomes : biome[] = [
+const d_biomes : biome[] = [
     {
         name : "sea" ,
         img : "water_dot",
@@ -31,7 +31,7 @@ export const biomes : biome[] = [
         id : 1, 
     },{
         name : "fertileplank" ,
-        img : "fertileplankplank_dot",
+        img : "fertileplank_dot",
         max_population : 320 ,
         id : 2, 
     },
@@ -77,7 +77,7 @@ export const biomes : biome[] = [
         id : 40 ,
     },{
         name : "mountain" ,
-        img : "rock",
+        img : "rock_dot",
         max_population : 10 ,
         id : 41 ,
     },
@@ -99,3 +99,28 @@ export const biomes : biome[] = [
         id : 202 ,
     },
 ] 
+
+class BiomeDB {
+    public readonly biomes : biome[] ;
+    public readonly sea_biomes : biome[] ;
+    public readonly land_biomes : biome[] ;
+    constructor(b:biome[]){
+        this.biomes = b ;
+        const sea_biomes : biome[] = [] ;
+        const land_biomes : biome[] = [] ;
+        for(let i = 0 ; i < b.length ; i ++){
+            if(this.biomes[i].id == 254 || this.biomes[i].id ==255 ){
+
+            }else if(this.biomes[i].id >= 200){
+                sea_biomes.push(this.biomes[i])
+            }else{
+                land_biomes.push(this.biomes[i])
+            }
+            
+        }
+        this.sea_biomes = sea_biomes ;
+        this.land_biomes = land_biomes ;
+    }
+}
+
+export const biomes = new BiomeDB(d_biomes) ;

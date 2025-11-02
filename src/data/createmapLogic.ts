@@ -2,6 +2,7 @@ import { ChunkArea } from "./chunk";
 import { Vector2 } from "../type";
 import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
+import { biomes } from "./biomes";
 
 type CreateMapParamater = {
     terrain_clutter : number ,
@@ -33,10 +34,26 @@ export const createMapLogic_1 = function(gamedata:GameDatas):void{
         after_biome_id : 255 ,
     }
     createContinents(gamedata,p1)
-
+    createTerrain(gamedata);
 }
 const createTerrain = function(gamedata :GameDatas){
-
+    const mapsize = gamedata.s ;
+    const c = gamedata.chunks ;
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
+        const arr = c[x+y*mapsize.width].geographyData ;
+        for(let i = 0 ; i < arr.length ; i ++){
+            const position = new Vector2(
+                x*ChunkArea.width + i%ChunkArea.width ,
+                y*ChunkArea.height + Math.floor(i/ChunkArea.height)
+            )
+            if(arr[i] == 255){// if land
+                arr[i] = biomes.land_biomes[Math.floor(random.next()*biomes.land_biomes.length)].id ;
+            }else{// if sea
+                arr[i] = biomes.sea_biomes[Math.floor(random.next()*biomes.sea_biomes.length)].id ;
+            }
+        }
+        
+    }
 }
 const mapClear = function(gamedata:GameDatas,clearid:number){
     const mapsize = gamedata.s ;
