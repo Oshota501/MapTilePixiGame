@@ -44,9 +44,9 @@ export class ChunkVisual {
             
             let tileName :string = "water_dot"; 
 
-            for(let i = 0 ; i < biomes.length ; i ++){
-                if(geoValue === biomes[i].id ){
-                    tileName = biomes[i].img ;
+            for(let i = 0 ; i < biomes.biomes.length ; i ++){
+                if(geoValue === biomes.biomes[i].id ){
+                    tileName = biomes.biomes[i].img ;
                     break ;
                 }
             }

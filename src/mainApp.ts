@@ -30,7 +30,7 @@ export class MainApp extends Application {
   public async start() {
     await Assets.load('src/graphic/texture-maptile/tileset.json');
     //tilesetTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-    await this.init({ background: '#1099bb', resizeTo: window });
+    await this.init({ background: '#000000ff', resizeTo: window });
     document.body.appendChild(this.canvas);
 
     // ViewPort

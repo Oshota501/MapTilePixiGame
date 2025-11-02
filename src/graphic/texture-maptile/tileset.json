@@ -9,7 +9,50 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "water_dot": {
+      "frame": { "x": 4, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "jungle_dot": {
+      "frame": { "x": 6, "y": 2, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "forest_dot": {
+      "frame": { "x": 8, "y": 2, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "deepwater_dot": {
       "frame": { "x": 0, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "rock_dot": {
+      "frame": { "x": 4, "y": 6, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "dirt_dot": {
+      "frame": { "x": 0, "y": 7, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "snow_dot": {
+      "frame": { "x": 1, "y": 5, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "fertileplank_dot": {
+      "frame": { "x": 8, "y": 3, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "wetland_dot": {
+      "frame": { "x": 13, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "leaf_dot": {
+      "frame": { "x": 11, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "savanna_dot": {
+      "frame": { "x": 6, "y": 5, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },"wall_dot": {
+      "frame": { "x": 0, "y": 6, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     }
   },
