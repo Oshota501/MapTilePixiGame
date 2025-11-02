@@ -12,15 +12,15 @@ type CreateMapParamater = {
     after_biome_id : number ,
 }
 export const createMapLogic_1 = function(gamedata:GameDatas):void{
-    mapClear(gamedata,1)
+    mapClear(gamedata,254)
     // 大陸生成
     const p0 : CreateMapParamater= {
         terrain_clutter : 35 ,
         min_radiusOfTerrain : 3 ,
         Detailed_terrain_search_ange : 2 ,
         continental_density : 1 ,
-        before_biome_id : 1 ,
-        after_biome_id : 2 ,
+        before_biome_id : 254 ,
+        after_biome_id : 255 ,
     }
     createContinents(gamedata,p0)
     // 島生成
@@ -28,11 +28,14 @@ export const createMapLogic_1 = function(gamedata:GameDatas):void{
         terrain_clutter : 11 ,
         min_radiusOfTerrain : 0 ,
         Detailed_terrain_search_ange : 1 ,
-        continental_density : 1 ,
-        before_biome_id : 1 ,
-        after_biome_id : 2 ,
+        continental_density : 2 ,
+        before_biome_id : 254 ,
+        after_biome_id : 255 ,
     }
     createContinents(gamedata,p1)
+
+}
+const createTerrain = function(gamedata :GameDatas){
 
 }
 const mapClear = function(gamedata:GameDatas,clearid:number){
@@ -91,7 +94,7 @@ const createContinents = function(gamadata:GameDatas,paramater:CreateMapParamate
                 let sea = 0 ;
                 let land = 0 ;
                 for(let j = 0 ; j < nearData.length ; j++){
-                    if(nearData[j] == 1)sea ++ ;
+                    if(nearData[j] == paramater.before_biome_id)sea ++ ;
                     else land ++ ;
                 }
                 const minnum = Math.min(sea,land)
