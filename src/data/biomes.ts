@@ -17,7 +17,7 @@ export const biomes : biome[] = [
         img : "water_dot",
         max_population : 0 ,
         id : 1 ,
-        weight : 10
+        weight : 30
     },{
         name : "desert" ,
         img : "desert_dot",

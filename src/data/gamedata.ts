@@ -55,7 +55,7 @@ export class GameDatas extends Container{
     * @param {Number} x
     * @param {Number} y
     * @param {Number} biome
-    * @param {boolean} isSuccess
+    * @returns {boolean} isSuccess
     */
     public changeBiomeAt(p:ChangeBiomeParam): boolean {
         if(p.biome_id>255 || p.biome_id < 0){
@@ -93,7 +93,7 @@ export class GameDatas extends Container{
     * @param {Number} x
     * @param {Number} y
     * @param {Number} biome
-    * @param {boolean} isSuccess
+    * @returns {boolean} isSuccess
     */
     public changeBiome(ps:ChangeBiomeParam[]): boolean{
         const changes : number[][] = [] ;
@@ -107,8 +107,8 @@ export class GameDatas extends Container{
                 return false;
             }
             const chunk = {
-                x:changes[i][0],
-                y:changes[i][1],
+                x:ps[i].x,
+                y:ps[i].y,
             }
             if(chunk.x < 0 || chunk.x > this.s.width){
                 console.log("存在しないマップ領域です。：x 座標が超過");
@@ -142,5 +142,85 @@ export class GameDatas extends Container{
         } 
         return true ;
     }
-    
+    /**
+     * getPositionBiome 
+     * @param {Vector2} position 
+     * @returns {number|null} biomeid
+     * @returns {boolean} isSuccess(typeof biomeid == number -> true)
+     * 制約
+     * 0 <= position.x < ChunkArea.width * mapsize.width
+     * 0 <= position.y < ChunkArea.height * mapsize.height
+     */
+    public getPositionBiome (position : Vector2):[number|null, boolean]{
+        if (position.x < 0 || position.y < 0) {
+            return [null, false];
+        }
+        const chunk = new Vector2(
+            Math.floor(position.x / ChunkArea.width) ,
+            Math.floor(position.y / ChunkArea.height)
+         ) ;
+        if(chunk.x < 0 || chunk.x >= this.s.width){
+            return [null, false] ;
+        }
+        if(chunk.y < 0 || chunk.y >= this.s.height){
+            return [null, false] ;
+        }
+        const positionInChunk = new Vector2(
+            Math.floor(position.x % ChunkArea.width) ,
+            Math.floor(position.y % ChunkArea.height)
+        );
+        const c = this.getChunk(chunk);
+        const biomeId = c.getGeographyData(positionInChunk) ?? null;
+        return [biomeId, true] ;
+    }
+    /**
+     * getAreaBiome 
+     * @param {Vector2} center_position
+     * @param {number} scale
+     * @returns {(Uint8Array|null)[]} biomesid
+     * @returns {boolean} isSuccess(typeof biomeid == number -> true)
+     * scaleが1なら3*3 scaleが2なら5*5の center_position を中心とした領域のbiomeidの配列を取得
+     * 制約
+     * 0 + scale <= position.x < ChunkArea.width * mapsize.width - scale
+     * 0 + scale <= position.y < ChunkArea.height * mapsize.height - scale
+     */
+    public getAreaBiome (
+        center_position : Vector2,
+        scale:number
+    ) : [Uint8Array|null,boolean] {
+            if (scale < 0 || !Number.isInteger(scale)) {
+                return [null, false];
+            }
+            const worldWidth = ChunkArea.width * this.s.width;
+            const worldHeight = ChunkArea.height * this.s.height;
+            if (
+                center_position.x - scale < 0 ||
+                center_position.y - scale < 0 ||
+                center_position.x + scale >= worldWidth ||
+                center_position.y + scale >= worldHeight
+            ) {
+                return [null, false];
+            }
+            const side = scale * 2 + 1;
+            const biomes_id : Uint8Array = new Uint8Array(side * side) ;
+            let idx = 0;
+            for (let dy = -scale; dy <= scale; dy++) {
+                for (let dx = -scale; dx <= scale; dx++) {
+                    const x = Math.floor(center_position.x + dx);
+                    const y = Math.floor(center_position.y + dy);
+                    const chunk = {
+                        x : Math.floor(x / ChunkArea.width),
+                        y : Math.floor(y / ChunkArea.height)
+                    } ;
+                    const positionInChunk = {
+                        x : x % ChunkArea.width,
+                        y : y % ChunkArea.height
+                    } ;
+                    const c = this.getChunk(chunk);
+                    const id = c.geographyData[positionInChunk.y * ChunkArea.width + positionInChunk.x] ?? 0;
+                    biomes_id[idx++] = id;
+                }
+            }
+            return [biomes_id, true] ;
+    }
 }
