@@ -23,6 +23,9 @@ class Random {
     // 0 <= result < 1 を返す（2^32 で割ることで 1 は含まれない）
     return this.w / 0x100000000;
   }
+  public nextInt(size:number) : number {
+    return Math.floor(this.next()*size) ;
+  }
 }
 
 export const random = new Random() ;

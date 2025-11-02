@@ -2,7 +2,7 @@ import { ChunkArea } from "./chunk";
 import { Vector2 } from "../type";
 import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
-import { biomes } from "./biomes";
+import { biome, biomes } from "./biomes";
 
 type CreateMapParamater = {
     terrain_clutter : number ,
@@ -34,11 +34,19 @@ export const createMapLogic_1 = function(gamedata:GameDatas):void{
         after_biome_id : 255 ,
     }
     createContinents(gamedata,p1)
-    createTerrain(gamedata);
+    createTerrain(gamedata,255,254);
 }
-const createTerrain = function(gamedata :GameDatas){
+type terrain = {
+    name : string
+    biome : biome
+    p : Vector2
+}
+const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
     const mapsize = gamedata.s ;
     const c = gamedata.chunks ;
+    const add_terrainsOfLand : terrain[] = [] ;
+    const add_terrainsOfSea : terrain[] = [] ;
+    
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
@@ -46,13 +54,64 @@ const createTerrain = function(gamedata :GameDatas){
                 x*ChunkArea.width + i%ChunkArea.width ,
                 y*ChunkArea.height + Math.floor(i/ChunkArea.height)
             )
-            if(arr[i] == 255){// if land
-                arr[i] = biomes.land_biomes[Math.floor(random.next()*biomes.land_biomes.length)].id ;
-            }else{// if sea
-                arr[i] = biomes.sea_biomes[Math.floor(random.next()*biomes.sea_biomes.length)].id ;
+            const position_nr = new Vector2(
+                position.x / gamedata.s.width*ChunkArea.width ,
+                position.y / gamedata.s.height*ChunkArea.height 
+            )
+            const [nearData,isSuccess] = gamedata.getAreaBiome(position,2) ;
+            if(isSuccess){
+                let sea = 0 ;
+                let land = 0 ;
+                for(let j = 0 ; j < nearData.length ; j++){
+                    if(nearData[j] == seaid)sea ++ ;
+                    else land ++ ;
+                }
+            }
+            if(arr[i] == landid){
+                if(random.next() <= 0.01){
+                    const b : biome = biomes.land_biomes[random.nextInt(biomes.land_biomes.length)];
+                    add_terrainsOfLand.push({
+                        name : b.name ,
+                        biome : b ,
+                        p : position
+                    })
+                }
+            }else{
+                if(random.next() <= 0.005){
+                    const b : biome = biomes.sea_biomes[random.nextInt(biomes.sea_biomes.length)];
+                    add_terrainsOfSea.push({
+                        name : b.name ,
+                        biome : b ,
+                        p : position
+                    })
+                }
             }
         }
         
+    }
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
+        const arr = c[x+y*mapsize.width].geographyData ;
+        for(let i = 0 ; i < arr.length ; i ++){
+            const distance :number[] = [] ;
+            const position = new Vector2(
+                x*ChunkArea.width + i%ChunkArea.width ,
+                y*ChunkArea.height + Math.floor(i/ChunkArea.height)
+            )
+            let add_terrain : terrain[] ;
+            if(arr[i] == landid){
+                add_terrain = add_terrainsOfLand ;
+            }else{
+                add_terrain = add_terrainsOfSea ;
+            }
+            let minIndex : number = 0 ;
+            for(let j = 0 ; j < add_terrain.length ; j++){
+                distance[j] = Vector2.distance(position,add_terrain[j].p);
+                if(distance[j]<distance[minIndex]){
+                    minIndex = j ;
+                }
+            }
+            arr[i] = add_terrain[minIndex].biome.id ;
+        }
     }
 }
 const mapClear = function(gamedata:GameDatas,clearid:number){

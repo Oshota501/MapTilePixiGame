@@ -5,18 +5,6 @@ export type biome = {
     id:number
 }
 const d_biomes : biome[] = [
-    {
-        name : "sea" ,
-        img : "water_dot",
-        max_population : 0 ,
-        id : 254 ,
-    },{
-        name : "land" ,
-        img : "desert_dot",
-        max_population : 20 ,
-        id : 255 ,
-    },
-    // 上のやつは固定で
     // 0番台 land
     // 0~10 草原
     {
@@ -106,6 +94,17 @@ class BiomeDB {
     public readonly land_biomes : biome[] ;
     constructor(b:biome[]){
         this.biomes = b ;
+        this.biomes.push({
+            name : "sea" ,
+            img : "water_dot",
+            max_population : 0 ,
+            id : 254 ,
+        },{
+            name : "land" ,
+            img : "desert_dot",
+            max_population : 20 ,
+            id : 255 ,
+        },)
         const sea_biomes : biome[] = [] ;
         const land_biomes : biome[] = [] ;
         for(let i = 0 ; i < b.length ; i ++){
