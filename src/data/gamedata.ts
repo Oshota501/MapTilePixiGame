@@ -217,7 +217,7 @@ export class GameDatas extends Container{
                         y : y % ChunkArea.height
                     } ;
                     const c = this.getChunk(chunk);
-                    const id = c.geographyData[positionInChunk.y * ChunkArea.width + positionInChunk.x] ?? 0;
+                    const id = c.geographyData[positionInChunk.y * ChunkArea.width + positionInChunk.x] ;
                     biomes_id[idx++] = id;
                 }
             }

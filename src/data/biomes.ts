@@ -69,6 +69,13 @@ const d_biomes : biome[] = [
         max_population : 10 ,
         id : 41 ,
     },
+    // 190 ~ ゲーム要素
+    {
+        name : "wall" ,
+        img : "wall_dot",
+        max_population : 0 ,
+        id : 190 ,
+    },
     // 200番台 sea
     {
         name : "nomalsea" ,
@@ -92,6 +99,24 @@ class BiomeDB {
     public readonly biomes : biome[] ;
     public readonly sea_biomes : biome[] ;
     public readonly land_biomes : biome[] ;
+    public isSea(id:number):boolean{
+        if(id === 254)return true ;
+        for(let i = 0 ; i < this.sea_biomes.length ; i ++){
+            if(this.sea_biomes[i].id === id){
+                return true ;
+            }
+        }
+        return false ;
+    }
+    public isLand(id:number):boolean{
+        if(id === 255)return true ;
+        for(let i = 0 ; i < this.land_biomes.length ; i ++){
+            if(this.land_biomes[i].id === id){
+                return true ;
+            }
+        }
+        return false ;
+    }
     constructor(b:biome[]){
         this.biomes = b ;
         this.biomes.push({

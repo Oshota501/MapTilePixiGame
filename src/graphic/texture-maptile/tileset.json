@@ -17,7 +17,7 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "forest_dot": {
-      "frame": { "x": 2, "y": 2, "w": 1, "h": 1 },
+      "frame": { "x": 8, "y": 2, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "deepwater_dot": {
@@ -50,6 +50,9 @@
     },
     "savanna_dot": {
       "frame": { "x": 6, "y": 5, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },"wall_dot": {
+      "frame": { "x": 0, "y": 6, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     }
   },
