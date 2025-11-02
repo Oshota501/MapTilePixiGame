@@ -21,7 +21,7 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "deepwater_dot": {
-      "frame": { "x": 0, "y": 0, "w": 1, "h": 1 },
+      "frame": { "x": 5, "y": 0, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "rock_dot": {
@@ -45,7 +45,7 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "leaf_dot": {
-      "frame": { "x": 11, "y": 0, "w": 1, "h": 1 },
+      "frame": { "x": 7, "y": 0, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "savanna_dot": {
@@ -53,6 +53,10 @@
       "sourceSize": { "w": 1, "h": 1 }
     },"wall_dot": {
       "frame": { "x": 0, "y": 6, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "river_dot": {
+      "frame": { "x": 8, "y": 0, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     }
   },

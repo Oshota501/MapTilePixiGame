@@ -144,7 +144,15 @@ export const terrains = new TerrainsDB(
                         sea ++ ;
                     }
                 }
-                return 200 ;
+                if(sea >= 25){
+                    return 202 ;
+                }else{
+                    if(land<random.nextInt(25))
+                        return 201 ;
+                    else
+                        return 200 ;
+                }
+                
             } ,
             fortune : 20 ,
         },
