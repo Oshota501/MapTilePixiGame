@@ -5,6 +5,6 @@ import { MainApp } from "./mainApp";
 // 1pxあたりにdata/createmapLogicの処理を毎回施していることを考えれば想像に難くないです。
 
 export const game = new MainApp({
-    width : 5 ,
-    height : 5 ,
+    width : 4 ,
+    height : 4 ,
 }) ;

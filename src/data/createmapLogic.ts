@@ -12,7 +12,7 @@ type CreateMapParamater = {
     before_biome_id : number ,
     after_biome_id : number ,
 }
-export const createMapLogic_1 = function(gamedata:GameDatas):void{
+export const createMapLogic_1 = async function(gamedata:GameDatas):Promise<void>{
     mapClear(gamedata,254)
     // 大陸生成
     const p0 : CreateMapParamater= {
@@ -89,6 +89,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
         }
         
     }
+    if(add_terrainsOfLand.length == 0 || add_terrainsOfSea.length == 0)return createTerrain(gamedata,landid,seaid) ;
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
