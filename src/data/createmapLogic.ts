@@ -103,11 +103,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                     minIndex = j ;
                 }
             }
-            const [arr25,flag] = gamedata.getAreaBiome(position,2);
-            if(flag)
-                arr[i] = add_terrain[minIndex].terrain.logic(arr25) ;
-            else
-                arr[i] = 190 ;
+            add_terrain[minIndex].terrain.logic(position,gamedata) ;
         }
     }
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){

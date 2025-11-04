@@ -1,15 +1,15 @@
 import { random } from "../mt/random";
 import { Vector2 } from "../type";
-import { biomes } from "./biomes";
+import { GameDatas } from "./gamedata";
 
 export type terrain_CreateLogicType = {
     name : string
     /**
-     * @param arr25 Uint8Array 周辺25マスの情報
+     * @param p 座標
      * @returns biome_id
      */
-    logic : Function
-    fortune : Function
+    logic : (p: Vector2,gamedata:GameDatas) => number
+    fortune : (y: number) => number
 }
 
 class TerrainsDB {
@@ -67,16 +67,8 @@ export const terrains = new TerrainsDB(
     [
         {
             name : "nomal_plank" ,
-            logic : function(arr25:Uint8Array){
-                let land = 0 ;
-                let sea = 0 ;
-                for(let i = 0 ; i < arr25.length ; i ++){
-                    if(biomes.isLand(arr25[i])){
-                        land ++ ;
-                    }else{
-                        sea ++ ;
-                    }
-                }
+            logic : function(p:Vector2,gamedata:GameDatas):number{
+                const [land,_] = gamedata.getAreaBiomeLand25(p);
                 if(land>13){
                     if(random.next()<0.02)
                         return 10 ;
@@ -90,21 +82,13 @@ export const terrains = new TerrainsDB(
                 }
                 
             } ,
-            fortune : function(y:number){
+            fortune : function(y:number):number{
                 return 20*(Math.exp(-80*(y-0.36)**2)+Math.exp(-80*(y-0.64)**2))
             } ,
         },{
             name : "nomal_forest" ,
-            logic : function(arr25:Uint8Array){
-                let land = 0 ;
-                let sea = 0 ;
-                for(let i = 0 ; i < arr25.length ; i ++){
-                    if(biomes.isLand(arr25[i])){
-                        land ++ ;
-                    }else{
-                        sea ++ ;
-                    }
-                }
+            logic : function(p:Vector2,gamedata:GameDatas):number{
+                const [land,_] = gamedata.getAreaBiomeLand25(p);
                 if(land>13){
                     if(random.next()<0.04)
                         return 0 ;
@@ -118,25 +102,25 @@ export const terrains = new TerrainsDB(
                 }
                 
             } ,
-            fortune : function(y:number){
+            fortune : function(y:number):number{
                 return 7*(Math.exp(-100*(y-0.41)**2)+Math.exp(-100*(y-0.59)**2))
             } ,
         },{
             name : "nomal_desert" ,
             // @ts-ignore
-            logic : function(arr25:Uint8Array){
+            logic : function(p:Vector2,gamedata:GameDatas):number{
                 if(random.next()<0.99)
                     return 20 ;
                 else 
                     return 23 ;
             } ,
-            fortune : function(y:number){ 
+            fortune : function(y:number):number{ 
                 return 25*(Math.exp(-50*(y-0.30)**2)+Math.exp(-50*(y-0.70)**2))
             },
         },{
             name : "plateau_desert" ,
             // @ts-ignore
-            logic : function(arr25:Uint8Array){
+            logic : function(p:Vector2,gamedata:GameDatas):number{
                 const r = random.next() ;
                 if(r<0.29)
                     return 21 ;
@@ -147,13 +131,13 @@ export const terrains = new TerrainsDB(
                 else 
                     return 23 ;
             } ,
-            fortune : function(y:number){ 
+            fortune : function(y:number):number{ 
                 return 7*(Math.exp(-60*(y-0.25)**2)+Math.exp(-60*(y-0.75)**2))
             },
         },{
             name : "nomal_mountain" ,
             // @ts-ignore
-            logic : function(arr25:Uint8Array):number{
+            logic : function(p:Vector2,gamedata:GameDatas):number{
                 const r = random.next() ;
                 if(r<=0.1)
                     return 40 ;
@@ -175,16 +159,8 @@ export const terrains = new TerrainsDB(
     ],[
         {
             name : "nomal_sea" ,
-            logic : function(arr25:Uint8Array){
-                let land = 0 ;
-                let sea = 0 ;
-                for(let i = 0 ; i < arr25.length ; i ++){
-                    if(biomes.isLand(arr25[i])){
-                        land ++ ;
-                    }else{
-                        sea ++ ;
-                    }
-                }
+            logic : function(p:Vector2,gamedata:GameDatas):number{
+                const [land,sea] = gamedata.getAreaBiomeLand25(p);
                 if(sea >= 25){
                     return 202 ;
                 }else{
@@ -195,7 +171,7 @@ export const terrains = new TerrainsDB(
                 }
                 
             } ,
-            fortune : function(y:number){
+            fortune : function(y:number):number{
                 y
                 return 20 
             },
