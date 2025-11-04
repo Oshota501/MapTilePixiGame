@@ -2,7 +2,7 @@ import { ChunkArea } from "./chunk";
 import { Vector2 } from "../type";
 import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
-import { biome, biomes } from "./biomes";
+import { biomes } from "./biomes";
 import { terrain_CreateLogicType, terrains } from "./terrain";
 
 type CreateMapParamater = {
@@ -56,18 +56,9 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                 y*ChunkArea.height + Math.floor(i/ChunkArea.height)
             )
             const position_nr = new Vector2(
-                position.x / gamedata.s.width*ChunkArea.width ,
-                position.y / gamedata.s.height*ChunkArea.height 
+                position.x / (gamedata.s.width*ChunkArea.width) ,
+                position.y / (gamedata.s.height*ChunkArea.height )
             )
-            const [nearData,isSuccess] = gamedata.getAreaBiome(position,2) ;
-            if(isSuccess){
-                let sea = 0 ;
-                let land = 0 ;
-                for(let j = 0 ; j < nearData.length ; j++){
-                    if(nearData[j] == seaid)sea ++ ;
-                    else land ++ ;
-                }
-            }
             if(arr[i] == landid){
                 if(random.next() <= 0.006){
                     const b : terrain_CreateLogicType = terrains.getLandTerrainRandom(position_nr);
@@ -91,6 +82,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
         
     }
     if(add_terrainsOfLand.length == 0 || add_terrainsOfSea.length == 0)return createTerrain(gamedata,landid,seaid) ;
+    // バイオーム生成
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
@@ -112,13 +104,35 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                     minIndex = j ;
                 }
             }
-            const [arr25,flag] = gamedata.getAreaBiome(position,2);
-            if(flag)
-                arr[i] = add_terrain[minIndex].terrain.logic(arr25) ;
-            else
-                arr[i] = 190 ;
+            arr[i] = add_terrain[minIndex].terrain.base ;
         }
     }
+    // 詳細な地形、環境
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
+        const arr = c[x+y*mapsize.width].geographyData ;
+        for(let i = 0 ; i < arr.length ; i ++){
+            const distance :number[] = [] ;
+            const position = new Vector2(
+                x*ChunkArea.width + i%ChunkArea.width ,
+                y*ChunkArea.height + Math.floor(i/ChunkArea.height)
+            )
+            let add_terrain : terrain[] ;
+            if(biomes.isLand(arr[i])){
+                add_terrain = add_terrainsOfLand ;
+            }else{
+                add_terrain = add_terrainsOfSea ;
+            }
+            let minIndex : number = 0 ;
+            for(let j = 0 ; j < add_terrain.length ; j++){
+                distance[j] = Vector2.distance(position,add_terrain[j].p);
+                if(distance[j]<distance[minIndex]){
+                    minIndex = j ;
+                }
+            }
+            arr[i] = add_terrain[minIndex].terrain.logic(position,gamedata) ;
+        }
+    }
+        // バイオームを慣らす
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
@@ -190,22 +204,12 @@ const createContinents = function(gamadata:GameDatas,paramater:CreateMapParamate
                 x*ChunkArea.width + i%ChunkArea.width ,
                 y*ChunkArea.height + Math.floor(i/ChunkArea.height)
             )
-            const [nearData,isSuccess] = gamadata.getAreaBiome(position,paramater.Detailed_terrain_search_ange) ;
-            if(isSuccess){
-                let sea = 0 ;
-                let land = 0 ;
-                for(let j = 0 ; j < nearData.length ; j++){
-                    if(nearData[j] == paramater.before_biome_id)sea ++ ;
-                    else land ++ ;
-                }
-                const minnum = Math.min(sea,land)
-                sea *= sea -minnum ;
-                land *= land -minnum ;
-                if(random.next()*(sea+land) > sea){
-                    arr[i] = paramater.after_biome_id;
-                }else{
-                    arr[i] = paramater.before_biome_id;
-                }
+            let [land,sea] = gamadata.getAreaBiomeLand25(position)
+            const minnum = Math.min(sea,land)
+            sea *= sea -minnum ;
+            land *= land -minnum ;
+            if(random.next()*(sea+land) > sea){
+                arr[i] = paramater.after_biome_id;
             }else{
                 arr[i] = paramater.before_biome_id;
             }

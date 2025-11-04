@@ -13,23 +13,31 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "jungle_dot": {
-      "frame": { "x": 6, "y": 2, "w": 1, "h": 1 },
+      "frame": { "x": 7, "y": 2, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "forest_dot": {
       "frame": { "x": 8, "y": 2, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
+    "taiga_dot": {
+      "frame": { "x": 13, "y": 1, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "deva_taiga_dot": {
+      "frame": { "x": 15, "y": 1, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
     "deepwater_dot": {
-      "frame": { "x": 0, "y": 0, "w": 1, "h": 1 },
+      "frame": { "x": 5, "y": 0, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "rock_dot": {
-      "frame": { "x": 4, "y": 6, "w": 1, "h": 1 },
+      "frame": { "x": 4, "y": 5, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "dirt_dot": {
-      "frame": { "x": 0, "y": 7, "w": 1, "h": 1 },
+      "frame": { "x": 3, "y": 1, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "snow_dot": {
@@ -45,7 +53,7 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "leaf_dot": {
-      "frame": { "x": 11, "y": 0, "w": 1, "h": 1 },
+      "frame": { "x": 7, "y": 0, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "savanna_dot": {
@@ -53,6 +61,26 @@
       "sourceSize": { "w": 1, "h": 1 }
     },"wall_dot": {
       "frame": { "x": 0, "y": 6, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "river_dot": {
+      "frame": { "x": 8, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "m1_dot": {
+      "frame": { "x": 7, "y": 1, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "m2_dot": {
+      "frame": { "x": 2, "y": 1, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "m3_dot": {
+      "frame": { "x": 8, "y": 5, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "m4_dot": {
+      "frame": { "x": 7, "y": 5, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     }
   },

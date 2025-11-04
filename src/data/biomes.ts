@@ -34,6 +34,16 @@ const d_biomes : biome[] = [
         img : "jungle_dot",
         max_population : 130 ,
         id : 11 ,
+    },{
+        name : "taiga" ,
+        img : "taiga_dot",
+        max_population : 70 ,
+        id : 12 ,
+    },{
+        name : "deva_taiga" ,
+        img : "deva_taiga_dot",
+        max_population : 40 ,
+        id : 13 ,
     },
     // 20~40 乾燥帯
     {
@@ -68,7 +78,33 @@ const d_biomes : biome[] = [
         img : "rock_dot",
         max_population : 10 ,
         id : 41 ,
+    },{
+        name : "mountain" ,
+        img : "m1_dot",
+        max_population : 10 ,
+        id : 42 ,
+    },{
+        name : "mountain" ,
+        img : "m2_dot",
+        max_population : 15 ,
+        id : 43 ,
+    },{
+        name : "mountain" ,
+        img : "m3_dot",
+        max_population : 15 ,
+        id : 44 ,
+    },{
+        name : "mountain" ,
+        img : "m4_dot",
+        max_population : 15 ,
+        id : 45 ,
+    },{
+        name : "mountainForest" ,
+        img : "forest_dot",
+        max_population : 80 ,
+        id : 46 ,
     },
+    // 100 ~ 人工物関係
     // 190 ~ ゲーム要素
     {
         name : "wall" ,

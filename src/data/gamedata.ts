@@ -3,6 +3,7 @@ import { size , Vector2 } from "../type";
 import { ChunkVisual } from "../graphic/chunkvisual";
 import { Container } from "pixi.js";
 import { createMapLogic_1 } from "./createmapLogic";
+import { biomes } from "./biomes";
 
 type pos = {
     x : number
@@ -222,5 +223,101 @@ export class GameDatas extends Container{
                 }
             }
             return [biomes_id, true] ;
+    }
+    /**
+     * 周辺5*5のエリア探索に最適化された関数。
+     * nullを返す事がない
+     * @param center_position 
+     * @returns [land,sea]
+     */
+    public getAreaBiomeLand25 (center_position : Vector2 ):[number, number] {
+        let land = 0 ;
+        let sea = 0 ;
+        const worldWidth : number = this.s.width * ChunkArea.width ;
+        const worldHeight : number = this.s.height * ChunkArea.height ;
+        const [arr,flag] = this.getAreaBiome(center_position,2);
+        if(flag){
+            for(let i = 0 ; i < 25 ; i ++){
+                if(biomes.isLand(arr[i]))
+                    land ++ ;
+                else
+                    sea ++ ;
+            }
+        }else{
+            for(let x = -2 ; x < 2 ; x ++)
+            for(let y = -2 ; y < 2 ; y ++)
+            {
+                if (
+                    center_position.x + x < 0 ||
+                    center_position.y + y < 0 ||
+                    center_position.x + x >= worldWidth ||
+                    center_position.y + y >= worldHeight
+                )continue ;
+                const chunk_position = {
+                    x : Math.floor((center_position.x+x)/ChunkArea.width) ,
+                    y : Math.floor((center_position.y+y)/ChunkArea.height)
+                }
+                const chunk = this.chunks[chunk_position.y*this.s.width + chunk_position.x] ;
+                const in_chunk = {
+                    x : (center_position.x + x)- chunk_position.x*ChunkArea.width ,
+                    y : (center_position.y + y)- chunk_position.y*ChunkArea.height
+                }
+                const biome_id = chunk.getGeographyData(in_chunk.x , in_chunk.y ) ;
+                if(biomes.isLand(biome_id) )
+                    land ++ ;
+                else 
+                    sea ++ ;
+
+            }
+        }
+        return [land ,sea] ;
+    }
+    /**
+     * 
+     * @param center_position Vector2
+     * @param scale number
+     * @param biomes_id number[]
+     * @returns [scalesize , count , scalesize-count] 
+     * scalesize -> if scale is 2 , scalesize is 25 
+     */
+    public getAreaBiomeBreakDownCount (center_position : Vector2 , scale : number , biomes_id : number[]):[number,number,number] {
+        let count_true = 0 ; 
+        let count_false = 0 ;
+        let count = 0 ;
+        const worldWidth : number = this.s.width * ChunkArea.width ;
+        const worldHeight : number = this.s.height * ChunkArea.height ;
+
+        // biomes_id は配列なので Set にして高速な存在チェックを行う
+        const targetSet = new Set<number>(biomes_id);
+
+        for(let x = -scale ; x <= scale ; x ++)
+        for(let y = -scale ; y <= scale ; y ++)
+        {
+            if (
+                center_position.x + x < 0 ||
+                center_position.y + y < 0 ||
+                center_position.x + x >= worldWidth ||
+                center_position.y + y >= worldHeight
+            )continue ;
+            count ++ ;
+            const chunk_position = {
+                x : Math.floor((center_position.x+x)/ChunkArea.width) ,
+                y : Math.floor((center_position.y+y)/ChunkArea.height)
+            }
+            const chunk = this.chunks[chunk_position.y*this.s.width + chunk_position.x] ;
+            const in_chunk = {
+                x : (center_position.x + x)- chunk_position.x*ChunkArea.width ,
+                y : (center_position.y + y)- chunk_position.y*ChunkArea.height
+            }
+            const biome_id = chunk.getGeographyData(in_chunk.x , in_chunk.y ) ;
+
+            // biome_id が数値で、targetSet に含まれるかを確認
+            if (typeof biome_id === "number" && targetSet.has(biome_id))
+                count_true ++ ;
+            else 
+                count_false ++ ;
+
+        }
+        return [count,count_true,count_false]
     }
 }
