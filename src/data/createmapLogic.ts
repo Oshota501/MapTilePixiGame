@@ -4,6 +4,7 @@ import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
 import { biomes } from "./biomes";
 import { terrain_CreateLogicType, terrains } from "./terrain";
+import { game } from "../main";
 
 type CreateMapParamater = {
     terrain_clutter : number ,
@@ -67,6 +68,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                         terrain : b ,
                         p : position
                     })
+                    //game.maptag20.postTestPin(position,b.name)
                 }
             }else{
                 if(random.next() <= 0.004){
