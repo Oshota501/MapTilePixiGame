@@ -272,10 +272,46 @@ export class GameDatas extends Container{
         }
         return [land ,sea] ;
     }
-    public getAreaBiomeBreakDownCount (position : Vector2 , scale : number):[number, number] {
-        let land = 0 ;
-        let sea = 0 ;
-        
-        return [land ,sea] ;
+    /**
+     * 
+     * @param center_position Vector2
+     * @param scale number
+     * @param biomes_id number[]
+     * @returns [scalesize , count , scalesize-count] 
+     * scalesize -> if scale is 2 , scalesize is 25 
+     */
+    public getAreaBiomeBreakDownCount (center_position : Vector2 , scale : number , biomes_id : number[]):[number,number,number] {
+        let count_true = 0 ; 
+        let count_false = 0 ;
+        let count = 0 ;
+        const worldWidth : number = this.s.width * ChunkArea.width ;
+        const worldHeight : number = this.s.height * ChunkArea.height ;
+        for(let x = -scale ; x < scale ; x ++)
+        for(let y = -scale ; y < scale ; y ++)
+        {
+            if (
+                center_position.x + x < 0 ||
+                center_position.y + y < 0 ||
+                center_position.x + x >= worldWidth ||
+                center_position.y + y >= worldHeight
+            )continue ;
+            count ++ ;
+            const chunk_position = {
+                x : Math.floor((center_position.x+x)/ChunkArea.width) ,
+                y : Math.floor((center_position.y+y)/ChunkArea.height)
+            }
+            const chunk = this.chunks[chunk_position.y*this.s.width + chunk_position.x] ;
+            const in_chunk = {
+                x : (center_position.x + x)- chunk_position.x*ChunkArea.width ,
+                y : (center_position.y + y)- chunk_position.y*ChunkArea.height
+            }
+            const biome_id = chunk.getGeographyData(in_chunk.x , in_chunk.y ) ;
+            if(biome_id in biomes_id)
+                count_true ++ ;
+            else 
+                count_false ++ ;
+
+        }
+        return [count,count_true,count_false]
     }
 }
