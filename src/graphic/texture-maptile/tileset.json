@@ -25,11 +25,11 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "rock_dot": {
-      "frame": { "x": 4, "y": 6, "w": 1, "h": 1 },
+      "frame": { "x": 4, "y": 5, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "dirt_dot": {
-      "frame": { "x": 0, "y": 7, "w": 1, "h": 1 },
+      "frame": { "x": 3, "y": 1, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "snow_dot": {
@@ -57,6 +57,22 @@
     },
     "river_dot": {
       "frame": { "x": 8, "y": 0, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "m1_dot": {
+      "frame": { "x": 7, "y": 1, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "m2_dot": {
+      "frame": { "x": 2, "y": 1, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "m3_dot": {
+      "frame": { "x": 8, "y": 5, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "m4_dot": {
+      "frame": { "x": 7, "y": 5, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     }
   },

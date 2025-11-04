@@ -9,34 +9,34 @@ export type terrain_CreateLogicType = {
      * @returns biome_id
      */
     logic : Function
-    fortune : number
+    fortune : Function
 }
 
 class TerrainsDB {
     public sea_terrain : terrain_CreateLogicType[];
-    public sea_terrain_sum : number = 0;
+    public sea_terrain_sum : number[] = [];
     public getSeaTerrainRandom(nr_position:Vector2):terrain_CreateLogicType{
-        const r = random.nextInt(this.sea_terrain_sum) ;
+        const r = random.next()*this.sea_terrain_sum[Math.floor(nr_position.y*1000)] ;
         let counter = 0 ;
         for(let i = 0 ; i < this.sea_terrain.length ; i ++){
-            if(counter<=r && r<counter+this.sea_terrain[i].fortune){
+            if(counter<=r && r<counter+this.sea_terrain[i].fortune(nr_position.y)){
                 return this.sea_terrain[i] ;
             }
-            counter += this.sea_terrain[i].fortune ;
+            counter += this.sea_terrain[i].fortune(nr_position.y) ;
         }
         return this.sea_terrain[0] ;
     }
 
     public land_terrain : terrain_CreateLogicType[] ;
-    public land_terrain_sum : number = 0;
+    public land_terrain_sum : number[] = [];
     public getLandTerrainRandom(nr_position:Vector2):terrain_CreateLogicType{
-        const r = random.nextInt(this.land_terrain_sum) ;
+        const r = random.next()*this.land_terrain_sum[Math.floor(nr_position.y*1000)] ;
         let counter = 0 ;
         for(let i = 0 ; i < this.land_terrain.length ; i ++){
-            if(counter<=r && r<counter+this.land_terrain[i].fortune){
+            if(counter<=r && r<counter+this.land_terrain[i].fortune(nr_position.y)){
                 return this.land_terrain[i] ;
             }
-            counter += this.land_terrain[i].fortune ;
+            counter += this.land_terrain[i].fortune(nr_position.y) ;
         }
         return this.land_terrain[0] ;
     }
@@ -47,12 +47,19 @@ class TerrainsDB {
     ){
         this.sea_terrain = seaterrain ;
         this.land_terrain = landterrain ;
-        for(let i = 0 ; i < seaterrain.length ; i ++){
-            this.sea_terrain_sum += seaterrain[i].fortune ;
+        for(let j = 0 ; j < 1000 ; j ++){
+            let sea_sum = 0 ;
+            let land_sum = 0 ;
+            for(let i = 0 ; i < seaterrain.length ; i ++){
+                sea_sum += seaterrain[i].fortune(j/1000) ;
+            }
+            for(let i = 0 ; i < landterrain.length ; i ++){
+                land_sum += landterrain[i].fortune(j/1000) ;
+            }
+            this.sea_terrain_sum[j] = sea_sum ;
+            this.land_terrain_sum[j] = land_sum ;
         }
-        for(let i = 0 ; i < landterrain.length ; i ++){
-            this.land_terrain_sum += landterrain[i].fortune ;
-        }
+
     }
 }
 
@@ -83,7 +90,9 @@ export const terrains = new TerrainsDB(
                 }
                 
             } ,
-            fortune : 20 ,
+            fortune : function(y:number){
+                return 20*(Math.exp(-80*(y-0.36)**2)+Math.exp(-80*(y-0.64)**2))
+            } ,
         },{
             name : "nomal_forest" ,
             logic : function(arr25:Uint8Array){
@@ -109,7 +118,9 @@ export const terrains = new TerrainsDB(
                 }
                 
             } ,
-            fortune : 7 ,
+            fortune : function(y:number){
+                return 7*(Math.exp(-100*(y-0.41)**2)+Math.exp(-100*(y-0.59)**2))
+            } ,
         },{
             name : "nomal_desert" ,
             // @ts-ignore
@@ -119,17 +130,47 @@ export const terrains = new TerrainsDB(
                 else 
                     return 23 ;
             } ,
-            fortune : 25 ,
+            fortune : function(y:number){ 
+                return 25*(Math.exp(-50*(y-0.30)**2)+Math.exp(-50*(y-0.70)**2))
+            },
+        },{
+            name : "plateau_desert" ,
+            // @ts-ignore
+            logic : function(arr25:Uint8Array){
+                const r = random.next() ;
+                if(r<0.29)
+                    return 21 ;
+                else if(r<0.66)
+                    return 22 ;
+                else if(r<0.99)
+                    return 20 ;
+                else 
+                    return 23 ;
+            } ,
+            fortune : function(y:number){ 
+                return 7*(Math.exp(-60*(y-0.25)**2)+Math.exp(-60*(y-0.75)**2))
+            },
         },{
             name : "nomal_mountain" ,
             // @ts-ignore
-            logic : function(arr25:Uint8Array){
-                if(random.next()<0.74)
+            logic : function(arr25:Uint8Array):number{
+                const r = random.next() ;
+                if(r<=0.1)
                     return 40 ;
-                else 
+                else if(r<=0.2)
+                    return 45 ;
+                else if(r<=0.3)
                     return 41 ;
+                else if(r<=0.6)
+                    return 42 ;
+                else if(r<=0.8)
+                    return 43 ;
+                else
+                    return 44 ;
             } ,
-            fortune : 7 ,
+            fortune : function(y:number){ 
+                return 7*(1-Math.exp(-50*(y-0.50)**2))
+             } ,
         },
     ],[
         {
@@ -154,7 +195,10 @@ export const terrains = new TerrainsDB(
                 }
                 
             } ,
-            fortune : 20 ,
+            fortune : function(y:number){
+                y
+                return 20 
+            },
         },
     ]
 );

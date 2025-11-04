@@ -56,8 +56,8 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                 y*ChunkArea.height + Math.floor(i/ChunkArea.height)
             )
             const position_nr = new Vector2(
-                position.x / gamedata.s.width*ChunkArea.width ,
-                position.y / gamedata.s.height*ChunkArea.height 
+                position.x / (gamedata.s.width*ChunkArea.width) ,
+                position.y / (gamedata.s.height*ChunkArea.height )
             )
             const [nearData,isSuccess] = gamedata.getAreaBiome(position,2) ;
             if(isSuccess){

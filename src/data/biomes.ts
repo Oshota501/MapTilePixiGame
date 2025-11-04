@@ -68,6 +68,26 @@ const d_biomes : biome[] = [
         img : "rock_dot",
         max_population : 10 ,
         id : 41 ,
+    },{
+        name : "mountain" ,
+        img : "m1_dot",
+        max_population : 10 ,
+        id : 42 ,
+    },{
+        name : "mountain" ,
+        img : "m2_dot",
+        max_population : 15 ,
+        id : 43 ,
+    },{
+        name : "mountain" ,
+        img : "m3_dot",
+        max_population : 15 ,
+        id : 44 ,
+    },{
+        name : "mountain" ,
+        img : "m4_dot",
+        max_population : 15 ,
+        id : 45 ,
     },
     // 190 ~ ゲーム要素
     {
