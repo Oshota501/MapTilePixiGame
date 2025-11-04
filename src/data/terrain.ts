@@ -1,3 +1,4 @@
+import createList from "../mt/createList";
 import { random } from "../mt/random";
 import { Vector2 } from "../type";
 import { GameDatas } from "./gamedata";
@@ -10,6 +11,7 @@ export type terrain_CreateLogicType = {
      */
     logic : (p: Vector2,gamedata:GameDatas) => number
     fortune : (y: number) => number
+    base : number
 }
 
 class TerrainsDB {
@@ -85,6 +87,7 @@ export const terrains = new TerrainsDB(
             fortune : function(y:number):number{
                 return 20*(Math.exp(-80*(y-0.36)**2)+Math.exp(-80*(y-0.64)**2))
             } ,
+            base : 0 
         },{
             name : "nomal_forest" ,
             logic : function(p:Vector2,gamedata:GameDatas):number{
@@ -105,6 +108,21 @@ export const terrains = new TerrainsDB(
             fortune : function(y:number):number{
                 return 7*(Math.exp(-100*(y-0.41)**2)+Math.exp(-100*(y-0.59)**2))
             } ,
+            base : 10
+        },{
+            name : "taiga_forest" ,
+            // @ts-ignore
+            logic : function(p:Vector2,gamedata:GameDatas):number{
+                const [,desert,] = gamedata.getAreaBiomeBreakDownCount(p,2,createList(20,25))
+                if(desert>=4){
+                    return 13;
+                }
+                return 12;
+            } ,
+            fortune : function(y:number):number{ 
+                return 25*(Math.exp(-60*(y-0.18)**2)+Math.exp(-60*(y-0.82)**2))
+            },
+            base : 12
         },{
             name : "nomal_desert" ,
             // @ts-ignore
@@ -117,6 +135,7 @@ export const terrains = new TerrainsDB(
             fortune : function(y:number):number{ 
                 return 25*(Math.exp(-50*(y-0.30)**2)+Math.exp(-50*(y-0.70)**2))
             },
+            base : 20
         },{
             name : "plateau_desert" ,
             // @ts-ignore
@@ -134,6 +153,7 @@ export const terrains = new TerrainsDB(
             fortune : function(y:number):number{ 
                 return 7*(Math.exp(-60*(y-0.25)**2)+Math.exp(-60*(y-0.75)**2))
             },
+            base : 21
         },{
             name : "nomal_mountain" ,
             // @ts-ignore
@@ -152,9 +172,11 @@ export const terrains = new TerrainsDB(
                 else
                     return 44 ;
             } ,
+            // @ts-ignore
             fortune : function(y:number){ 
-                return 7*(1-Math.exp(-50*(y-0.50)**2))
+                return 5
              } ,
+             base : 41
         },
     ],[
         {
@@ -175,6 +197,7 @@ export const terrains = new TerrainsDB(
                 y
                 return 20 
             },
+            base : 200
         },
     ]
 );

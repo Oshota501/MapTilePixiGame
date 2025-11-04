@@ -82,6 +82,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
         
     }
     if(add_terrainsOfLand.length == 0 || add_terrainsOfSea.length == 0)return createTerrain(gamedata,landid,seaid) ;
+    // バイオーム生成
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
@@ -103,9 +104,35 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                     minIndex = j ;
                 }
             }
+            arr[i] = add_terrain[minIndex].terrain.base ;
+        }
+    }
+    // 詳細な地形、環境
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
+        const arr = c[x+y*mapsize.width].geographyData ;
+        for(let i = 0 ; i < arr.length ; i ++){
+            const distance :number[] = [] ;
+            const position = new Vector2(
+                x*ChunkArea.width + i%ChunkArea.width ,
+                y*ChunkArea.height + Math.floor(i/ChunkArea.height)
+            )
+            let add_terrain : terrain[] ;
+            if(biomes.isLand(arr[i])){
+                add_terrain = add_terrainsOfLand ;
+            }else{
+                add_terrain = add_terrainsOfSea ;
+            }
+            let minIndex : number = 0 ;
+            for(let j = 0 ; j < add_terrain.length ; j++){
+                distance[j] = Vector2.distance(position,add_terrain[j].p);
+                if(distance[j]<distance[minIndex]){
+                    minIndex = j ;
+                }
+            }
             arr[i] = add_terrain[minIndex].terrain.logic(position,gamedata) ;
         }
     }
+        // バイオームを慣らす
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){

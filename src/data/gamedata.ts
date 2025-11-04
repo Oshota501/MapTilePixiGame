@@ -286,8 +286,12 @@ export class GameDatas extends Container{
         let count = 0 ;
         const worldWidth : number = this.s.width * ChunkArea.width ;
         const worldHeight : number = this.s.height * ChunkArea.height ;
-        for(let x = -scale ; x < scale ; x ++)
-        for(let y = -scale ; y < scale ; y ++)
+
+        // biomes_id は配列なので Set にして高速な存在チェックを行う
+        const targetSet = new Set<number>(biomes_id);
+
+        for(let x = -scale ; x <= scale ; x ++)
+        for(let y = -scale ; y <= scale ; y ++)
         {
             if (
                 center_position.x + x < 0 ||
@@ -306,7 +310,9 @@ export class GameDatas extends Container{
                 y : (center_position.y + y)- chunk_position.y*ChunkArea.height
             }
             const biome_id = chunk.getGeographyData(in_chunk.x , in_chunk.y ) ;
-            if(biome_id in biomes_id)
+
+            // biome_id が数値で、targetSet に含まれるかを確認
+            if (typeof biome_id === "number" && targetSet.has(biome_id))
                 count_true ++ ;
             else 
                 count_false ++ ;

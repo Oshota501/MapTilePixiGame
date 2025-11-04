@@ -20,6 +20,14 @@
       "frame": { "x": 8, "y": 2, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
+    "taiga_dot": {
+      "frame": { "x": 13, "y": 1, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "deva_taiga_dot": {
+      "frame": { "x": 15, "y": 1, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
     "deepwater_dot": {
       "frame": { "x": 5, "y": 0, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }

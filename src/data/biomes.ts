@@ -34,6 +34,16 @@ const d_biomes : biome[] = [
         img : "jungle_dot",
         max_population : 130 ,
         id : 11 ,
+    },{
+        name : "taiga" ,
+        img : "taiga_dot",
+        max_population : 70 ,
+        id : 12 ,
+    },{
+        name : "deva_taiga" ,
+        img : "deva_taiga_dot",
+        max_population : 40 ,
+        id : 13 ,
     },
     // 20~40 乾燥帯
     {
