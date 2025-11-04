@@ -113,7 +113,7 @@ export const terrains = new TerrainsDB(
             name : "taiga_forest" ,
             // @ts-ignore
             logic : function(p:Vector2,gamedata:GameDatas):number{
-                const [,desert,] = gamedata.getAreaBiomeBreakDownCount(p,2,createList(20,25))
+                const [,desert,] = gamedata.getAreaBiomeBreakDownCount(p,2,createList(20,40))
                 if(desert>=4){
                     return 13;
                 }
@@ -133,7 +133,7 @@ export const terrains = new TerrainsDB(
                     return 23 ;
             } ,
             fortune : function(y:number):number{ 
-                return 25*(Math.exp(-50*(y-0.30)**2)+Math.exp(-50*(y-0.70)**2))
+                return 25*(Math.exp(-40*(y-0.30)**2)+Math.exp(-40*(y-0.70)**2))
             },
             base : 20
         },{
@@ -151,7 +151,7 @@ export const terrains = new TerrainsDB(
                     return 23 ;
             } ,
             fortune : function(y:number):number{ 
-                return 7*(Math.exp(-60*(y-0.25)**2)+Math.exp(-60*(y-0.75)**2))
+                return 20*(Math.exp(-60*(y-0.25)**2)+Math.exp(-60*(y-0.75)**2))
             },
             base : 21
         },{
@@ -159,6 +159,9 @@ export const terrains = new TerrainsDB(
             // @ts-ignore
             logic : function(p:Vector2,gamedata:GameDatas):number{
                 const r = random.next() ;
+                let [,,notmountain] = gamedata.getAreaBiomeBreakDownCount(p,3,createList(40,50));
+                if(notmountain >= 8)
+                    return 46 ;
                 if(r<=0.1)
                     return 40 ;
                 else if(r<=0.2)
@@ -174,10 +177,36 @@ export const terrains = new TerrainsDB(
             } ,
             // @ts-ignore
             fortune : function(y:number){ 
-                return 5
+                return 8
              } ,
              base : 41
-        },
+        },{
+            name : "desert_cold" ,
+            // @ts-ignore
+            logic : function(p:Vector2,gamedata:GameDatas):number{
+                if(random.next()<0.96)
+                    return 42 ;
+                else 
+                    return 43 ;
+            } ,
+            fortune : function(y:number):number{ 
+                return 25*(Math.exp(-100*(y-0.08)**2)+Math.exp(-100*(y-0.92)**2))
+            },
+            base : 42
+        },{
+            name : "nomal_snowfield" ,
+            // @ts-ignore
+            logic : function(p:Vector2,gamedata:GameDatas):number{
+                if(random.next()<0.96)
+                    return 40 ;
+                else 
+                    return 42 ;
+            } ,
+            fortune : function(y:number):number{ 
+                return 100*(Math.exp(-60*(y)**2)+Math.exp(-60*(y-1)**2))
+            },
+            base : 40
+        }
     ],[
         {
             name : "nomal_sea" ,

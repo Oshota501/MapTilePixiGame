@@ -98,6 +98,11 @@ const d_biomes : biome[] = [
         img : "m4_dot",
         max_population : 15 ,
         id : 45 ,
+    },{
+        name : "mountainForest" ,
+        img : "forest_dot",
+        max_population : 80 ,
+        id : 46 ,
     },
     // 190 ~ ゲーム要素
     {
