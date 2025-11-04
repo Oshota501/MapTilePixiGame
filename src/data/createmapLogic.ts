@@ -68,7 +68,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                         terrain : b ,
                         p : position
                     })
-                    //game.maptag20.postTestPin(position,b.name)
+                    game.maptag20.postText(position,b.name)
                 }
             }else{
                 if(random.next() <= 0.004){

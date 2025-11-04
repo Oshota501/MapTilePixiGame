@@ -132,54 +132,78 @@ const d_biomes : biome[] = [
 ] 
 
 class BiomeDB {
-    public readonly biomes : biome[] ;
-    public readonly sea_biomes : biome[] ;
-    public readonly land_biomes : biome[] ;
-    public isSea(id:number):boolean{
-        if(id === 254)return true ;
-        for(let i = 0 ; i < this.sea_biomes.length ; i ++){
-            if(this.sea_biomes[i].id === id){
-                return true ;
-            }
-        }
-        return false ;
-    }
-    public isLand(id:number):boolean{
-        if(id === 255)return true ;
-        for(let i = 0 ; i < this.land_biomes.length ; i ++){
-            if(this.land_biomes[i].id === id){
-                return true ;
-            }
-        }
-        return false ;
-    }
-    constructor(b:biome[]){
-        this.biomes = b ;
-        this.biomes.push({
-            name : "sea" ,
-            img : "water_dot",
-            max_population : 0 ,
-            id : 254 ,
-        },{
-            name : "land" ,
-            img : "desert_dot",
-            max_population : 20 ,
-            id : 255 ,
-        },)
-        const sea_biomes : biome[] = [] ;
-        const land_biomes : biome[] = [] ;
-        for(let i = 0 ; i < b.length ; i ++){
-            if(this.biomes[i].id == 254 || this.biomes[i].id ==255 ){
+    public readonly biomes: biome[];
+    public readonly byId: Map<number, biome>;
+    public readonly sea_biomes: biome[];
+    public readonly land_biomes: biome[];
+    public readonly seaIds: Set<number>;
+    public readonly landIds: Set<number>;
 
-            }else if(this.biomes[i].id >= 200){
-                sea_biomes.push(this.biomes[i])
-            }else{
-                land_biomes.push(this.biomes[i])
+    constructor(b: biome[]) {
+        // 元配列は破壊しないでコピー
+        this.biomes = [...b];
+
+        // 固有の追加バイオームを追加
+        this.biomes.push(
+            {
+                name: "sea",
+                img: "water_dot",
+                max_population: 0,
+                id: 254,
+            },
+            {
+                name: "land",
+                img: "desert_dot",
+                max_population: 20,
+                id: 255,
+            },
+        );
+
+        this.byId = new Map<number, biome>();
+        this.seaIds = new Set<number>();
+        this.landIds = new Set<number>();
+
+        const sea_biomes: biome[] = [];
+        const land_biomes: biome[] = [];
+
+        for (const item of this.biomes) {
+            this.byId.set(item.id, item);
+
+            // 254/255 は特別扱い（ここではカテゴリに応じて追加）
+            if (item.id === 254) {
+                sea_biomes.push(item);
+                this.seaIds.add(item.id);
+                continue;
             }
-            
+            if (item.id === 255) {
+                land_biomes.push(item);
+                this.landIds.add(item.id);
+                continue;
+            }
+
+            if (item.id >= 200) {
+                sea_biomes.push(item);
+                this.seaIds.add(item.id);
+            } else {
+                land_biomes.push(item);
+                this.landIds.add(item.id);
+            }
         }
-        this.sea_biomes = sea_biomes ;
-        this.land_biomes = land_biomes ;
+
+        this.sea_biomes = sea_biomes;
+        this.land_biomes = land_biomes;
+    }
+
+    public isSea(id: number): boolean {
+        return this.seaIds.has(id);
+    }
+
+    public isLand(id: number): boolean {
+        return this.landIds.has(id);
+    }
+
+    public getById(id: number): biome | undefined {
+        return this.byId.get(id);
     }
 }
 
