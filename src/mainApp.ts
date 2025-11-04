@@ -48,7 +48,7 @@ export class MainApp extends Application {
     // chunk読み込み
     this.gamedata = new GameDatas(this.worldSize)
 
-    this.cities = new Cities(this.gamedata);
+    this.cities = new Cities();
 
     this.render10.addChild(this.gamedata);
     this.render10.addChild(this.maptag20)
