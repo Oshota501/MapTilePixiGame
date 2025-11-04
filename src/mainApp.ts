@@ -4,7 +4,7 @@ import { GameDatas } from "./data/gamedata" ;
 import { ChunkArea } from "./data/chunk";
 import { size } from "./type";
 import { testfunc } from "./test";
-import { MapTag20 } from "./data/maptag20";
+import { MapTag20 } from "./map/maptag20";
 
 
 export class MainApp extends Application {

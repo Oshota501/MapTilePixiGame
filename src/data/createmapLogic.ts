@@ -60,7 +60,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                 position.y / (gamedata.s.height*ChunkArea.height )
             )
             if(arr[i] == landid){
-                if(random.next() <= 0.006){
+                if(random.next() <= 0.004){
                     const b : terrain_CreateLogicType = terrains.getLandTerrainRandom(position_nr);
                     add_terrainsOfLand.push({
                         name : b.name ,
@@ -69,7 +69,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                     })
                 }
             }else{
-                if(random.next() <= 0.005){
+                if(random.next() <= 0.004){
                     const b : terrain_CreateLogicType = terrains.getSeaTerrainRandom(position_nr);
                     add_terrainsOfSea.push({
                         name : b.name ,
