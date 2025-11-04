@@ -103,7 +103,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
                     minIndex = j ;
                 }
             }
-            add_terrain[minIndex].terrain.logic(position,gamedata) ;
+            arr[i] = add_terrain[minIndex].terrain.logic(position,gamedata) ;
         }
     }
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
