@@ -7,11 +7,18 @@ export class Cities extends Container {
     public major : Container = new Container() ;
     public satellite : Container = new Container() ;
     private cityData : City[] = [] ;
+    private gamedata : GameDatas ;
     public getCities (){
         return this.cityData ;
     }
-    constructor(){
+    constructor(g:GameDatas){
         super();
+        this.gamedata = g ;
+    }
+    public postCity(p:Vector2,poplation:number){
+        const newCity = new City(p,this.gamedata) ;
+        newCity.poplation = poplation ;
+        this.cityData.push( newCity )
     }
 }
 export class City {
