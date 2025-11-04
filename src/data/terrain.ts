@@ -85,7 +85,7 @@ export const terrains = new TerrainsDB(
                 
             } ,
             fortune : function(y:number):number{
-                return 20*(Math.exp(-80*(y-0.36)**2)+Math.exp(-80*(y-0.64)**2))
+                return 40*(Math.exp(-80*(y-0.30)**2)+Math.exp(-80*(y-0.70)**2))
             } ,
             base : 0 
         },{
@@ -110,6 +110,27 @@ export const terrains = new TerrainsDB(
             } ,
             base : 10
         },{
+            name : "jungle_forest" ,
+            // @ts-ignore
+            logic : function(p:Vector2,gamedata:GameDatas):number{
+                const [land,_] = gamedata.getAreaBiomeLand25(p);
+                if(land>13){
+                    if(random.next()<0.04)
+                        return 10 ;
+                    else
+                        return 11 ;
+                }else{
+                    if(random.next()<0.5)
+                        return 10 ;
+                    else
+                        return 11 ;
+                }
+            } ,
+            fortune : function(y:number):number{ 
+                return 40*(Math.exp(-70*(y-0.5)**2))
+            },
+            base : 11
+        },{
             name : "taiga_forest" ,
             // @ts-ignore
             logic : function(p:Vector2,gamedata:GameDatas):number{
@@ -120,7 +141,7 @@ export const terrains = new TerrainsDB(
                 return 12;
             } ,
             fortune : function(y:number):number{ 
-                return 25*(Math.exp(-60*(y-0.18)**2)+Math.exp(-60*(y-0.82)**2))
+                return 40*(Math.exp(-70*(y-0.18)**2)+Math.exp(-70*(y-0.82)**2))
             },
             base : 12
         },{
@@ -133,7 +154,7 @@ export const terrains = new TerrainsDB(
                     return 23 ;
             } ,
             fortune : function(y:number):number{ 
-                return 25*(Math.exp(-40*(y-0.30)**2)+Math.exp(-40*(y-0.70)**2))
+                return 40*(Math.exp(-60*(y-0.30)**2)+Math.exp(-60*(y-0.70)**2))
             },
             base : 20
         },{

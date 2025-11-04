@@ -13,7 +13,7 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "jungle_dot": {
-      "frame": { "x": 6, "y": 2, "w": 1, "h": 1 },
+      "frame": { "x": 7, "y": 2, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },
     "forest_dot": {

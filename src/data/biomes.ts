@@ -104,6 +104,7 @@ const d_biomes : biome[] = [
         max_population : 80 ,
         id : 46 ,
     },
+    // 100 ~ 人工物関係
     // 190 ~ ゲーム要素
     {
         name : "wall" ,
