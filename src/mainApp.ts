@@ -4,7 +4,8 @@ import { GameDatas } from "./data/gamedata" ;
 import { ChunkArea } from "./data/chunk";
 import { size } from "./type";
 import { testfunc } from "./test";
-import { MapTag20 } from "./data/maptag20";
+import { MapTag20 } from "./data/map/maptag20";
+import { loadScreen } from "./ui/elms";
 
 
 export class MainApp extends Application {
@@ -45,6 +46,7 @@ export class MainApp extends Application {
     })
     // chunk読み込み
     this.gamedata = new GameDatas(this.worldSize)
+
     this.render10.addChild(this.gamedata);
     this.render10.addChild(this.maptag20)
 
@@ -61,9 +63,13 @@ export class MainApp extends Application {
 
     // @ts-ignore
     this.ticker.add((time) => {
-
+      this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
+      this.gamedata.cities.major.visible = 4 <= this.viewport.scale.x  && this.viewport.scale.x < 20
+      this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x  && this.viewport.scale.x < 20
     });
 
+    if(loadScreen)
+      loadScreen.style.display = "none" ;
 
     testfunc()
   }

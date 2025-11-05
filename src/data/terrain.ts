@@ -148,10 +148,16 @@ export const terrains = new TerrainsDB(
             name : "nomal_desert" ,
             // @ts-ignore
             logic : function(p:Vector2,gamedata:GameDatas):number{
-                if(random.next()<0.99)
-                    return 20 ;
-                else 
-                    return 23 ;
+                const [,,nodesert] = gamedata.getAreaBiomeBreakDownCount(p,2,[...createList(20,50),1]);
+                if(nodesert >= 7){
+                    // game.maptag20.postTestPin(p,`${nodesert}`)
+                    return 1 ;
+                } else {
+                    if(random.next()<0.99)
+                        return 20 ;
+                    else 
+                        return 23 ;
+                }
             } ,
             fortune : function(y:number):number{ 
                 return 40*(Math.exp(-60*(y-0.30)**2)+Math.exp(-60*(y-0.70)**2))
@@ -175,6 +181,16 @@ export const terrains = new TerrainsDB(
                 return 20*(Math.exp(-60*(y-0.25)**2)+Math.exp(-60*(y-0.75)**2))
             },
             base : 21
+        },{
+            name : "savana" ,
+            // @ts-ignore
+            logic : function(p:Vector2,gamedata:GameDatas):number{
+                return 1 ;
+            } ,
+            fortune : function(y:number):number{ 
+                return 15*(Math.exp(-60*(y-0.25)**2)+Math.exp(-60*(y-0.75)**2))
+            },
+            base : 1
         },{
             name : "nomal_mountain" ,
             // @ts-ignore

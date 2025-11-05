@@ -28,4 +28,4 @@ class Random {
   }
 }
 
-export const random = new Random() ;
+export const random = new Random(1762305861214) ;

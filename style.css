@@ -1,0 +1,9 @@
+#loading-screen{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: block;
+    text-align: center;
+    font-size: 4rem;
+    background-color: white;
+}
