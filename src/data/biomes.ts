@@ -104,6 +104,13 @@ const d_biomes : biome[] = [
         max_population : 80 ,
         id : 46 ,
     },
+    // 50 ~ 60 川
+    {
+        name : "river" ,
+        img : "water_dot",
+        max_population : 160 ,
+        id : 50,
+    },
     // 100 ~ 人工物関係
     // 190 ~ ゲーム要素
     {
@@ -112,6 +119,7 @@ const d_biomes : biome[] = [
         max_population : 0 ,
         id : 190 ,
     },
+    
     // 200番台 sea
     {
         name : "nomalsea" ,

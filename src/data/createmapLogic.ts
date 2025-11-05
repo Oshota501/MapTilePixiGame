@@ -35,14 +35,14 @@ export const createMapLogic_1 = async function(gamedata:GameDatas):Promise<void>
         after_biome_id : 255 ,
     }
     createContinents(gamedata,p1)
-    createTerrain(gamedata,255,254);
+    createTerrain(gamedata,255,254,50);
 }
 type terrain = {
     name : string
     terrain : terrain_CreateLogicType
     p : Vector2
 }
-const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
+const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,riverid:number){
     const mapsize = gamedata.s ;
     const c = gamedata.chunks ;
     const add_terrainsOfLand : terrain[] = [] ;
@@ -82,7 +82,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number){
         }
         
     }
-    if(add_terrainsOfLand.length == 0 || add_terrainsOfSea.length == 0)return createTerrain(gamedata,landid,seaid) ;
+    if(add_terrainsOfLand.length == 0 || add_terrainsOfSea.length == 0)return createTerrain(gamedata,landid,seaid,riverid) ;
     // バイオーム生成
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;

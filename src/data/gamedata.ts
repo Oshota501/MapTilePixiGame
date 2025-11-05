@@ -127,10 +127,10 @@ export class GameDatas extends Container{
                 console.log("uint8 の範囲を超えています。");
                 return false;
             }
-            const chunk = {
-                x:ps[i].x,
-                y:ps[i].y,
-            }
+            const chunk : pos = {
+                x : Math.floor(p.x/ChunkArea.width) ,
+                y : Math.floor(p.y/ChunkArea.height)
+            } ;
             if(chunk.x < 0 || chunk.x > this.s.width){
                 console.log("存在しないマップ領域です。：x 座標が超過");
                 return false ;
