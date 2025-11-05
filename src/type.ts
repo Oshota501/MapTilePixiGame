@@ -5,12 +5,47 @@ export class Vector2 {
         this.x = x ;
         this.y = y ;
     }
-    public add (vector2:Vector2){
-        return new Vector2(vector2.x + this.x , vector2.y + this.y ) ;
+    /**
+     * - 戻り値があるがthisそのものに加算されるのであまり使用は推奨されない。
+     * @param vector2 Vector2
+     * @returns 
+     */
+    public add (vector2:Vector2):Vector2{
+        this.x += vector2.x ;
+        this.y += vector2.y ;
+        return this ;
     }
-    public static distance_nonSqrt (v1:Vector2,v2:Vector2):number{
-        return ((v1.x - v2.x )**2)+((v1.y - v2.y )**2);
+    /**
+     * - x軸,y軸における距離
+     * - 絶対値ではなく負の値を出力する可能性に注意
+     * @param vector2 size
+     * @returns 
+     */
+    public diff (vector2:Vector2):size{
+        return {
+            width : this.x - vector2.x ,
+            height : this.y - vector2.y
+        }
     }
+    /**
+     * - 定数倍にも対応
+     * @param vector2 Vector2 | number
+     * @returns 
+     */
+    public cum (vector2:Vector2|number):Vector2{
+        if(typeof vector2 == "number"){
+            this.x *= vector2 ;
+            this.y *= vector2 ;
+            return this ;
+        }else{
+            this.x *= vector2.x ;
+            this.y *= vector2.y ;
+            return this ;
+        }
+    }
+    // public static distance_nonSqrt (v1:Vector2,v2:Vector2):number{
+    //     return ((v1.x - v2.x )**2)+((v1.y - v2.y )**2);
+    // }
     public static distance (v1:Vector2,v2:Vector2):number{
         return Math.sqrt(((v1.x - v2.x )**2)+((v1.y - v2.y )**2));
     }
