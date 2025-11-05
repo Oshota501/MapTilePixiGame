@@ -1,4 +1,4 @@
-import { Vector2 } from "../type";
+import { Vector2 } from "../../type";
 
 export class City {
     public position : Vector2 ;

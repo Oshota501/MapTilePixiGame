@@ -3,8 +3,7 @@ import { MainApp } from "./mainApp";
 export let game: MainApp ;
 
 async function init() {
-    const mod = await import("./mainApp");
-    game = new mod.MainApp({
+    game = await new MainApp({
         width: 7,
         height: 7,
     });

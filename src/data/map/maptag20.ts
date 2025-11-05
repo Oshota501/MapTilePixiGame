@@ -1,5 +1,5 @@
 import { Container, Sprite, Assets, Texture ,Text} from "pixi.js";
-import { Vector2 } from "../type";
+import { Vector2 } from "../../type";
 
 /**
  * debug用のタグ、本番環境で使用しない予定

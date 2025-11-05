@@ -4,6 +4,7 @@ import { ChunkVisual } from "../graphic/chunkvisual";
 import { Container } from "pixi.js";
 import { createMapLogic_1 } from "./createmapLogic";
 import { biomes } from "./biomes";
+import { CitiesDB } from "./map/cities";
 
 type pos = {
     x : number
@@ -30,6 +31,25 @@ export class GameDatas extends Container{
     }
 
     public s : size ;
+
+    public cities : CitiesDB = new CitiesDB () ;
+    public postCity(p:Vector2): boolean{
+        const [arr,flag] = this.getAreaBiome(p,1) ;
+        if(flag){
+            let max_poplation = 0 ;
+            for(let i = 0 ; i < arr.length ; i ++){
+                const b = biomes.getById(arr[i]) ;
+                if(typeof b == "undefined")return false ;
+                max_poplation += b.max_population ;
+            }
+            this.cities.postCity(p,0,max_poplation)
+            return true ;
+        }else{
+            return false ;
+        }
+        
+    }
+
     constructor(worldSize : size){
         super();
         this.s = worldSize ;

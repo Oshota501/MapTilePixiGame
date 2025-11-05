@@ -1,8 +1,8 @@
 import { Container } from "pixi.js";
-import { Vector2 } from "../type";
+import { Vector2 } from "../../type";
 import { City } from "./city";
 
-export class Cities extends Container {
+export class CitiesDB extends Container {
     public major : Container = new Container() ;
     public satellite : Container = new Container() ;
     public cityData : City[] = [] ;
