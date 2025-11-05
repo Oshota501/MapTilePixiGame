@@ -57,7 +57,7 @@
       "sourceSize": { "w": 1, "h": 1 }
     },
     "savanna_dot": {
-      "frame": { "x": 6, "y": 5, "w": 1, "h": 1 },
+      "frame": { "x": 3, "y": 1, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
     },"wall_dot": {
       "frame": { "x": 0, "y": 6, "w": 1, "h": 1 },
