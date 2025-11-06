@@ -169,26 +169,27 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
             ){
                 if(random.next()<0.002){
                     add_river.push(position)
-                    // デバッグポイント
-                    game.maptag20.postTestPin(position,"river start")
                 }
             }else if(arr[i] >= 10 && arr[i] < 20 ){
                 if(random.next()<0.0001){
                     add_river.push(position)
-                    // デバッグポイント
-                    game.maptag20.postTestPin(position,"river start")
                 }
             }
         }
     }
-    
+    const skip_river = new Set<number> ;
     for(let i = 0 ; i < add_river.length ; i ++ ){
-        for(let j = 0 ; j < add_river.length ; j ++){
+        if(skip_river.has(i)){
+            // console.log(i)
+            continue ;
+        }
+        game.maptag20.postTestPin(add_river[i],"river start")
+        for(let j = i+1 ; j < add_river.length ; j ++){
             if(i==j){
                 continue ;
             }else{
-                if(Vector2.distance(add_river[i],add_river[j] ) <= 15 ){
-                    
+                if(Vector2.distance(add_river[i],add_river[j] ) <= 20 ){
+                    skip_river.add(j)
                 };
             }
         }

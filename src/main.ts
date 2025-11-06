@@ -4,8 +4,8 @@ export let game: MainApp ;
 
 async function init() {
     game = await new MainApp({
-        width: 2,
-        height: 2,
+        width: 4,
+        height: 4,
     });
 }
 
