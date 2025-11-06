@@ -4,6 +4,7 @@ import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
 import { biomes } from "./biomes";
 import { terrain_CreateLogicType, terrains } from "./terrain";
+import { game } from "../main";
 
 type CreateMapParamater = {
     terrain_clutter : number ,
@@ -47,6 +48,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
     const c = gamedata.chunks ;
     const add_terrainsOfLand : terrain[] = [] ;
     const add_terrainsOfSea : terrain[] = [] ;
+    const add_river : Vector2[] = [] ;
     
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
@@ -153,6 +155,46 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
         if(190 <= r && r < 200)return forNot190(arr9,island);
         return r ;
     }
+    // かわ
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
+        const arr = c[x+y*mapsize.width].geographyData ;
+        for(let i = 0 ; i < arr.length ; i ++){
+            const position = new Vector2(
+                x*ChunkArea.width + i%ChunkArea.width ,
+                y*ChunkArea.height + Math.floor(i/ChunkArea.height)
+            )
+            // const [land,] = gamedata.getAreaBiomeLand25(position) ;
+            if( 
+                arr[i] >= 40 && arr[i] < 50 
+            ){
+                if(random.next()<0.002){
+                    add_river.push(position)
+                    // デバッグポイント
+                    game.maptag20.postTestPin(position,"river start")
+                }
+            }else if(arr[i] >= 10 && arr[i] < 20 ){
+                if(random.next()<0.0001){
+                    add_river.push(position)
+                    // デバッグポイント
+                    game.maptag20.postTestPin(position,"river start")
+                }
+            }
+        }
+    }
+    
+    for(let i = 0 ; i < add_river.length ; i ++ ){
+        for(let j = 0 ; j < add_river.length ; j ++){
+            if(i==j){
+                continue ;
+            }else{
+                if(Vector2.distance(add_river[i],add_river[j] ) <= 15 ){
+                    
+                };
+            }
+        }
+    }
+
+    
 }
 const mapClear = function(gamedata:GameDatas,clearid:number){
     const mapsize = gamedata.s ;

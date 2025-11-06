@@ -28,4 +28,4 @@ class Random {
   }
 }
 
-export const random = new Random(1762305861214) ;
+export const random = new Random(Date.now()) ;

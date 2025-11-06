@@ -1,3 +1,5 @@
+import { ChunkArea } from "./data/chunk";
+
 export class Vector2 {
     public x : number ;
     public y : number ;
@@ -42,6 +44,40 @@ export class Vector2 {
             this.y *= vector2.y ;
             return this ;
         }
+    }
+    /**
+     * @param index number
+     * @param chunk_size? size 初期値：ChunkArea
+     * @returns [ isSuccess : boolean , position : Vector2]
+     */
+    public static formatToVector2(
+        index:number,
+        chunk_size:size={
+            width:ChunkArea.width,
+            height:ChunkArea.height
+        },
+    ):[true,Vector2]|[false,null]{
+        if(index < 0){
+            return [false , null ] ;
+        }
+        const pos = new Vector2(
+            index % chunk_size.width ,
+            Math.floor(index / chunk_size.width) ,
+        );
+        return [true ,pos] ;
+        
+    }
+    /**
+     * @param v Vector2
+     * @param s? size 初期値：ChunkArea
+     * @returns index number
+     */
+    public static formatToIndex(v:Vector2,s:size={
+        width:ChunkArea.width,
+        height:ChunkArea.height
+    }):number{
+        return v.x + v.y*s.width
+
     }
     // public static distance_nonSqrt (v1:Vector2,v2:Vector2):number{
     //     return ((v1.x - v2.x )**2)+((v1.y - v2.y )**2);
