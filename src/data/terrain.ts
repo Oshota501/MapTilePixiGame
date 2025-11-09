@@ -160,7 +160,7 @@ export const terrains = new TerrainsDB(
                 }
             } ,
             fortune : function(y:number):number{ 
-                return 40*(Math.exp(-60*(y-0.30)**2)+Math.exp(-60*(y-0.70)**2))
+                return 50*(Math.exp(-60*(y-0.30)**2)+Math.exp(-60*(y-0.70)**2))
             },
             base : 20
         },{

@@ -207,7 +207,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
                 index = j ;
             }
         }
-        console.log(add_terrainsOfSea[index].p)
+        gamedata.lines.setLine(add_river[i],add_terrainsOfSea[index].p)
         
     }
 
