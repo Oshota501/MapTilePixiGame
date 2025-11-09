@@ -239,15 +239,17 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
         }
     }
     // 都市
+    let cityCount = 0 ;
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
-            if(0.004 > random.next()){
+            if(0.004 > random.next() && biomes.isLand(arr[i])){
                 const position = new Vector2(
                     x*ChunkArea.width + i%ChunkArea.width ,
                     y*ChunkArea.height + Math.floor(i/ChunkArea.height)
                 )
-                gamedata.postCity(position) ;
+                gamedata.postCity(position,`new city ${cityCount}`) ;
+                cityCount ++ ;
             }
         }
     }

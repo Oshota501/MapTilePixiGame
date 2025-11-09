@@ -39,7 +39,7 @@ export class GameDatas extends Container{
      * @param p 
      * @returns isSuccess
      */
-    public postCity(p:Vector2): boolean{
+    public postCity(p:Vector2,cityName:string): boolean{
         const [arr,flag] = this.getAreaBiome(p,1) ;
         if(flag){
             let max_poplation = 0 ;
@@ -48,7 +48,7 @@ export class GameDatas extends Container{
                 if(typeof b == "undefined")return false ;
                 max_poplation += b.max_population ;
             }
-            this.cities.postCity(p,0,max_poplation)
+            this.cities.postCity(p,0,max_poplation,cityName)
             return true ;
         }else{
             return false ;

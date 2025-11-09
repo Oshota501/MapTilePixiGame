@@ -5,20 +5,25 @@ import { MaterialResource } from "./resource";
 export class Town extends Sprite{
     public poplation : number = 0 ;
     public max_poplation : number ;
-    constructor(position:Vector2,poplation:number, max_poplation:number){
+    public townName : string ;
+
+    constructor(position:Vector2,poplation:number, max_poplation:number,townName:string){
         super();
         this.max_poplation = max_poplation ;
         this.poplation = poplation ;
         this.position.x = position.x ;
         this.position.y = position.y ;
+        this.townName = townName ;
     }
 }
 export class City extends Town{
     public subCity : Town[] = [] ;
     public resource : MaterialResource = new MaterialResource() ;
-    
-    constructor(position:Vector2,poplation:number, max_poplation:number){
-        super(position,poplation,max_poplation);
+    public cityName : string ;
+
+    constructor(position:Vector2,poplation:number, max_poplation:number,cityName:string){
+        super(position,poplation,max_poplation,cityName);
+        this.cityName = cityName ;
     }
     /**
      * - 都市圏人口の合計
