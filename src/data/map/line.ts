@@ -4,7 +4,9 @@ import { Vector2 } from "../../type";
 export class LineContainer extends Container {
     public lines : Set<LinePositions> = new Set<LinePositions>() ;
     public setLine(...positions:Vector2[]){
-        this.lines.add(new LinePositions(...positions))
+        const line = new LinePositions(...positions) ;
+        this.lines.add(line)
+        this.addChild(line)
     }
     constructor(){
         super();
