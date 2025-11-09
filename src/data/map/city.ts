@@ -7,7 +7,7 @@ export class Town extends Sprite{
     public max_poplation : number ;
     public townName : string ;
 
-    constructor(position:Vector2,poplation:number, max_poplation:number,townName:string){
+    constructor(position:Vector2,poplation:number, max_poplation:number,townName:string,img_name="village.png"){
         super();
         this.max_poplation = max_poplation ;
         this.poplation = poplation ;
@@ -15,7 +15,7 @@ export class Town extends Sprite{
         this.position.y = position.y ;
         this.townName = townName ;
 
-        this.loadImg ("village.png") ;
+        this.loadImg (img_name) ;
 
         // game.maptag20.postTestPin(position,townName)
     }
@@ -27,7 +27,7 @@ export class Town extends Sprite{
         this.cursor = 'pointer';
         this.anchor.set(0.5);
         this.on('click',(event)=>{
-            console.log(this.townName,this.poplation)
+            console.log(`${this.townName}\n人口 : ${this.poplation}/${this.max_poplation}`)
             event.stopPropagation();
         })
 
@@ -44,7 +44,12 @@ export class City extends Town{
     public cityName : string ;
 
     constructor(position:Vector2,population:number, max_population:number,cityName:string){
-        super(position,population,max_population,cityName);
+        const imgname = (function():string{
+            if(population >= 360)return "city.png"
+            return "village.png" ;
+        })();
+        super(position,population,max_population,cityName,imgname);
+        
         this.cityName = cityName ;
     }
     /**

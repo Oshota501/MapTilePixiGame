@@ -6,6 +6,7 @@ import { createMapLogic_1 } from "./createmapLogic";
 import { biomes } from "./biomes";
 import { CitiesDB } from "./map/cities";
 import { LineContainer } from "./map/line";
+import { random } from "../mt/random";
 
 type pos = {
     x : number
@@ -48,7 +49,7 @@ export class GameDatas extends Container{
                 if(typeof b == "undefined")return false ;
                 max_poplation += b.max_population ;
             }
-            this.cities.postCity(p,0,max_poplation,cityName)
+            this.cities.postCity(p,Math.floor((max_poplation/3)*random.next())+20,max_poplation,cityName)
             return true ;
         }else{
             return false ;
