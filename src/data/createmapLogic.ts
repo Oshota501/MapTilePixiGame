@@ -209,7 +209,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
         }
         const ps_size: size = add_river[i].diff(add_terrainsOfSea[index].p)
         const abs_f: number = Math.abs(ps_size.width)/(Math.abs(ps_size.width) +  Math.abs(ps_size.height))
-        console.log(abs_f)
+        // console.log(abs_f)
         let flag = true ;
         let nowP = add_river[i] ;
         // gamedata.lines.setLine(add_river[i],add_terrainsOfSea[index].p)
@@ -238,7 +238,19 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
             },false))
         }
     }
-
+    // 都市
+    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
+        const arr = c[x+y*mapsize.width].geographyData ;
+        for(let i = 0 ; i < arr.length ; i ++){
+            if(0.004 > random.next()){
+                const position = new Vector2(
+                    x*ChunkArea.width + i%ChunkArea.width ,
+                    y*ChunkArea.height + Math.floor(i/ChunkArea.height)
+                )
+                gamedata.postCity(position) ;
+            }
+        }
+    }
     
 }
 const mapClear = function(gamedata:GameDatas,clearid:number){

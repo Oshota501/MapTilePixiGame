@@ -34,6 +34,11 @@ export class GameDatas extends Container{
     public s : size ;
 
     public cities : CitiesDB = new CitiesDB () ;
+    /**
+     * 
+     * @param p 
+     * @returns isSuccess
+     */
     public postCity(p:Vector2): boolean{
         const [arr,flag] = this.getAreaBiome(p,1) ;
         if(flag){
