@@ -8,7 +8,7 @@ export class CitiesDB extends Container {
 
     public city : City[] = [] ;
     /**
-     * 名前から都市を検索
+     * 名前から都市名を検索
      * @param cityname 
      * @returns [city , isSuccess]
      */

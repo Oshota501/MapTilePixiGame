@@ -1,6 +1,14 @@
-import { Sprite } from "pixi.js";
+import { Assets, Sprite, Texture } from "pixi.js";
 import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
+
+const isload_city = 0 ;
+const cityIMG = (async function(){
+    return await Assets.load("src/graphic/img/mapobj/city.png") as Texture;
+})();
+const townIMG = (async function(){
+    return await Assets.load("src/graphic/img/mapobj/village.png") as Texture;
+})();
 
 export class Town extends Sprite{
     public poplation : number = 0 ;
@@ -16,6 +24,24 @@ export class Town extends Sprite{
         this.townName = townName ;
 
         // game.maptag20.postTestPin(position,townName)
+        this.loadImg() ;
+    }
+
+    private async loadImg (){
+        const tex = townIMG ;
+        tex.source.scaleMode ='nearest'
+        this.texture = tex;
+        //this.isload = true ;
+
+        this.scale = 0.5 ;
+        this.interactive = true;
+        this.cursor = 'pointer';
+        this.anchor.set(0.5);
+        this.on('click',(event)=>{
+            console.log(this.townName)
+            event.stopPropagation();
+        })
+        this.visible = true;
     }
 }
 export class City extends Town{
