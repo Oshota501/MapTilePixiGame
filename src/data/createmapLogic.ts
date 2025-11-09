@@ -194,6 +194,22 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
             }
         }
     }
+    for(let i = 0 ; i < add_river.length ; i ++ ){
+        if(skip_river.has(i)){
+            continue ;
+        }
+        let min_riversea = Vector2.distance(add_river[i],add_terrainsOfSea[0].p);
+        let index = 0 ;
+        for(let j = 0 ; j < add_terrainsOfSea.length ; j ++){
+            const s = Vector2.distance(add_river[i],add_terrainsOfSea[j].p) ;
+            if(s<min_riversea){
+                min_riversea = s ;
+                index = j ;
+            }
+        }
+        console.log(add_terrainsOfSea[index].p)
+        
+    }
 
     
 }
