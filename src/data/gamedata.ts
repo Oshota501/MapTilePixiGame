@@ -5,6 +5,7 @@ import { Container } from "pixi.js";
 import { createMapLogic_1 } from "./createmapLogic";
 import { biomes } from "./biomes";
 import { CitiesDB } from "./map/cities";
+import { LineContainer } from "./map/line";
 
 type pos = {
     x : number
@@ -33,7 +34,12 @@ export class GameDatas extends Container{
     public s : size ;
 
     public cities : CitiesDB = new CitiesDB () ;
-    public postCity(p:Vector2): boolean{
+    /**
+     * 
+     * @param p 
+     * @returns isSuccess
+     */
+    public postCity(p:Vector2,cityName:string): boolean{
         const [arr,flag] = this.getAreaBiome(p,1) ;
         if(flag){
             let max_poplation = 0 ;
@@ -42,7 +48,7 @@ export class GameDatas extends Container{
                 if(typeof b == "undefined")return false ;
                 max_poplation += b.max_population ;
             }
-            this.cities.postCity(p,0,max_poplation)
+            this.cities.postCity(p,0,max_poplation,cityName)
             return true ;
         }else{
             return false ;
@@ -50,6 +56,8 @@ export class GameDatas extends Container{
         
     }
 
+    public lines = new LineContainer ;
+    
     constructor(worldSize : size){
         super();
         this.s = worldSize ;
@@ -63,6 +71,8 @@ export class GameDatas extends Container{
         }
         createMapLogic_1(this)
         this.setupChunk();
+        this.addChild(this.lines);
+        this.addChild(this.cities)
     }
     private setupChunk (){
         for(let i = 0 ; i < this.chunks.length ; i ++){
@@ -78,7 +88,7 @@ export class GameDatas extends Container{
     * @param {Number} biome
     * @returns {boolean} isSuccess
     */
-    public changeBiomeAt(p:ChangeBiomeParam): boolean {
+    public changeBiomeAt(p:ChangeBiomeParam,isRender:boolean=true): boolean {
         if(p.biome_id>255 || p.biome_id < 0){
             console.log("uint8 の範囲を超えています。");
             return false;
@@ -102,7 +112,7 @@ export class GameDatas extends Container{
         const c = this.getChunk(chunk); 
         const cv = this.getVisualChunk(chunk);
         c.geographyData[position.y * ChunkArea.width + position.x ] = p.biome_id ;
-        cv.buildMap();
+        if(isRender)cv.buildMap();
         return true ;
     }
     /**

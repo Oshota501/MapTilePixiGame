@@ -6,8 +6,7 @@ import { Vector2 } from "./type"
 import { random } from "./mt/random"
 
 export async function testfunc(){ 
-    console.log(random.seed) ;
-    console.log("biseki,eigo")
+    // game.gamedata.lines.setLine(new Vector2(0,0),new Vector2(100,100))
     // const arr = game.gamedata.getAreaBiomeBreakDownCount(new Vector2(25,4),2,createList(20,40));
     // console.log(arr)
    //  console.log(game.gamedata.getAreaBiomeBreakDownCount(new Vector2(2,2),2,createList(200,240)))

@@ -1,12 +1,75 @@
+import { Assets, Sprite, Texture } from "pixi.js";
 import { Vector2 } from "../../type";
+import { MaterialResource } from "./resource";
 
-export class City {
-    public position : Vector2 ;
+export class Town extends Sprite{
     public poplation : number = 0 ;
     public max_poplation : number ;
-    constructor(p:Vector2,poplation:number,max_poplation:number){
-        this.position = p ;
+    public townName : string ;
+
+    constructor(position:Vector2,poplation:number, max_poplation:number,townName:string){
+        super();
         this.max_poplation = max_poplation ;
         this.poplation = poplation ;
+        this.position.x = position.x ;
+        this.position.y = position.y ;
+        this.townName = townName ;
+
+        this.loadImg ("village.png") ;
+
+        // game.maptag20.postTestPin(position,townName)
+    }
+    private async loadImg(imgname:string){
+        const tex = await Assets.load(`src/graphic/img/mapobj/${imgname}`) as Texture;
+        
+        this.scale = 0.5 ;
+        this.interactive = true;
+        this.cursor = 'pointer';
+        this.anchor.set(0.5);
+        this.on('click',(event)=>{
+            console.log(this.townName,this.poplation)
+            event.stopPropagation();
+        })
+
+        tex.source.scaleMode ='nearest'
+        this.texture = tex ;
+        this.visible = true;
+
+        
+    }
+}
+export class City extends Town{
+    public subCity : Town[] = [] ;
+    public resource : MaterialResource = new MaterialResource() ;
+    public cityName : string ;
+
+    constructor(position:Vector2,population:number, max_population:number,cityName:string){
+        super(position,population,max_population,cityName);
+        this.cityName = cityName ;
+    }
+    /**
+     * - 都市圏人口の合計
+     * - 都市の人口は this.poplation を参照
+     * @returns poplation
+     */
+    public getPopulation():number{
+        let count = 0 ;
+        for(let i = 0 ; i < this.subCity.length ; i ++){
+            count += this.subCity[i].poplation ;
+        }
+        count += this.poplation ;
+        return this.poplation ;
+    }
+    /**
+     * - 都市圏人口の上限値
+     * @returns max poplation
+     */
+    public getMaxPopulation():number{
+        let count = 0 ;
+        for(let i = 0 ; i < this.subCity.length ; i ++){
+            count += this.subCity[i].max_poplation ;
+        }
+        count += this.max_poplation ;
+        return this.max_poplation ;
     }
 }

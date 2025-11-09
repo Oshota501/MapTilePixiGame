@@ -29,6 +29,8 @@ export class MapTag20 extends Container {
             sprite.scale = 0.5 ;
             sprite.interactive = true;
             sprite.cursor = 'pointer';
+            sprite.anchor.set(0.3);
+            sprite.anchor._y = 0.7 ;
             sprite.on('click',function(event){
                 console.log(log)
                 event.stopPropagation();
