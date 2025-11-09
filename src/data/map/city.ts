@@ -14,6 +14,8 @@ export class Town extends Sprite{
         this.position.x = position.x ;
         this.position.y = position.y ;
         this.townName = townName ;
+
+        // game.maptag20.postTestPin(position,townName)
     }
 }
 export class City extends Town{

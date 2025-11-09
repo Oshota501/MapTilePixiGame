@@ -4,7 +4,6 @@ import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
 import { biomes, biomesID } from "./biomes";
 import { terrain_CreateLogicType, terrains } from "./terrain";
-import { game } from "../main";
 
 type CreateMapParamater = {
     terrain_clutter : number ,
@@ -183,7 +182,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
             // console.log(i)
             continue ;
         }
-        game.maptag20.postTestPin(add_river[i],"river start")
+        // game.maptag20.postTestPin(add_river[i],"river start")
         for(let j = i+1 ; j < add_river.length ; j ++){
             if(i==j){
                 continue ;
@@ -243,7 +242,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
-            if(0.004 > random.next() && biomes.isLand(arr[i])){
+            if(0.0005 > random.next() && biomes.isLand(arr[i])){
                 const position = new Vector2(
                     x*ChunkArea.width + i%ChunkArea.width ,
                     y*ChunkArea.height + Math.floor(i/ChunkArea.height)
