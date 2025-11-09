@@ -215,11 +215,17 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
         // gamedata.lines.setLine(add_river[i],add_terrainsOfSea[index].p)
         while(flag){
             if(abs_f > random.next()){
-                if(ps_size.width>=0)nowP.x -- ;
-                else nowP.x ++ ;
+                if(ps_size.width>=0){
+                    nowP.x -- ;
+                }else{
+                    nowP.x ++ ;
+                } 
             }else{
-                if(ps_size.height>=0)nowP.y -- ;
-                else nowP.y ++ ;
+                if(ps_size.height>=0){
+                    nowP.y -- ;
+                }else{
+                    nowP.y ++ ;
+                }
             }
             const [bio,isSuccess] = gamedata.getPositionBiome(nowP)
             if(!isSuccess)  break ;

@@ -4,7 +4,7 @@ class Random {
   private z :number ;
   private w :number ;
   public readonly seed :number ;
-  constructor(seed = 1762683639573) {
+  constructor(seed = Date.now()) {
     this.seed = seed ;
     this.x = 123456789;
     this.y = 362436069;
