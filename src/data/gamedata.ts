@@ -72,6 +72,7 @@ export class GameDatas extends Container{
         createMapLogic_1(this)
         this.setupChunk();
         this.addChild(this.lines);
+        this.addChild(this.cities)
     }
     private setupChunk (){
         for(let i = 0 ; i < this.chunks.length ; i ++){

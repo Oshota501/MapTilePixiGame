@@ -59,13 +59,17 @@ export class MainApp extends Application {
       .decelerate();
 
     this.viewport.scale = 7 ;
+    this.viewport.clampZoom({
+      minScale:0.5,
+      maxScale:30,
+    })
     this.stage.addChild(this.viewport);
 
     // @ts-ignore
     this.ticker.add((time) => {
       this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
-      this.gamedata.cities.major.visible = 4 <= this.viewport.scale.x  && this.viewport.scale.x < 20
-      this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x  && this.viewport.scale.x < 20
+      this.gamedata.cities.major.visible = 4 <= this.viewport.scale.x  && this.viewport.scale.x < 30
+      this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x  && this.viewport.scale.x < 30
     });
 
     if(loadScreen)
