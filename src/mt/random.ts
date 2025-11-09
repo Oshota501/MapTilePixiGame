@@ -4,7 +4,7 @@ class Random {
   private z :number ;
   private w :number ;
   public readonly seed :number ;
-  constructor(seed = Date.now()) {
+  constructor(seed = 1762683639573) {
     this.seed = seed ;
     this.x = 123456789;
     this.y = 362436069;
@@ -28,4 +28,4 @@ class Random {
   }
 }
 
-export const random = new Random(Date.now()) ;
+export const random = new Random() ;

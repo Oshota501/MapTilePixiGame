@@ -82,7 +82,7 @@ export class GameDatas extends Container{
     * @param {Number} biome
     * @returns {boolean} isSuccess
     */
-    public changeBiomeAt(p:ChangeBiomeParam): boolean {
+    public changeBiomeAt(p:ChangeBiomeParam,isRender:boolean=true): boolean {
         if(p.biome_id>255 || p.biome_id < 0){
             console.log("uint8 の範囲を超えています。");
             return false;
@@ -106,7 +106,7 @@ export class GameDatas extends Container{
         const c = this.getChunk(chunk); 
         const cv = this.getVisualChunk(chunk);
         c.geographyData[position.y * ChunkArea.width + position.x ] = p.biome_id ;
-        cv.buildMap();
+        if(isRender)cv.buildMap();
         return true ;
     }
     /**

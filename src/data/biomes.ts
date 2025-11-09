@@ -216,3 +216,9 @@ class BiomeDB {
 }
 
 export const biomes = new BiomeDB(d_biomes) ;
+
+export const biomesID = {
+    sea : 254 ,
+    land : 255 ,
+    river : 50 ,
+}

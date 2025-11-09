@@ -1,8 +1,8 @@
 import { ChunkArea } from "./chunk";
-import { Vector2 } from "../type";
+import { size, Vector2 } from "../type";
 import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
-import { biomes } from "./biomes";
+import { biomes, biomesID } from "./biomes";
 import { terrain_CreateLogicType, terrains } from "./terrain";
 import { game } from "../main";
 
@@ -207,8 +207,30 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
                 index = j ;
             }
         }
-        gamedata.lines.setLine(add_river[i],add_terrainsOfSea[index].p)
-        
+        const ps_size: size = add_river[i].diff(add_terrainsOfSea[index].p)
+        const abs_f: number = Math.abs(ps_size.width)/(Math.abs(ps_size.width) +  Math.abs(ps_size.height))
+        console.log(abs_f)
+        let flag = true ;
+        let nowP = add_river[i] ;
+        // gamedata.lines.setLine(add_river[i],add_terrainsOfSea[index].p)
+        while(flag){
+            if(abs_f > random.next()){
+                if(ps_size.width>=0)nowP.x -- ;
+                else nowP.x ++ ;
+            }else{
+                if(ps_size.height>=0)nowP.y -- ;
+                else nowP.y ++ ;
+            }
+            const [bio,isSuccess] = gamedata.getPositionBiome(nowP)
+            if(!isSuccess)  break ;
+
+            if(bio>200 || bio == biomesID.river) flag = false ;
+            else(gamedata.changeBiomeAt({
+                x:nowP.x,
+                y:nowP.y,
+                biome_id:biomesID.river 
+            },false))
+        }
     }
 
     
