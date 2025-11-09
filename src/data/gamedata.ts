@@ -5,7 +5,7 @@ import { Container } from "pixi.js";
 import { createMapLogic_1 } from "./createmapLogic";
 import { biomes } from "./biomes";
 import { CitiesDB } from "./map/cities";
-import { LinePositions } from "./map/line";
+import { LineContainer } from "./map/line";
 
 type pos = {
     x : number
@@ -51,10 +51,8 @@ export class GameDatas extends Container{
         
     }
 
-    public lineContainer = new Container() ;
-    public setLine(...positions:Vector2[]){
-        this.lineContainer.addChild(new LinePositions(...positions))
-    }
+    public lines = new LineContainer ;
+    
     constructor(worldSize : size){
         super();
         this.s = worldSize ;
@@ -68,7 +66,7 @@ export class GameDatas extends Container{
         }
         createMapLogic_1(this)
         this.setupChunk();
-        this.addChild(this.lineContainer);
+        this.addChild(this.lines);
     }
     private setupChunk (){
         for(let i = 0 ; i < this.chunks.length ; i ++){
