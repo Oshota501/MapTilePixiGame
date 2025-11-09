@@ -1,5 +1,6 @@
 import { Sprite } from "pixi.js";
 import { Vector2 } from "../../type";
+import { MaterialResource } from "./resource";
 
 export class Town extends Sprite{
     public poplation : number = 0 ;
@@ -14,6 +15,8 @@ export class Town extends Sprite{
 }
 export class City extends Town{
     public subCity : Town[] = [] ;
+    public resource : MaterialResource = new MaterialResource() ;
+    
     constructor(position:Vector2,poplation:number, max_poplation:number){
         super(position,poplation,max_poplation);
     }
