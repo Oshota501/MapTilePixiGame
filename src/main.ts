@@ -5,8 +5,8 @@ export let game: MainApp ;
 // 15*15 で 1分くらいかかります。
 async function init() {
     game = await new MainApp({
-        width: 7,
-        height: 7,
+        width: 3,
+        height: 3,
     });
 }
 

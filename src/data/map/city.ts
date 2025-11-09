@@ -1,7 +1,6 @@
 import { Assets, Sprite, Texture } from "pixi.js";
 import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
-import { game } from "../../main";
 
 export class Town extends Sprite{
     public poplation : number = 0 ;

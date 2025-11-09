@@ -242,7 +242,9 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
-            if(0.0005 > random.next() && biomes.isLand(arr[i])){
+            const b = biomes.getById(arr[i]) ;
+            if(typeof b == "undefined")continue ;
+            if(0.00001*b.max_population > random.next() && biomes.isLand(arr[i])){
                 const position = new Vector2(
                     x*ChunkArea.width + i%ChunkArea.width ,
                     y*ChunkArea.height + Math.floor(i/ChunkArea.height)
