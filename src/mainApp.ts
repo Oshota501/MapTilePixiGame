@@ -2,16 +2,18 @@ import { Application , Assets, Container } from "pixi.js";
 import { Viewport } from "pixi-viewport";
 import { GameDatas } from "./data/gamedata" ;
 import { ChunkArea } from "./data/chunk";
-import { size } from "./type";
+import { size, Vector2 } from "./type";
 import { testfunc } from "./test";
 import { MapTag20 } from "./data/map/maptag20";
 import { loadScreen } from "./ui/elms";
-
+import "./ui/event"
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
 
   public viewport!: Viewport ;
+    public vieportMousePosition = new Vector2(0,0) ;
+
   public render10: Container ;
     public gamedata! : GameDatas ;
     public maptag20 : MapTag20 ;
@@ -63,13 +65,18 @@ export class MainApp extends Application {
       minScale:0.5,
       maxScale:30,
     })
+    this.viewport.on("mousemove",(event)=>{
+      const worldPosition = this.viewport.toWorld(event.global);
+      this.vieportMousePosition.x = Math.floor(worldPosition.x );
+      this.vieportMousePosition.y = Math.floor(worldPosition.y );
+    });
     this.stage.addChild(this.viewport);
 
     // @ts-ignore
     this.ticker.add((time) => {
       this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
-      this.gamedata.cities.major.visible = 4 <= this.viewport.scale.x  && this.viewport.scale.x < 30
-      this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x  && this.viewport.scale.x < 30
+      this.gamedata.cities.major.visible = 4 <= this.viewport.scale.x 
+      this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x 
     });
 
     if(loadScreen)
