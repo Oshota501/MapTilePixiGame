@@ -75,7 +75,7 @@ export class MainApp extends Application {
     // @ts-ignore
     this.ticker.add((time) => {
       this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
-      this.gamedata.cities.major.visible = 4 <= this.viewport.scale.x 
+      this.gamedata.cities.major.visible = 2 <= this.viewport.scale.x 
       this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x 
     });
 

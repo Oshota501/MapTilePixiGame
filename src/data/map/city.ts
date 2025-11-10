@@ -3,6 +3,7 @@ import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
 
 export class Town extends Sprite{
+    public v2position : Vector2 ;
     public poplation : number = 0 ;
     public max_poplation : number ;
     public townName : string ;
@@ -14,6 +15,7 @@ export class Town extends Sprite{
             event.stopPropagation();
 
         })
+        this.v2position = position ;
         this.max_poplation = max_poplation ;
         this.poplation = poplation ;
         this.position.x = position.x ;
