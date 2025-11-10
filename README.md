@@ -3,9 +3,10 @@
 - render10
     - gamedata
         - chunk
+        - cities
     - maptag
         - sprite
-
+    - 
 
 ## riverのロジック案１
 内陸部にランダムに河野始点となるnodeを生成  
