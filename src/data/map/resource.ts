@@ -51,7 +51,7 @@ export class MaterialResource {
             }
         }
     }
-    constructor(){
+    constructor(arr81_biomes:Uint8Array){
         
     }
 }

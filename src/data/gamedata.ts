@@ -50,7 +50,13 @@ export class GameDatas extends Container{
                 if(typeof b == "undefined")return false ;
                 max_poplation += b.max_population ;
             }
-            this.cities.postCity(p,Math.floor((max_poplation/3)*random.next())+20,max_poplation,cityName)
+            const [arr81,isSuccess] = this.getAreaBiome(p,4) ;
+            if(isSuccess){
+                this.cities.postCity(arr81,p,Math.floor((max_poplation/3)*random.next())+20,max_poplation,cityName)
+            }else{
+                return false ;
+            }
+            
             return true ;
         }else{
             return false ;

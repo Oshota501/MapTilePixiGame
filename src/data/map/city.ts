@@ -44,16 +44,18 @@ export class Town extends Sprite{
 }
 export class City extends Town{
     public subCity : Town[] = [] ;
-    public resource : MaterialResource = new MaterialResource() ;
+    public resource : MaterialResource ;
     public cityName : string ;
 
-    constructor(position:Vector2,population:number, max_population:number,cityName:string){
+    constructor(arr81_biome:Uint8Array,position:Vector2,population:number, max_population:number,cityName:string){
         const imgname = (function():string{
             if(population >= 360)return "city.png"
             return "village.png" ;
         })();
         super(position,population,max_population,cityName,imgname);
         
+        this.resource = new MaterialResource(arr81_biome);
+
         this.cityName = cityName ;
 
         this.on('click',(event)=>{
