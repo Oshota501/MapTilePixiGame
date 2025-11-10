@@ -9,6 +9,11 @@ export class Town extends Sprite{
 
     constructor(position:Vector2,poplation:number, max_poplation:number,townName:string,img_name="village.png"){
         super();
+        this.on('click',(event)=>{
+            console.log(`${this.townName}\n人口 : ${this.poplation}/${this.max_poplation}`)
+            event.stopPropagation();
+
+        })
         this.max_poplation = max_poplation ;
         this.poplation = poplation ;
         this.position.x = position.x ;
@@ -26,10 +31,7 @@ export class Town extends Sprite{
         this.interactive = true;
         this.cursor = 'pointer';
         this.anchor.set(0.5);
-        this.on('click',(event)=>{
-            console.log(`${this.townName}\n人口 : ${this.poplation}/${this.max_poplation}`)
-            event.stopPropagation();
-        })
+        
 
         tex.source.scaleMode ='nearest'
         this.texture = tex ;
@@ -51,6 +53,17 @@ export class City extends Town{
         super(position,population,max_population,cityName,imgname);
         
         this.cityName = cityName ;
+
+        this.on('click',(event)=>{
+            for(let i = 0 ; i < this.resource.foods.length ; i ++ ){
+                console.log(`${this.resource.foods[i].name}\n残量：${this.resource.foods[i].stock} ${this.resource.foods[i].cost}円`)
+            }
+            for(let i = 0 ; i < this.resource.material.length ; i ++ ){
+                console.log(`${this.resource.material[i].name}\n残量：${this.resource.material[i].stock} ${this.resource.material[i].cost}円`)
+            }
+            event.stopPropagation();
+
+        })
     }
     /**
      * - 都市圏人口の合計
