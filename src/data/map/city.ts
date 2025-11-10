@@ -3,19 +3,26 @@ import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
 
 export class Town extends Sprite{
+    public v2position : Vector2 ;
     public poplation : number = 0 ;
     public max_poplation : number ;
     public townName : string ;
 
-    constructor(position:Vector2,poplation:number, max_poplation:number,townName:string){
+    constructor(position:Vector2,poplation:number, max_poplation:number,townName:string,img_name="village.png"){
         super();
+        this.on('click',(event)=>{
+            console.log(`${this.townName}\n人口 : ${this.poplation}/${this.max_poplation}`)
+            event.stopPropagation();
+
+        })
+        this.v2position = position ;
         this.max_poplation = max_poplation ;
         this.poplation = poplation ;
         this.position.x = position.x ;
         this.position.y = position.y ;
         this.townName = townName ;
 
-        this.loadImg ("village.png") ;
+        this.loadImg (img_name) ;
 
         // game.maptag20.postTestPin(position,townName)
     }
@@ -26,10 +33,7 @@ export class Town extends Sprite{
         this.interactive = true;
         this.cursor = 'pointer';
         this.anchor.set(0.5);
-        this.on('click',(event)=>{
-            console.log(this.townName,this.poplation)
-            event.stopPropagation();
-        })
+        
 
         tex.source.scaleMode ='nearest'
         this.texture = tex ;
@@ -40,12 +44,26 @@ export class Town extends Sprite{
 }
 export class City extends Town{
     public subCity : Town[] = [] ;
-    public resource : MaterialResource = new MaterialResource() ;
+    public resource : MaterialResource ;
     public cityName : string ;
 
-    constructor(position:Vector2,population:number, max_population:number,cityName:string){
-        super(position,population,max_population,cityName);
+    constructor(arr81_biome:Uint8Array,position:Vector2,population:number, max_population:number,cityName:string){
+        const imgname = (function():string{
+            if(population >= 360)return "city.png"
+            return "village.png" ;
+        })();
+        super(position,population,max_population,cityName,imgname);
+        
+        this.resource = new MaterialResource(arr81_biome,population);
+
         this.cityName = cityName ;
+
+        this.on('click',(event)=>{
+            console.log("食材：",this.resource.foods)
+            console.log("素材：",this.resource.material)
+            event.stopPropagation();
+
+        })
     }
     /**
      * - 都市圏人口の合計
