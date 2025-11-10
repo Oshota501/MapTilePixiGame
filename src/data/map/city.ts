@@ -54,17 +54,13 @@ export class City extends Town{
         })();
         super(position,population,max_population,cityName,imgname);
         
-        this.resource = new MaterialResource(arr81_biome);
+        this.resource = new MaterialResource(arr81_biome,population);
 
         this.cityName = cityName ;
 
         this.on('click',(event)=>{
-            for(let i = 0 ; i < this.resource.foods.length ; i ++ ){
-                console.log(`${this.resource.foods[i].name}\n残量：${this.resource.foods[i].stock} ${this.resource.foods[i].cost}円`)
-            }
-            for(let i = 0 ; i < this.resource.material.length ; i ++ ){
-                console.log(`${this.resource.material[i].name}\n残量：${this.resource.material[i].stock} ${this.resource.material[i].cost}円`)
-            }
+            console.log("食材：",this.resource.foods)
+            console.log("素材：",this.resource.material)
             event.stopPropagation();
 
         })
