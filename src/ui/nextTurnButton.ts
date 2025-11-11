@@ -1,3 +1,4 @@
+import { game } from "../main";
 import { nextTurnButton } from "./elms";
 
 export let turn = 1 ;
@@ -6,6 +7,7 @@ let isLoad = false ;
 
 nextTurnButton?.addEventListener("click",function(){
     if(nextTurnButton && !isLoad){
+        game.nextTurn() ;
         isLoad = true ;
         turn ++ ;
         for(let j = 0 ; j < 4 ; j ++){

@@ -6,6 +6,8 @@ import { size, Vector2 } from "./type";
 import { testfunc } from "./test";
 import { MapTag20 } from "./data/map/maptag20";
 import { loadScreen } from "./ui/elms";
+import { viewCityInfo } from "./ui/viewCityInfo";
+import { queue } from "./ui/queue";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -20,7 +22,9 @@ export class MainApp extends Application {
   public worldSize : size ;
 
   public nextTurn(){
-
+    this.gamedata.nextTurn() ;
+    const [f,q] = queue.town.getQueue() ;
+    if(f)viewCityInfo(q)
   }
   constructor(
     worldSize : size ,

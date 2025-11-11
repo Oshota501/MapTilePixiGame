@@ -91,9 +91,21 @@ export class GameDatas extends Container{
     
 
     public nextTurn(){
-        
+        const c = this.cities.city ;
+        for(let i = 0 ; i < c.length ; i ++){
+            const e = c[i] ;
+            const [b,f] = this.getAreaBiome(e.v2position,4);
+            if(f){
+                const r = random.nextInt(Math.floor(e.max_poplation/160))
+                if(!(e.poplation+r > e.max_poplation)){
+                    e.poplation += r 
+                }
+                e.resource.updata(b,e.poplation) ;
+                
+            }
+        }
     }
-    
+
     constructor(worldSize : size){
         super();
         this.s = worldSize ;

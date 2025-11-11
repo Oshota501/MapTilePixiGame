@@ -1,4 +1,4 @@
-import { City } from "../data/map/city";
+import { City, Town } from "../data/map/city";
 import { resource_data } from "../data/map/resource";
 import { uiContainer1 } from "./elms";
 
@@ -14,7 +14,15 @@ function resourceInfo(r:resource_data[]) : string{
     }
     return result ;
 }
-export function viewCityInfo (city:City) : void{
+export function viewCityInfo (city:Town) : void{
+    const handleIsCity = (): string =>{
+        if(city instanceof City ){
+            return resourceInfo(city.resource.resource_all)
+        }else{
+            return "" ;
+        }
+        
+    }
     if(uiContainer1){
         uiContainer1.innerHTML = `
         <style>
@@ -41,7 +49,7 @@ export function viewCityInfo (city:City) : void{
                 <tr>
                     <td colspan="2">資源一覧</td>
                 </tr>
-                ${resourceInfo(city.resource.resource_all)}
+                ${handleIsCity()}
             </tbody>
         </table>
         `
