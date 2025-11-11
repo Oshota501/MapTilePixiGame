@@ -1,4 +1,6 @@
 import { MainApp } from "./mainApp";
+import "./ui/keyevent"
+import "./ui/closeSidebarEvent"
 
 export let game: MainApp ;
 

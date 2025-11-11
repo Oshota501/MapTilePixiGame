@@ -2,6 +2,8 @@ import { random } from "../../mt/random";
 import { biomes, biomesID } from "../biomes";
 
 export type resource_data = {
+    name : string ;
+    message : string ;
     in : number ;
     out : number ;
     cost : number ;
@@ -12,6 +14,8 @@ export type resource_data = {
 export class MaterialResource {
     public foods = {
         fish:{
+            name : "fish",
+            message : "海に面していると生産可能です。",
             in:0,
             out:0,
             cost:1200,
@@ -20,6 +24,8 @@ export class MaterialResource {
             ft:0.3,
         },
         rice:{
+            name : "rice",
+            message : "水田があると生産可能です。",
             in:0,
             out:0,
             cost:380,
@@ -28,6 +34,8 @@ export class MaterialResource {
             ft:0.9,
         },
         weat:{
+            name : "weat",
+            message : "小麦畑があると生産可能です。",
             in:0,
             out:0,
             cost:380,
@@ -38,6 +46,8 @@ export class MaterialResource {
     }
     public material = {
         wood:{
+            name : "wood",
+            message : "森があると生産可能です。",
             in:0,
             out:0,
             cost:380,

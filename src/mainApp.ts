@@ -6,7 +6,6 @@ import { size, Vector2 } from "./type";
 import { testfunc } from "./test";
 import { MapTag20 } from "./data/map/maptag20";
 import { loadScreen } from "./ui/elms";
-import "./ui/event"
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;

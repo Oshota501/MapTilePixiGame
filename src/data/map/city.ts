@@ -3,6 +3,7 @@ import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
 import { queue } from "../../ui/queue";
 import { biomes } from "../biomes";
+import { viewCityInfo } from "../../ui/viewCityInfo";
 
 export class Town extends Sprite{
     public v2position : Vector2 ;
@@ -13,9 +14,7 @@ export class Town extends Sprite{
     constructor(position:Vector2,poplation:number, max_poplation:number,townName:string,img_name="village.png"){
         super();
         this.on('click',(event)=>{
-            console.log(`${this.townName}\n人口 : ${this.poplation}/${this.max_poplation}`)
             event.stopPropagation();
-
         })
         this.v2position = position ;
         this.max_poplation = max_poplation ;
@@ -68,10 +67,11 @@ export class City extends Town{
         this.cityName = cityName ;
 
         this.on('click',(event)=>{
-            console.log("食材：",this.resource.foods)
-            console.log("素材：",this.resource.material)
+            // console.log("食材：",this.resource.foods)
+            // console.log("素材：",this.resource.material)
             event.stopPropagation();
             queue.town.setQueue(this)
+            viewCityInfo(this);
 
         })
     }
