@@ -18,14 +18,14 @@ export function viewCityInfo (city:City) : void{
     if(uiContainer1){
         uiContainer1.innerHTML = `
         <style>
-        table th{
+        #cityInfo th{
             border:1px solid;
         }
-        table td{
+        #cityInfo td{
             border:1px solid;
         }
         </style>
-        <table style="border:1px solid;width:100%;">
+        <table id="cityInfo" style="border:1px solid;width:100%;">
             <thead>
                 <th colspan="2">${city.townName}</th>
             <thead>

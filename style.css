@@ -29,7 +29,7 @@
     align-items: flex-start;
 }
 
-/* close をサイドバーの右端にくっつける */
+/* close をサイドバーの右端にくっける */
 #close{
     position: fixed;
     left: calc(var(--sidebar-width) + 8px); /* サイドバーの右 + マージン */
@@ -49,4 +49,26 @@
 /* ローディング画面がサイドバーより上に来る場合は z-index を大きく */
 #loading-screen {
     z-index: 10000;
+}
+
+#nextTurn{
+    text-align: center;
+    width: 15rem;
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    z-index: 10002; /* サイドバーの close より上に表示 */
+    background-color: rgba(17, 19, 23, 0.86);
+    color: #fff;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.35rem;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    font-size: 2rem;
+}
+/* ホバーで視覚フィードバック */
+#nextTurn:hover{
+    background-color: rgba(17, 19, 23, 1);
 }

@@ -89,6 +89,11 @@ export class GameDatas extends Container{
 
     public lines = new LineContainer ;
     
+
+    public nextTurn(){
+        
+    }
+    
     constructor(worldSize : size){
         super();
         this.s = worldSize ;

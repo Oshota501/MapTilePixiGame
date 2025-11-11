@@ -19,6 +19,9 @@ export class MainApp extends Application {
   
   public worldSize : size ;
 
+  public nextTurn(){
+
+  }
   constructor(
     worldSize : size ,
   ){
