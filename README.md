@@ -1,24 +1,11 @@
 ## app
-### viewport
 - render10
-    - gamedata
-        - chunk
-        - cities
-    - maptag
-        - sprite
-    - 
+- gamedata
+    - chunk
+    - cities
+    - lines
+- maptag
+    - sprite
+- viewport
 
-## riverのロジック案１
-内陸部にランダムに河野始点となるnodeを生成  
-    近くに海がないことを探索によって検証（9*9位？）
-    これはもっと良いロジックがあると推測しているのでおそらくgamedataに追加する関数が増える
-    gamedataクラスの複雑化が懸念されるのでひたすらexportするようfileを作成する案
-最短の海biomeとの距離を測定
-distance配列を作って例のごとくMath.minでindexを取得
-最短距離の方向を取得
-東西南北のいずれかに進む可能性のある川であると仮定して
-最短居値の方向の位相から確率的に最短距離に最も近づく東西南北を出力
-その際の数式は距離に対してatanを使って求めた角度に対応する三角関数を+1.5くらいにして全ての方向に行く確率を持たせたい
-最後は乱数から各確率の方向に進むように指示をする
-目的地に着く、あるいは海に着いたと判断した場合にwhile文を停止してこれ以上進まないようにする。
-
+全てmain.tsの`const game = new MainApp()`の`game`で管理可能
