@@ -1,5 +1,6 @@
 import { biomes } from "../data/biomes";
 import { game } from "../main"
+import { queue } from "./queue";
 
 document.addEventListener("keypress",(e)=>{
     switch(e.key){
@@ -20,6 +21,13 @@ document.addEventListener("keypress",(e)=>{
             }
             console.log(`id : ${biome.id} \nname : ${biome.name} \n最大人口 : ${biome.max_population}`)
             break ;
+        case "l" :
+            const [t,o] = queue.town.getQueue() ;
+            if(!t) return ;
+            game.gamedata.lines.setLine(game.vieportMousePosition,o.v2position)
+            console.log("line to queue") ;
+            break ;
         default :
+
     }
 })

@@ -34,7 +34,11 @@ export class MainApp extends Application {
     await Assets.load('src/graphic/texture-maptile/tileset.json');
     //tilesetTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
     await this.init({ background: '#000000ff', resizeTo: window });
-    document.body.appendChild(this.canvas);
+    const inElm = document.getElementById("pixi-container") ;
+    if(inElm != null){
+      inElm.appendChild(this.canvas);
+    }
+      
 
     // ViewPort
     this.viewport = new Viewport({

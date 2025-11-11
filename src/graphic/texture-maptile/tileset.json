@@ -82,6 +82,14 @@
     "m4_dot": {
       "frame": { "x": 7, "y": 5, "w": 1, "h": 1 },
       "sourceSize": { "w": 1, "h": 1 }
+    },
+    "riceField_dot": {
+      "frame": { "x": 4, "y": 2, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
+    },
+    "weatField_dot": {
+      "frame": { "x": 8, "y": 3, "w": 1, "h": 1 },
+      "sourceSize": { "w": 1, "h": 1 }
     }
   },
   "meta": {

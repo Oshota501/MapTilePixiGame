@@ -1,6 +1,7 @@
 import { Assets, Sprite, Texture } from "pixi.js";
 import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
+import { queue } from "../../ui/queue";
 
 export class Town extends Sprite{
     public v2position : Vector2 ;
@@ -62,6 +63,7 @@ export class City extends Town{
             console.log("食材：",this.resource.foods)
             console.log("素材：",this.resource.material)
             event.stopPropagation();
+            queue.town.setQueue(this)
 
         })
     }
