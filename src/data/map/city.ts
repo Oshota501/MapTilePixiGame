@@ -75,6 +75,10 @@ export class City extends Town{
 
         })
     }
+    override upDataMaxPopulation (arr81_biome:Uint8Array) {
+        super.upDataMaxPopulation(arr81_biome)
+        this.resource.updata(arr81_biome,this.poplation) ;
+    }
     /**
      * - 都市圏人口の合計
      * - 都市の人口は this.poplation を参照

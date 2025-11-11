@@ -1,5 +1,5 @@
 import { random } from "../../mt/random";
-import { biomes } from "../biomes";
+import { biomes, biomesID } from "../biomes";
 
 export type resource_data = {
     in : number ;
@@ -26,6 +26,14 @@ export class MaterialResource {
             stock:300,
             base:380,
             ft:0.9,
+        },
+        weat:{
+            in:0,
+            out:0,
+            cost:380,
+            stock:300,
+            base:380,
+            ft:0.9,
         }
     }
     public material = {
@@ -42,6 +50,7 @@ export class MaterialResource {
     public resource_all : resource_data[] = [
         this.foods.fish,
         this.foods.rice,
+        this.foods.weat,
         this.material.wood
     ] ;
     public goTurn(){
@@ -72,6 +81,9 @@ export class MaterialResource {
               
     }
     constructor(arr81_biomes:Uint8Array,population:number){
+        this.updata(arr81_biomes,population)
+    }
+    public updata(arr81_biomes:Uint8Array,population:number){
         const outSetting = function (elm:resource_data){
             elm.out = Math.round(population*elm.ft) ;
         }
@@ -90,7 +102,16 @@ export class MaterialResource {
                 this.material.wood.in += 10 ;
             }if(biome.id == 12 || biome.id == 13){
                 this.material.wood.in += 8 ;
+            }if(biome.id >= biomesID.weat[0] && biome.id <= biomesID.weat[biomesID.weat.length-1]){
+                if(biome.id == biomesID.weat[0] )this.foods.weat.in += 60  ;
+                if(biome.id == biomesID.weat[1] )this.foods.weat.in += 77  ;
+                if(biome.id == biomesID.weat[2] )this.foods.weat.in += 94  ;
+            }if(biome.id >= biomesID.rice[0] && biome.id <= biomesID.rice[biomesID.rice.length-1]){
+                if(biome.id == biomesID.rice[0] )this.foods.rice.in += 60  ;
+                if(biome.id == biomesID.rice[1] )this.foods.rice.in += 77  ;
+                // if(biome.id == biomesID.rice[2] )this.foods.rice.in += 94  ;
             }
+
             for(let i = 0 ; i < this.resource_all.length ; i ++){
                 outSetting(this.resource_all[i])
             }
