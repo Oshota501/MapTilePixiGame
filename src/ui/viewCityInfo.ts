@@ -1,29 +1,35 @@
 import { City, Town } from "../data/map/city";
-import { resource_data } from "../data/map/resource";
+import { resource_index } from "../data/map/resource";
 import { uiContainer1 } from "./elms";
 import { mode } from "./menue";
 
-function resourceInfo(r:resource_data[]) : string{
-    let result = "" ;
-    for(let i = 0 ; i < r.length ; i ++){
-        result += `
-        <tr>
-            <td>${r[i].name}</td>
-            <td>${r[i].stock}</td>
-        </tr>
-        `
-    }
-    return result ;
-}
 export function viewCityInfo (city:Town) : void{
-    const handleIsCity = (): string =>{
+    const handleIsCity = (s:resource_index): string =>{
         if(city instanceof City ){
-            return resourceInfo(city.resource.resource_all)
+            let result = "" ;
+            
+            for(let i = 0 ; i < city.resource.resourceNames.length ; i ++){
+                let n = city.resource.resource[city.resource.resourceNames[i]][s] ;
+                if(typeof n == "number"){
+                    if(s=="cost")n*= 100 ;
+                    n = Math.floor(n)
+                    if(s=="cost")n/= 100 ;
+                }
+
+                result += `
+                <tr>
+                    <td>${city.resource.resource[city.resource.resourceNames[i]].name}</td>
+                    <td>${n}</td>
+                </tr>
+                `
+            }
+            return result ;
         }else{
             return "" ;
         }
         
     }
+
     if(uiContainer1 && mode == "city"){
         uiContainer1.innerHTML = `
         <style>
@@ -48,9 +54,22 @@ export function viewCityInfo (city:Town) : void{
                     <td>${city.max_poplation}人</td>
                 </tr>
                 <tr>
-                    <td colspan="2">資源一覧</td>
+                    <td colspan="2">価格</td>
                 </tr>
-                ${handleIsCity()}
+                ${handleIsCity("cost")}
+                <tr>
+                    <td colspan="2">保管庫</td>
+                </tr>
+                ${handleIsCity("stock")}
+                <tr>
+                    <td colspan="2">供給</td>
+                </tr>
+                ${handleIsCity("in")}
+                <tr>
+                    <td colspan="2">需要</td>
+                </tr>
+                ${handleIsCity("out")}
+                
             </tbody>
         </table>
         `

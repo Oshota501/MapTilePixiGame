@@ -1,7 +1,8 @@
 import { random } from "../../mt/random";
-import { biomes, biomesID } from "../biomes";
+import { biomes } from "../biomes";
 
 export type resource_variety = "weat" | "fish" | "rice" | "wood"
+export type resource_index = "name" | "message" | "in" | "out" | "stock" | "base" | "cost" | "ft"
 export type resource_data = {
     name : string ;
     message : string ;
@@ -13,7 +14,7 @@ export type resource_data = {
     ft: number ;
 }
 export class MaterialResource {
-    public foods = {
+    public resource = {
         fish:{
             name : "fish",
             message : "海に面していると生産可能です。",
@@ -43,9 +44,7 @@ export class MaterialResource {
             stock:300,
             base:380,
             ft:0.9,
-        }
-    }
-    public material = {
+        },
         wood:{
             name : "wood",
             message : "森があると生産可能です。",
@@ -58,12 +57,9 @@ export class MaterialResource {
         },
     }
 
-    public resource_all : resource_data[] = [
-        this.foods.fish,
-        this.foods.rice,
-        this.foods.weat,
-        this.material.wood
-    ] ;
+    public resourceNames : resource_variety [] = [
+        "fish","rice","weat","wood"
+    ]
     public goTurn(){
         const setup = function(elm:resource_data){
             if ( elm.stock + elm.in - elm.out > 0 ){
@@ -77,7 +73,7 @@ export class MaterialResource {
                     elm.cost = elm.base/3 ;
                 }
             }else{
-                elm.cost += random.next()*elm.base/100
+                elm.cost += random.next()*elm.base/20
             }
             if(elm.base < elm.cost){
                 elm.out -= random.next()*elm.out/100
@@ -86,48 +82,43 @@ export class MaterialResource {
             }
             
         }
-        for(let i = 0 ; i < this.resource_all.length ; i ++){
-            setup(this.resource_all[i])
+        for(let i = 0 ; i < this.resourceNames.length ; i ++){
+            setup(this.resource[this.resourceNames[i]])
         }
               
     }
     constructor(arr81_biomes:Uint8Array,population:number){
         this.updata(arr81_biomes,population)
     }
-    public updata(arr81_biomes:Uint8Array,population:number){
-        const outSetting = function (elm:resource_data){
-            elm.out = Math.round(population*elm.ft) ;
+    public clearInData() : void{
+        for(let i = 0 ; i < this.resourceNames.length ; i ++ ){
+            this.resource[this.resourceNames[i]].in = 0 ;
         }
-        for(let i = 0 ; i < arr81_biomes.length ; i ++){
-            const biome = biomes.getById(arr81_biomes[i])
-            if(typeof biome == "undefined"){
-                continue ;
-            }
-            if(biome.id >= 200){
-                this.foods.fish.in += 10 ;
-            }if(biome.id == 0){
-                this.foods.weat.in += 15 ;
-            }if(biome.id == 2){
-                this.foods.weat.in += 30 ;
-            }if(biome.id == 10 || biome.id == 11){
-                this.material.wood.in += 10 ;
-            }if(biome.id == 12 || biome.id == 13){
-                this.material.wood.in += 8 ;
-            }if(biome.id >= biomesID.weat[0] && biome.id <= biomesID.weat[biomesID.weat.length-1]){
-                if(biome.id == biomesID.weat[0] )this.foods.weat.in += 60  ;
-                if(biome.id == biomesID.weat[1] )this.foods.weat.in += 77  ;
-                if(biome.id == biomesID.weat[2] )this.foods.weat.in += 94  ;
-            }if(biome.id >= biomesID.rice[0] && biome.id <= biomesID.rice[biomesID.rice.length-1]){
-                if(biome.id == biomesID.rice[0] )this.foods.rice.in += 60  ;
-                if(biome.id == biomesID.rice[1] )this.foods.rice.in += 77  ;
-                // if(biome.id == biomesID.rice[2] )this.foods.rice.in += 94  ;
-            }
+    }
+    public updata(arr81_biomes:Uint8Array,population:number):void{
+        // まず既存の in 値をリセットしてから集計
+        this.clearInData();
 
-            for(let i = 0 ; i < this.resource_all.length ; i ++){
-                outSetting(this.resource_all[i])
+        const outSetting = (elm:resource_data) => {
+            elm.out = Math.round(population * elm.ft);
+        };
+
+        for (let i = 0; i < arr81_biomes.length; i++) {
+            const biome = biomes.getById(arr81_biomes[i]);
+            if (typeof biome === "undefined") continue;
+            for (let j = 0; j < biome.resource.length; j++) {
+                const r = biome.resource[j];
+                // r.rName は resource_variety 型なのでキーとして安全
+                this.resource[r.rName].in += r.in;
             }
         }
-        this.goTurn()
-        
+
+        // 集計が終わったら out を設定
+        for (let j = 0; j < this.resourceNames.length; j++) {
+            const name = this.resourceNames[j];
+            outSetting(this.resource[name]);
+        }
+
+        this.goTurn();
     }
 }

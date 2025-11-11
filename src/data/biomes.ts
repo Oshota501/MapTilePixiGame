@@ -18,7 +18,10 @@ const d_biomes : biome[] = [
         img : "plank_dot",
         max_population : 160 ,
         id : 0, 
-        resource : []
+        resource : [
+            {rName:"weat",in:6},
+            {rName:"rice",in:3}
+        ]
     },{
         name : "savanna" ,
         img : "savanna_dot",
@@ -30,7 +33,10 @@ const d_biomes : biome[] = [
         img : "fertileplank_dot",
         max_population : 320 ,
         id : 2, 
-        resource : []
+        resource : [
+            {rName:"weat",in:13},
+            {rName:"rice",in:9}
+        ]
     },
     // 10~20 森
     {
@@ -38,25 +44,33 @@ const d_biomes : biome[] = [
         img : "forest_dot",
         max_population : 130 ,
         id : 10 ,
-        resource : []
+        resource : [
+            {rName:"wood",in:16},
+        ]
     },{
         name : "jungle" ,
         img : "jungle_dot",
         max_population : 130 ,
         id : 11 ,
-        resource : []
+        resource : [
+            {rName:"wood",in:24},
+        ]
     },{
         name : "taiga" ,
         img : "taiga_dot",
         max_population : 70 ,
         id : 12 ,
-        resource : []
+        resource : [
+            {rName:"wood",in:19},
+        ]
     },{
-        name : "deva_taiga" ,
+        name : "shallow_taiga" ,
         img : "deva_taiga_dot",
         max_population : 40 ,
         id : 13 ,
-        resource : []
+        resource : [
+            {rName:"wood",in:12},
+        ]
     },
     // 20~40 乾燥帯
     {
@@ -82,7 +96,10 @@ const d_biomes : biome[] = [
         img : "wetland_dot",
         max_population : 160 ,
         id : 23 ,
-        resource : []
+        resource : [
+            {rName:"wood",in:8},
+            {rName:"fish",in:2},
+        ]
     },
     // 40~50 山岳、寒帯
     {
@@ -126,7 +143,9 @@ const d_biomes : biome[] = [
         img : "forest_dot",
         max_population : 80 ,
         id : 46 ,
-        resource : []
+        resource : [
+            {rName:"wood",in:14},
+        ]
     },
     // 50 ~ 60 川
     {
@@ -134,7 +153,9 @@ const d_biomes : biome[] = [
         img : "water_dot",
         max_population : 160 ,
         id : 50,
-        resource : []
+        resource : [
+            {rName:"fish",in:2},
+        ]
     },
     // 100 ~ 人工物関係
     // 畑 小麦 100~103
@@ -143,7 +164,9 @@ const d_biomes : biome[] = [
         img : "weatField_dot",
         max_population : 350 ,
         id : 100,
-        resource : []
+        resource : [
+            {rName:"weat",in:120},
+        ]
     },{
         name : "nomalWeatField" ,
         img : "weatField_dot",
@@ -186,19 +209,25 @@ const d_biomes : biome[] = [
         img : "water_dot",
         max_population : 0 ,
         id : 200 ,
-        resource : []
+        resource : [
+            {rName:"fish",in:30},
+        ]
     },{
         name : "leaf" ,
         img : "leaf_dot",
         max_population : 10 ,
         id : 201 ,
-        resource : []
+        resource : [
+            {rName:"fish",in:35},
+        ]
     },{
         name : "deepsea" ,
         img : "deepwater_dot",
         max_population : 0 ,
         id : 202 ,
-        resource : []
+        resource : [
+            {rName:"fish",in:28},
+        ]
     },
 ] 
 
