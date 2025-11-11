@@ -21,8 +21,8 @@ export class MainApp extends Application {
   
   public worldSize : size ;
 
-  public padding : number = 64 ;
-  
+  public padding : number = 256 ;
+
   public nextTurn(){
     this.gamedata.nextTurn() ;
     const [f,q] = queue.town.getQueue() ;

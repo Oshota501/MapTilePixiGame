@@ -1,5 +1,8 @@
 :root {
     --sidebar-width: 14rem; /* 必要に応じて調整 */
+    --close-top: 0.3rem;
+    --close-height: 2.4rem; /* close ボタンの想定高さ（必要なら調整） */
+    --control-gap: 0.4rem;   /* close と menue の間隔 */
 }
 
 #loading-screen{
@@ -30,21 +33,24 @@
 }
 
 /* close をサイドバーの右端にくっける */
-#close{
-    position: fixed;
-    left: calc(var(--sidebar-width) + 8px); /* サイドバーの右 + マージン */
-    top: 0.3rem;                               /* 上位置は調整可能 */
-    display: flex;
-    align-items: center;
+.menueButton{
     z-index: 10001;
     background-color: rgba(17, 19, 23, 0.726);
     padding: 0.4rem;
     border-radius: 0.2rem;
     color:white;
-    transition: 0.3s;
 }
-#close:hover{
+.menueButton:hover{
     background-color: black;
+}
+
+#menue{
+    position: fixed;
+    align-items: center;
+    display: flex;
+    top: var(--close-top);   
+    left: calc(var(--sidebar-width) + 8px);
+    transition: 0.3s;
 }
 /* ローディング画面がサイドバーより上に来る場合は z-index を大きく */
 #loading-screen {
