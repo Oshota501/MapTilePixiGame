@@ -68,12 +68,17 @@ export class MaterialResource {
                 elm.stock = 0 ;
             }
             if(elm.stock > 0){
-                elm.cost -= random.next()*elm.base/20
+                elm.out -= random.next()*elm.out/100
                 if(elm.cost < elm.base/3 ){
                     elm.cost = elm.base/3 ;
                 }
+                elm.cost -= random.next()*elm.cost/20 ;
             }else{
-                elm.cost += random.next()*elm.base/20
+                if(elm.cost >= elm.base*10){
+                    elm.cost -= random.next()*elm.cost/20
+                }else{
+                    elm.cost += random.next()*elm.cost/20
+                }
             }
             if(elm.base < elm.cost){
                 elm.out -= random.next()*elm.out/100
