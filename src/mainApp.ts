@@ -8,6 +8,7 @@ import { MapTag20 } from "./data/map/maptag20";
 import { loadScreen } from "./ui/elms";
 import { viewCityInfo } from "./ui/viewCityInfo";
 import { queue } from "./ui/queue";
+import { viewTileInfo } from "./ui/viewTileInfo";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -87,6 +88,8 @@ export class MainApp extends Application {
       const worldPosition = this.viewport.toWorld(event.global);
       this.vieportMousePosition.x = Math.floor(worldPosition.x );
       this.vieportMousePosition.y = Math.floor(worldPosition.y );
+
+      viewTileInfo(this.vieportMousePosition) ;
     });
     this.stage.addChild(this.viewport);
 

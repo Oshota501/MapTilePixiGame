@@ -1,6 +1,7 @@
 import { random } from "../../mt/random";
 import { biomes, biomesID } from "../biomes";
 
+export type resource_variety = "weat" | "fish" | "rice" | "wood"
 export type resource_data = {
     name : string ;
     message : string ;
@@ -105,9 +106,9 @@ export class MaterialResource {
             if(biome.id >= 200){
                 this.foods.fish.in += 10 ;
             }if(biome.id == 0){
-                this.foods.rice.in += 15 ;
+                this.foods.weat.in += 15 ;
             }if(biome.id == 2){
-                this.foods.rice.in += 30 ;
+                this.foods.weat.in += 30 ;
             }if(biome.id == 10 || biome.id == 11){
                 this.material.wood.in += 10 ;
             }if(biome.id == 12 || biome.id == 13){

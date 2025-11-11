@@ -34,6 +34,10 @@
 
 /* close をサイドバーの右端にくっける */
 .menueButton{
+    border: 1px solid;
+    border-color: rgba(105, 105, 105, 0.692);
+    text-align: center;
+    margin: 0.2rem;
     z-index: 10001;
     background-color: rgba(17, 19, 23, 0.726);
     padding: 0.4rem;
@@ -47,7 +51,7 @@
 #menue{
     position: fixed;
     align-items: center;
-    display: flex;
+    display: block;
     top: var(--close-top);   
     left: calc(var(--sidebar-width) + 8px);
     transition: 0.3s;

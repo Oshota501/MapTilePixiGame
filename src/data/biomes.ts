@@ -1,8 +1,14 @@
+import { resource_variety } from "./map/resource"
+
 export type biome = {
     name : string
     img : string 
     max_population : number 
     id:number
+    resource : {
+        rName : resource_variety
+        in : number ,
+    }[]
 }
 const d_biomes : biome[] = [
     // 0番台 land
@@ -12,16 +18,19 @@ const d_biomes : biome[] = [
         img : "plank_dot",
         max_population : 160 ,
         id : 0, 
+        resource : []
     },{
         name : "savanna" ,
         img : "savanna_dot",
         max_population : 80 ,
         id : 1, 
+        resource : []
     },{
         name : "fertileplank" ,
         img : "fertileplank_dot",
         max_population : 320 ,
         id : 2, 
+        resource : []
     },
     // 10~20 森
     {
@@ -29,21 +38,25 @@ const d_biomes : biome[] = [
         img : "forest_dot",
         max_population : 130 ,
         id : 10 ,
+        resource : []
     },{
         name : "jungle" ,
         img : "jungle_dot",
         max_population : 130 ,
         id : 11 ,
+        resource : []
     },{
         name : "taiga" ,
         img : "taiga_dot",
         max_population : 70 ,
         id : 12 ,
+        resource : []
     },{
         name : "deva_taiga" ,
         img : "deva_taiga_dot",
         max_population : 40 ,
         id : 13 ,
+        resource : []
     },
     // 20~40 乾燥帯
     {
@@ -51,21 +64,25 @@ const d_biomes : biome[] = [
         img : "desert_dot",
         max_population : 10 ,
         id : 20 ,
+        resource : []
     },{
         name : "rubble" ,
         img : "rock_dot",
         max_population : 10 ,
         id : 21 ,
+        resource : []
     },{
         name : "grandcanyon" ,
         img : "dirt_dot",
         max_population : 10 ,
         id : 22 ,
+        resource : []
     },{
         name : "oasis" ,
         img : "wetland_dot",
         max_population : 160 ,
         id : 23 ,
+        resource : []
     },
     // 40~50 山岳、寒帯
     {
@@ -73,36 +90,43 @@ const d_biomes : biome[] = [
         img : "snow_dot",
         max_population : 20 ,
         id : 40 ,
+        resource : []
     },{
         name : "mountain" ,
         img : "rock_dot",
         max_population : 10 ,
         id : 41 ,
+        resource : []
     },{
         name : "mountain" ,
         img : "m1_dot",
         max_population : 10 ,
         id : 42 ,
+        resource : []
     },{
         name : "mountain" ,
         img : "m2_dot",
         max_population : 15 ,
         id : 43 ,
+        resource : []
     },{
         name : "mountain" ,
         img : "m3_dot",
         max_population : 15 ,
         id : 44 ,
+        resource : []
     },{
         name : "mountain" ,
         img : "m4_dot",
         max_population : 15 ,
         id : 45 ,
+        resource : []
     },{
         name : "mountainForest" ,
         img : "forest_dot",
         max_population : 80 ,
         id : 46 ,
+        resource : []
     },
     // 50 ~ 60 川
     {
@@ -110,6 +134,7 @@ const d_biomes : biome[] = [
         img : "water_dot",
         max_population : 160 ,
         id : 50,
+        resource : []
     },
     // 100 ~ 人工物関係
     // 畑 小麦 100~103
@@ -118,16 +143,19 @@ const d_biomes : biome[] = [
         img : "weatField_dot",
         max_population : 350 ,
         id : 100,
+        resource : []
     },{
         name : "nomalWeatField" ,
         img : "weatField_dot",
         max_population : 550 ,
         id : 101,
+        resource : []
     },{
         name : "fertileWeatField" ,
         img : "weatField_dot",
         max_population : 750 ,
         id : 102,
+        resource : []
     },
     // 米
     {
@@ -135,11 +163,13 @@ const d_biomes : biome[] = [
         img : "riceField_dot",
         max_population : 650 ,
         id : 101,
+        resource : []
     },{
         name : "fertileRiceField" ,
         img : "riceField_dot",
         max_population : 850 ,
         id : 102,
+        resource : []
     },
     // 190 ~ ゲーム要素
     {
@@ -147,6 +177,7 @@ const d_biomes : biome[] = [
         img : "wall_dot",
         max_population : 0 ,
         id : 190 ,
+        resource : []
     },
     
     // 200番台 sea
@@ -155,16 +186,19 @@ const d_biomes : biome[] = [
         img : "water_dot",
         max_population : 0 ,
         id : 200 ,
+        resource : []
     },{
         name : "leaf" ,
         img : "leaf_dot",
         max_population : 10 ,
         id : 201 ,
+        resource : []
     },{
         name : "deepsea" ,
         img : "deepwater_dot",
         max_population : 0 ,
         id : 202 ,
+        resource : []
     },
 ] 
 
@@ -187,12 +221,14 @@ class BiomeDB {
                 img: "water_dot",
                 max_population: 0,
                 id: 254,
+                resource : []
             },
             {
                 name: "land",
                 img: "desert_dot",
                 max_population: 20,
                 id: 255,
+                resource : []
             },
         );
 

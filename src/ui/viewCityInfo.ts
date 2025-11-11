@@ -1,6 +1,7 @@
 import { City, Town } from "../data/map/city";
 import { resource_data } from "../data/map/resource";
 import { uiContainer1 } from "./elms";
+import { mode } from "./menue";
 
 function resourceInfo(r:resource_data[]) : string{
     let result = "" ;
@@ -23,7 +24,7 @@ export function viewCityInfo (city:Town) : void{
         }
         
     }
-    if(uiContainer1){
+    if(uiContainer1 && mode == "city"){
         uiContainer1.innerHTML = `
         <style>
         #cityInfo th{
