@@ -42,7 +42,7 @@ export class GameDatas extends Container{
      * @returns isSuccess
      */
     public postCity(p:Vector2,cityName:string): boolean{
-        const [arr,flag] = this.getAreaBiome(p,2) ;
+        const [arr,flag] = this.getAreaBiome(p,4) ;
         if(flag){
             let max_poplation = 0 ;
             for(let i = 0 ; i < arr.length ; i ++){

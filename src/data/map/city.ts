@@ -2,6 +2,7 @@ import { Assets, Sprite, Texture } from "pixi.js";
 import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
 import { queue } from "../../ui/queue";
+import { biomes } from "../biomes";
 
 export class Town extends Sprite{
     public v2position : Vector2 ;
@@ -27,6 +28,15 @@ export class Town extends Sprite{
 
         // game.maptag20.postTestPin(position,townName)
     }
+    public upDataMaxPopulation (arr81_biome:Uint8Array) {
+        this.max_poplation = 0 ;
+        for(let i = 0 ; i < arr81_biome.length ; i ++){
+            const b = biomes.getById( arr81_biome[i])
+            if(typeof b == "undefined")
+                continue ;
+            this.max_poplation += b.max_population ;
+        }
+    }
     private async loadImg(imgname:string){
         const tex = await Assets.load(`src/graphic/img/mapobj/${imgname}`) as Texture;
         
@@ -39,8 +49,6 @@ export class Town extends Sprite{
         tex.source.scaleMode ='nearest'
         this.texture = tex ;
         this.visible = true;
-
-        
     }
 }
 export class City extends Town{
