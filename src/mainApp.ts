@@ -6,7 +6,8 @@ import { size, Vector2 } from "./type";
 import { testfunc } from "./test";
 import { MapTag20 } from "./data/map/maptag20";
 import { loadScreen } from "./ui/elms";
-import "./ui/event"
+import { viewCityInfo } from "./ui/viewCityInfo";
+import { queue } from "./ui/queue";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -20,6 +21,13 @@ export class MainApp extends Application {
   
   public worldSize : size ;
 
+  public padding : number = 64 ;
+  
+  public nextTurn(){
+    this.gamedata.nextTurn() ;
+    const [f,q] = queue.town.getQueue() ;
+    if(f)viewCityInfo(q)
+  }
   constructor(
     worldSize : size ,
   ){
@@ -34,7 +42,11 @@ export class MainApp extends Application {
     await Assets.load('src/graphic/texture-maptile/tileset.json');
     //tilesetTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
     await this.init({ background: '#000000ff', resizeTo: window });
-    document.body.appendChild(this.canvas);
+    const inElm = document.getElementById("pixi-container") ;
+    if(inElm != null){
+      inElm.appendChild(this.canvas);
+    }
+      
 
     // ViewPort
     this.viewport = new Viewport({
@@ -65,6 +77,12 @@ export class MainApp extends Application {
       minScale:0.5,
       maxScale:30,
     })
+    this.viewport.clamp({
+      left: 0 - this.padding ,
+      top: 0 - this.padding ,
+      right: this.worldSize.width*ChunkArea.width + this.padding ,
+      bottom: this.worldSize.height*ChunkArea.height + this.padding 
+    });
     this.viewport.on("mousemove",(event)=>{
       const worldPosition = this.viewport.toWorld(event.global);
       this.vieportMousePosition.x = Math.floor(worldPosition.x );
@@ -75,8 +93,10 @@ export class MainApp extends Application {
     // @ts-ignore
     this.ticker.add((time) => {
       this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
-      this.gamedata.cities.major.visible = 2 <= this.viewport.scale.x 
-      this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x 
+      if(this.gamedata.cities.visible){
+        this.gamedata.cities.major.visible = 2 <= this.viewport.scale.x 
+        this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x 
+      }
     });
 
     if(loadScreen)

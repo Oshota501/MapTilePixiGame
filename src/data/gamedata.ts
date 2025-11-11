@@ -42,7 +42,7 @@ export class GameDatas extends Container{
      * @returns isSuccess
      */
     public postCity(p:Vector2,cityName:string): boolean{
-        const [arr,flag] = this.getAreaBiome(p,2) ;
+        const [arr,flag] = this.getAreaBiome(p,4) ;
         if(flag){
             let max_poplation = 0 ;
             for(let i = 0 ; i < arr.length ; i ++){
@@ -89,6 +89,23 @@ export class GameDatas extends Container{
 
     public lines = new LineContainer ;
     
+
+    public nextTurn(){
+        const c = this.cities.city ;
+        for(let i = 0 ; i < c.length ; i ++){
+            const e = c[i] ;
+            const [b,f] = this.getAreaBiome(e.v2position,4);
+            if(f){
+                const r = random.nextInt(Math.floor(e.max_poplation/160))
+                if(!(e.poplation+r > e.max_poplation)){
+                    e.poplation += r 
+                }
+                e.resource.updata(b,e.poplation) ;
+                
+            }
+        }
+    }
+
     constructor(worldSize : size){
         super();
         this.s = worldSize ;

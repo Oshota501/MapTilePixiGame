@@ -112,6 +112,35 @@ const d_biomes : biome[] = [
         id : 50,
     },
     // 100 ~ 人工物関係
+    // 畑 小麦 100~103
+    {
+        name : "dilapidatedWeatField" ,
+        img : "weatField_dot",
+        max_population : 350 ,
+        id : 100,
+    },{
+        name : "nomalWeatField" ,
+        img : "weatField_dot",
+        max_population : 550 ,
+        id : 101,
+    },{
+        name : "fertileWeatField" ,
+        img : "weatField_dot",
+        max_population : 750 ,
+        id : 102,
+    },
+    // 米
+    {
+        name : "nomalRiceField" ,
+        img : "riceField_dot",
+        max_population : 650 ,
+        id : 101,
+    },{
+        name : "fertileRiceField" ,
+        img : "riceField_dot",
+        max_population : 850 ,
+        id : 102,
+    },
     // 190 ~ ゲーム要素
     {
         name : "wall" ,
@@ -221,4 +250,6 @@ export const biomesID = {
     sea : 254 ,
     land : 255 ,
     river : 50 ,
+    weat : [100,101,102] ,
+    rice : [103,104] ,
 }

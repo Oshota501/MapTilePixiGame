@@ -1,6 +1,9 @@
 import { Assets, Sprite, Texture } from "pixi.js";
 import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
+import { queue } from "../../ui/queue";
+import { biomes } from "../biomes";
+import { viewCityInfo } from "../../ui/viewCityInfo";
 
 export class Town extends Sprite{
     public v2position : Vector2 ;
@@ -11,9 +14,7 @@ export class Town extends Sprite{
     constructor(position:Vector2,poplation:number, max_poplation:number,townName:string,img_name="village.png"){
         super();
         this.on('click',(event)=>{
-            console.log(`${this.townName}\n人口 : ${this.poplation}/${this.max_poplation}`)
             event.stopPropagation();
-
         })
         this.v2position = position ;
         this.max_poplation = max_poplation ;
@@ -25,6 +26,15 @@ export class Town extends Sprite{
         this.loadImg (img_name) ;
 
         // game.maptag20.postTestPin(position,townName)
+    }
+    public upDataMaxPopulation (arr81_biome:Uint8Array) {
+        this.max_poplation = 0 ;
+        for(let i = 0 ; i < arr81_biome.length ; i ++){
+            const b = biomes.getById( arr81_biome[i])
+            if(typeof b == "undefined")
+                continue ;
+            this.max_poplation += b.max_population ;
+        }
     }
     private async loadImg(imgname:string){
         const tex = await Assets.load(`src/graphic/img/mapobj/${imgname}`) as Texture;
@@ -38,8 +48,6 @@ export class Town extends Sprite{
         tex.source.scaleMode ='nearest'
         this.texture = tex ;
         this.visible = true;
-
-        
     }
 }
 export class City extends Town{
@@ -59,11 +67,17 @@ export class City extends Town{
         this.cityName = cityName ;
 
         this.on('click',(event)=>{
-            console.log("食材：",this.resource.foods)
-            console.log("素材：",this.resource.material)
+            // console.log("食材：",this.resource.foods)
+            // console.log("素材：",this.resource.material)
             event.stopPropagation();
+            queue.town.setQueue(this)
+            viewCityInfo(this);
 
         })
+    }
+    override upDataMaxPopulation (arr81_biome:Uint8Array) {
+        super.upDataMaxPopulation(arr81_biome)
+        this.resource.updata(arr81_biome,this.poplation) ;
     }
     /**
      * - 都市圏人口の合計

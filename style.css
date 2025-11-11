@@ -1,3 +1,7 @@
+:root {
+    --sidebar-width: 14rem; /* 必要に応じて調整 */
+}
+
 #loading-screen{
     width: 100vw;
     height: 100vh;
@@ -6,4 +10,65 @@
     text-align: center;
     font-size: 4rem;
     background-color: white;
+}
+/* サイドバーのスタイル */
+#ui_container_1{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--sidebar-width);    /* 幅を固定 */
+    padding: 12px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.726);
+    color: white;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+/* close をサイドバーの右端にくっける */
+#close{
+    position: fixed;
+    left: calc(var(--sidebar-width) + 8px); /* サイドバーの右 + マージン */
+    top: 0.3rem;                               /* 上位置は調整可能 */
+    display: flex;
+    align-items: center;
+    z-index: 10001;
+    background-color: rgba(17, 19, 23, 0.726);
+    padding: 0.4rem;
+    border-radius: 0.2rem;
+    color:white;
+    transition: 0.3s;
+}
+#close:hover{
+    background-color: black;
+}
+/* ローディング画面がサイドバーより上に来る場合は z-index を大きく */
+#loading-screen {
+    z-index: 10000;
+}
+
+#nextTurn{
+    text-align: center;
+    width: 15rem;
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    z-index: 10002; /* サイドバーの close より上に表示 */
+    background-color: rgba(17, 19, 23, 0.86);
+    color: #fff;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.35rem;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    font-size: 2rem;
+}
+/* ホバーで視覚フィードバック */
+#nextTurn:hover{
+    background-color: rgba(17, 19, 23, 1);
 }

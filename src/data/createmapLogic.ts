@@ -1,8 +1,8 @@
 import { ChunkArea } from "./chunk";
-import { size, Vector2 } from "../type";
+import { Vector2 } from "../type";
 import { GameDatas } from "./gamedata";
 import { random } from "../mt/random";
-import { biomes, biomesID } from "./biomes";
+import { biomes } from "./biomes";
 import { terrain_CreateLogicType, terrains } from "./terrain";
 
 type CreateMapParamater = {
@@ -47,7 +47,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
     const c = gamedata.chunks ;
     const add_terrainsOfLand : terrain[] = [] ;
     const add_terrainsOfSea : terrain[] = [] ;
-    const add_river : Vector2[] = [] ;
+    // const add_river : Vector2[] = [] ;
     
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
@@ -154,89 +154,89 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
         if(190 <= r && r < 200)return forNot190(arr9,island);
         return r ;
     }
-    // かわ
-    for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
-        const arr = c[x+y*mapsize.width].geographyData ;
-        for(let i = 0 ; i < arr.length ; i ++){
-            const position = new Vector2(
-                x*ChunkArea.width + i%ChunkArea.width ,
-                y*ChunkArea.height + Math.floor(i/ChunkArea.height)
-            )
-            // const [land,] = gamedata.getAreaBiomeLand25(position) ;
-            if( 
-                arr[i] >= 40 && arr[i] < 50 
-            ){
-                if(random.next()<0.002){
-                    add_river.push(position)
-                }
-            }else if(arr[i] >= 10 && arr[i] < 20 ){
-                if(random.next()<0.0001){
-                    add_river.push(position)
-                }
-            }
-        }
-    }
-    const skip_river = new Set<number> ;
-    for(let i = 0 ; i < add_river.length ; i ++ ){
-        if(skip_river.has(i)){
-            // console.log(i)
-            continue ;
-        }
-        // game.maptag20.postTestPin(add_river[i],"river start")
-        for(let j = i+1 ; j < add_river.length ; j ++){
-            if(i==j){
-                continue ;
-            }else{
-                if(Vector2.distance(add_river[i],add_river[j] ) <= 20 ){
-                    skip_river.add(j)
-                };
-            }
-        }
-    }
-    for(let i = 0 ; i < add_river.length ; i ++ ){
-        if(skip_river.has(i)){
-            continue ;
-        }
-        let min_riversea = Vector2.distance(add_river[i],add_terrainsOfSea[0].p);
-        let index = 0 ;
-        for(let j = 0 ; j < add_terrainsOfSea.length ; j ++){
-            const s = Vector2.distance(add_river[i],add_terrainsOfSea[j].p) ;
-            if(s<min_riversea){
-                min_riversea = s ;
-                index = j ;
-            }
-        }
-        const ps_size: size = add_river[i].diff(add_terrainsOfSea[index].p)
-        const abs_f: number = Math.abs(ps_size.width)/(Math.abs(ps_size.width) +  Math.abs(ps_size.height))
-        // console.log(abs_f)
-        let flag = true ;
-        let nowP = add_river[i] ;
-        // gamedata.lines.setLine(add_river[i],add_terrainsOfSea[index].p)
-        while(flag){
-            if(abs_f > random.next()){
-                if(ps_size.width>=0){
-                    nowP.x -- ;
-                }else{
-                    nowP.x ++ ;
-                } 
-            }else{
-                if(ps_size.height>=0){
-                    nowP.y -- ;
-                }else{
-                    nowP.y ++ ;
-                }
-            }
-            const [bio,isSuccess] = gamedata.getPositionBiome(nowP)
-            if(!isSuccess)  break ;
+    // // かわ
+    // for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
+    //     const arr = c[x+y*mapsize.width].geographyData ;
+    //     for(let i = 0 ; i < arr.length ; i ++){
+    //         const position = new Vector2(
+    //             x*ChunkArea.width + i%ChunkArea.width ,
+    //             y*ChunkArea.height + Math.floor(i/ChunkArea.height)
+    //         )
+    //         // const [land,] = gamedata.getAreaBiomeLand25(position) ;
+    //         if( 
+    //             arr[i] >= 40 && arr[i] < 50 
+    //         ){
+    //             if(random.next()<0.002){
+    //                 add_river.push(position)
+    //             }
+    //         }else if(arr[i] >= 10 && arr[i] < 20 ){
+    //             if(random.next()<0.0001){
+    //                 add_river.push(position)
+    //             }
+    //         }
+    //     }
+    // }
+    // const skip_river = new Set<number> ;
+    // for(let i = 0 ; i < add_river.length ; i ++ ){
+    //     if(skip_river.has(i)){
+    //         // console.log(i)
+    //         continue ;
+    //     }
+    //     // game.maptag20.postTestPin(add_river[i],"river start")
+    //     for(let j = i+1 ; j < add_river.length ; j ++){
+    //         if(i==j){
+    //             continue ;
+    //         }else{
+    //             if(Vector2.distance(add_river[i],add_river[j] ) <= 20 ){
+    //                 skip_river.add(j)
+    //             };
+    //         }
+    //     }
+    // }
+    // for(let i = 0 ; i < add_river.length ; i ++ ){
+    //     if(skip_river.has(i)){
+    //         continue ;
+    //     }
+    //     let min_riversea = Vector2.distance(add_river[i],add_terrainsOfSea[0].p);
+    //     let index = 0 ;
+    //     for(let j = 0 ; j < add_terrainsOfSea.length ; j ++){
+    //         const s = Vector2.distance(add_river[i],add_terrainsOfSea[j].p) ;
+    //         if(s<min_riversea){
+    //             min_riversea = s ;
+    //             index = j ;
+    //         }
+    //     }
+    //     const ps_size: size = add_river[i].diff(add_terrainsOfSea[index].p)
+    //     const abs_f: number = Math.abs(ps_size.width)/(Math.abs(ps_size.width) +  Math.abs(ps_size.height))
+    //     // console.log(abs_f)
+    //     let flag = true ;
+    //     let nowP = add_river[i] ;
+    //     // gamedata.lines.setLine(add_river[i],add_terrainsOfSea[index].p)
+    //     while(flag){
+    //         if(abs_f > random.next()){
+    //             if(ps_size.width>=0){
+    //                 nowP.x -- ;
+    //             }else{
+    //                 nowP.x ++ ;
+    //             } 
+    //         }else{
+    //             if(ps_size.height>=0){
+    //                 nowP.y -- ;
+    //             }else{
+    //                 nowP.y ++ ;
+    //             }
+    //         }
+    //         const [bio,isSuccess] = gamedata.getPositionBiome(nowP)
+    //         if(!isSuccess)  break ;
 
-            if(bio>200 || bio == biomesID.river) flag = false ;
-            else(gamedata.changeBiomeAt({
-                x:nowP.x,
-                y:nowP.y,
-                biome_id:biomesID.river 
-            },false))
-        }
-    }
+    //         if(bio>200 || bio == biomesID.river) flag = false ;
+    //         else(gamedata.changeBiomeAt({
+    //             x:nowP.x,
+    //             y:nowP.y,
+    //             biome_id:biomesID.river 
+    //         },false))
+    //     }
+    // }
     // 都市
     let cityCount = 0 ;
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
