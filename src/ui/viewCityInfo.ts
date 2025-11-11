@@ -9,7 +9,32 @@ export function viewCityInfo (city:Town) : void{
             let result = "" ;
             
             for(let i = 0 ; i < city.resource.resourceNames.length ; i ++){
-                let n = city.resource.resource[city.resource.resourceNames[i]][s] ;
+                const resource = city.resource.resource[city.resource.resourceNames[i]] ;
+                let color = "red" ;
+                switch(resource.typ){
+                    case "flesh_foods" :
+                        color = "lightgreen";
+                        break ;
+                    case "foods" :
+                        color = "green" ;
+                        break ;
+                    case "agriculture" :
+                        color = "orange" ;
+                        break ;
+                    case "luxury" :
+                        color = "yellow" ;
+                        break ;
+                    case "materials" :
+                        color = "red" ;
+                        break ;
+                    case "mining_resource" :
+                        color = "lightblue" ;
+                        break ;
+                    case "tools" :
+                        color = "blue" ;
+                        break ;
+                }
+                let n = resource[s] ;
                 if(typeof n == "number"){
                     if(s=="cost")n*= 100 ;
                     n = Math.floor(n)
@@ -18,7 +43,7 @@ export function viewCityInfo (city:Town) : void{
 
                 result += `
                 <tr>
-                    <td>${city.resource.resource[city.resource.resourceNames[i]].name}</td>
+                    <td style="border:2px solid;border-color:${color};">${resource.name}</td>
                     <td>${n}</td>
                 </tr>
                 `
@@ -42,7 +67,7 @@ export function viewCityInfo (city:Town) : void{
         </style>
         <table id="cityInfo" style="border:1px solid;width:100%;">
             <thead>
-                <th colspan="2">${city.townName}</th>
+                <th colspan="2"  style="font-size:1.3rem;font-weight:700;">${city.townName}</th>
             <thead>
             <tbody>
                 <tr>
@@ -54,19 +79,19 @@ export function viewCityInfo (city:Town) : void{
                     <td>${city.max_poplation}人</td>
                 </tr>
                 <tr>
-                    <td colspan="2">価格</td>
+                    <td colspan="2" style="font-size:1.3rem;font-weight:700;">価格</td>
                 </tr>
                 ${handleIsCity("cost")}
                 <tr>
-                    <td colspan="2">保管庫</td>
+                    <td colspan="2" style="font-size:1.3rem;font-weight:700;">保管庫</td>
                 </tr>
                 ${handleIsCity("stock")}
                 <tr>
-                    <td colspan="2">供給</td>
+                    <td colspan="2" style="font-size:1.3rem;font-weight:700;">供給</td>
                 </tr>
                 ${handleIsCity("in")}
                 <tr>
-                    <td colspan="2">需要</td>
+                    <td colspan="2" style="font-size:1.3rem;font-weight:700;">需要</td>
                 </tr>
                 ${handleIsCity("out")}
                 

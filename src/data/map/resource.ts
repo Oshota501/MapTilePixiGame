@@ -1,10 +1,11 @@
 import { random } from "../../mt/random";
 import { biomes } from "../biomes";
 
-export type resource_variety = "weat" | "fish" | "rice" | "wood"
+export type resource_variety = "beaf" | "chicken" | "weat" | "fish" | "rice" | "wood" | "apple" | "rock"|"iron"|"gold"|"copper"|"silver"|"tin"|"coal"|"limestone"|"bauxite" | "bricks" | "wool" | "milk" | "pickaxe" | "axe" | "hoe" | "tea" | "chocolate"
 export type resource_index = "name" | "message" | "in" | "out" | "stock" | "base" | "cost" | "ft"
+export type resource_type = "flesh_foods" | "foods" | "materials" | "mining_resource" | "agriculture" | "tools" | "luxury"
 export type resource_data = {
-    name : string ;
+    name : resource_variety ;
     message : string ;
     in : number ;
     out : number ;
@@ -12,11 +13,12 @@ export type resource_data = {
     stock : number ;
     base : number ;
     ft: number ;
+    typ : resource_type
 }
 export class MaterialResource {
-    public resource = {
+    public resource: Record<resource_variety, resource_data> = {
         fish:{
-            name : "fish",
+            name : "fish" ,
             message : "海に面していると生産可能です。",
             in:0,
             out:0,
@@ -24,26 +26,51 @@ export class MaterialResource {
             stock:60,
             base:1200,
             ft:0.3,
+            typ:"flesh_foods"
+        },
+        beaf:{
+            name : "beaf" ,
+            message : "狩猟で一定量手に入ります。放牧することで生産可能です。",
+            in:0,
+            out:0,
+            cost:1600,
+            stock:60,
+            base:1600,
+            ft:0.4,
+            typ:"flesh_foods"
+        },
+        chicken:{
+            name : "chicken" ,
+            message : "狩猟で一定量手に入ります。放牧することで生産可能です。",
+            in:0,
+            out:0,
+            cost:600,
+            stock:60,
+            base:600,
+            ft:0.5,
+            typ:"flesh_foods"
         },
         rice:{
             name : "rice",
-            message : "水田があると生産可能です。",
+            message : "最終で一定量手に入ります。水田があると生産可能です。",
             in:0,
             out:0,
             cost:380,
             stock:300,
             base:380,
             ft:0.9,
+            typ:"foods"
         },
         weat:{
             name : "weat",
-            message : "小麦畑があると生産可能です。",
+            message : "最終で一定量手に入ります。小麦畑があると生産可能です。",
             in:0,
             out:0,
             cost:380,
             stock:300,
             base:380,
             ft:0.9,
+            typ:"foods"
         },
         wood:{
             name : "wood",
@@ -54,11 +81,217 @@ export class MaterialResource {
             stock:300,
             base:380,
             ft:0.6,
+            typ:"materials"
+        },
+        apple:{
+            name : "apple",
+            message : "森があると生産可能です。",
+            in:0,
+            out:0,
+            cost:800,
+            stock:300,
+            base:800,
+            ft:0.13,
+            typ:"flesh_foods"
+        },
+        rock:{
+            name : "rock",
+            message : "森があると生産可能です。",
+            in:0,
+            out:0,
+            cost:250,
+            stock:300,
+            base:250,
+            ft:0.2,
+            typ:"mining_resource"
+        },
+        iron:{
+            name : "iron",
+            message : "森があると生産可能です。",
+            in:0,
+            out:0,
+            cost:800,
+            stock:100,
+            base:800,
+            ft:0.2,
+            typ:"mining_resource"
+        },
+        copper:{
+            name : "copper",
+            message : "森があると生産可能です。",
+            in:0,
+            out:0,
+            cost:3400,
+            stock:60,
+            base:3400,
+            ft:0.1,
+            typ:"mining_resource"
+        },
+        silver:{
+            name : "silver",
+            message : "森があると生産可能です。",
+            in:0,
+            out:0,
+            cost:6700,
+            stock:30,
+            base:6700,
+            ft:0.02,
+            typ:"mining_resource"
+        },
+        gold:{
+            name : "gold",
+            message : "鉱山で産出します。",
+            in:0,
+            out:0,
+            cost:16800,
+            stock:0,
+            base:16800,
+            ft:0.004,
+            typ:"mining_resource"
+        },
+        tin:{
+            name : "tin",
+            message : "鉱山で産出します。",
+            in:0,
+            out:0,
+            cost:860,
+            stock:300,
+            base:860,
+            ft:0.2,
+            typ:"mining_resource"
+        },
+        limestone:{
+            name : "limestone",
+            message : "鉱山で産出します。",
+            in:0,
+            out:0,
+            cost:300,
+            stock:300,
+            base:300,
+            ft:0.2,
+            typ:"mining_resource"
+        },
+        bauxite:{
+            name : "bauxite",
+            message : "鉱山で産出します。",
+            in:0,
+            out:0,
+            cost:500,
+            stock:300,
+            base:500,
+            ft:0.2,
+            typ:"mining_resource"
+        },
+        coal:{
+            name : "coal",
+            message : "鉱山で産出します。",
+            in:0,
+            out:0,
+            cost:800,
+            stock:300,
+            base:800,
+            ft:0.55,
+            typ:"mining_resource"
+        },
+        bricks:{
+            name : "bricks",
+            message : "粘土質の土地から産出します。",
+            in:0,
+            out:0,
+            cost:800,
+            stock:300,
+            base:800,
+            ft:0.08,
+            typ:"materials"
+        },
+        wool:{
+            name : "wool",
+            message : "放牧することで生産可能です。",
+            in:0,
+            out:0,
+            cost:400,
+            stock:300,
+            base:400,
+            ft:0.35,
+            typ:"agriculture"
+        },
+        milk:{
+            name : "milk",
+            message : "放牧することで生産可能です。",
+            in:0,
+            out:0,
+            cost:400,
+            stock:300,
+            base:400,
+            ft:0.28,
+            typ:"agriculture"
+        },
+        pickaxe:{
+            name : "pickaxe",
+            message : "工場を作ることで生産可能です。",
+            in:0,
+            out:0,
+            cost:3000,
+            stock:100,
+            base:3000,
+            ft:0.06,
+            typ:"tools"
+        },
+        axe:{
+            name : "axe",
+            message : "工場を作ることで生産可能です。",
+            in:0,
+            out:0,
+            cost:2800,
+            stock:100,
+            base:2800,
+            ft:0.06,
+            typ:"tools"
+        },
+        hoe:{
+            name : "hoe",
+            message : "工場を作ることで生産可能です。",
+            in:0,
+            out:0,
+            cost:2400,
+            stock:100,
+            base:2400,
+            ft:0.06,
+            typ:"tools"
+        },
+        tea:{
+            name : "tea",
+            message : "茶畑を作ることで生産可能です。",
+            in:0,
+            out:0,
+            cost:1600,
+            stock:100,
+            base:1600,
+            ft:0.04,
+            typ:"luxury"
+        },
+        chocolate:{
+            name : "chocolate",
+            message : "カカオ農場を作ると生産可能です。",
+            in:0,
+            out:0,
+            cost:1600,
+            stock:100,
+            base:1600,
+            ft:0.01,
+            typ:"luxury"
         },
     }
 
     public resourceNames : resource_variety [] = [
-        "fish","rice","weat","wood"
+        "beaf","chicken","fish","apple",
+        "rice","weat",
+        "wood","bricks",
+        "wool" , "milk" ,
+        "pickaxe" , "axe" ,"hoe" ,
+        "tea" , "chocolate" ,
+        "rock","iron","copper","gold","silver","tin","coal","limestone","bauxite",
+        
     ]
     public goTurn(){
         const setup = function(elm:resource_data){

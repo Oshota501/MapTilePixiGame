@@ -20,14 +20,21 @@ const d_biomes : biome[] = [
         id : 0, 
         resource : [
             {rName:"weat",in:6},
-            {rName:"rice",in:3}
+            {rName:"rice",in:3},
+            {rName:"rock",in:1},
+            {rName:"beaf",in:1},
+            {rName:"chicken",in:1},
         ]
     },{
         name : "savanna" ,
         img : "savanna_dot",
         max_population : 80 ,
         id : 1, 
-        resource : []
+        resource : [
+            {rName:"rock",in:1},
+            {rName:"beaf",in:1},
+            {rName:"chicken",in:1},
+        ]
     },{
         name : "fertileplank" ,
         img : "fertileplank_dot",
@@ -35,7 +42,10 @@ const d_biomes : biome[] = [
         id : 2, 
         resource : [
             {rName:"weat",in:13},
-            {rName:"rice",in:9}
+            {rName:"rice",in:9},
+            {rName:"rock",in:1},
+            {rName:"beaf",in:1},
+            {rName:"chicken",in:1},
         ]
     },
     // 10~20 森
@@ -46,6 +56,9 @@ const d_biomes : biome[] = [
         id : 10 ,
         resource : [
             {rName:"wood",in:16},
+            {rName:"apple",in:6},
+            {rName:"beaf",in:1},
+            {rName:"chicken",in:1},
         ]
     },{
         name : "jungle" ,
@@ -54,6 +67,8 @@ const d_biomes : biome[] = [
         id : 11 ,
         resource : [
             {rName:"wood",in:24},
+            {rName:"beaf",in:1},
+            {rName:"chicken",in:1},
         ]
     },{
         name : "taiga" ,
@@ -62,6 +77,9 @@ const d_biomes : biome[] = [
         id : 12 ,
         resource : [
             {rName:"wood",in:19},
+            {rName:"rock",in:4},
+            {rName:"beaf",in:1},
+            {rName:"chicken",in:1},
         ]
     },{
         name : "shallow_taiga" ,
@@ -70,6 +88,7 @@ const d_biomes : biome[] = [
         id : 13 ,
         resource : [
             {rName:"wood",in:12},
+            {rName:"rock",in:6},
         ]
     },
     // 20~40 乾燥帯
@@ -84,13 +103,17 @@ const d_biomes : biome[] = [
         img : "rock_dot",
         max_population : 10 ,
         id : 21 ,
-        resource : []
+        resource : [
+            {rName:"rock",in:12},
+        ]
     },{
         name : "grandcanyon" ,
         img : "dirt_dot",
         max_population : 10 ,
         id : 22 ,
-        resource : []
+        resource : [
+            {rName:"rock",in:9},
+        ]
     },{
         name : "oasis" ,
         img : "wetland_dot",
@@ -107,37 +130,50 @@ const d_biomes : biome[] = [
         img : "snow_dot",
         max_population : 20 ,
         id : 40 ,
-        resource : []
+        resource : [
+            {rName:"beaf",in:1},
+            {rName:"chicken",in:1},
+        ]
     },{
         name : "mountain" ,
         img : "rock_dot",
         max_population : 10 ,
         id : 41 ,
-        resource : []
+        resource : [
+            {rName:"rock",in:12},
+        ]
     },{
         name : "mountain" ,
         img : "m1_dot",
         max_population : 10 ,
         id : 42 ,
-        resource : []
+        resource : [
+            {rName:"rock",in:12},
+        ]
     },{
         name : "mountain" ,
         img : "m2_dot",
         max_population : 15 ,
         id : 43 ,
-        resource : []
+        resource : [
+            {rName:"rock",in:12},
+        ]
     },{
         name : "mountain" ,
         img : "m3_dot",
         max_population : 15 ,
         id : 44 ,
-        resource : []
+        resource : [
+            {rName:"rock",in:12},
+        ]
     },{
         name : "mountain" ,
         img : "m4_dot",
         max_population : 15 ,
         id : 45 ,
-        resource : []
+        resource : [
+            {rName:"rock",in:12},
+        ]
     },{
         name : "mountainForest" ,
         img : "forest_dot",
@@ -145,6 +181,9 @@ const d_biomes : biome[] = [
         id : 46 ,
         resource : [
             {rName:"wood",in:14},
+            {rName:"apple",in:12},
+            {rName:"beaf",in:1},
+            {rName:"chicken",in:1},
         ]
     },
     // 50 ~ 60 川
@@ -154,6 +193,7 @@ const d_biomes : biome[] = [
         max_population : 160 ,
         id : 50,
         resource : [
+            {rName:"rock",in:2},
             {rName:"fish",in:2},
         ]
     },
@@ -219,6 +259,7 @@ const d_biomes : biome[] = [
         id : 201 ,
         resource : [
             {rName:"fish",in:35},
+            {rName:"rock",in:2},
         ]
     },{
         name : "deepsea" ,

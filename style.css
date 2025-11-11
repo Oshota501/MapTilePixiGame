@@ -30,6 +30,12 @@
     flex-direction: column;
     gap: 8px;
     align-items: flex-start;
+
+    /* 追加: 子要素がはみ出したら内部でスクロール */
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* スムーズスクロール（モバイル） */
+    /* 必要なら最大幅/高さの調整はここで行ってください */
 }
 
 /* close をサイドバーの右端にくっける */
