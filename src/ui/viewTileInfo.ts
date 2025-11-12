@@ -39,6 +39,10 @@ export function viewTileInfo (v:Vector2) : void{
             <thead>
             <tbody>
                 <tr>
+                    <td>debug:id</td>
+                    <td>${biome.id}</td>
+                </tr>
+                <tr>
                     <td>人口上限</td>
                     <td>${biome.max_population}人</td>
                 </tr>

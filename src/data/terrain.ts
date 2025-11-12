@@ -1,6 +1,7 @@
 import createList from "../mt/createList";
 import { random } from "../mt/random";
 import { Vector2 } from "../type";
+import { biomesID } from "./biomes";
 import { GameDatas } from "./gamedata";
 
 export type terrain_CreateLogicType = {
@@ -260,14 +261,32 @@ export const terrains = new TerrainsDB(
             name : "leaf_sea" ,
             logic : function():number{
                 if(0.1<random.next())
-                    return 201 ;
+                    return  biomesID.leaf ;
                 else
-                    return 200 ;
+                    return biomesID.nomalsea ;
                 
             } ,
             fortune : function(y:number):number{
                 y
                 return 1;
+            },
+            base : 200
+        },{
+            name : "atoll_sea" ,
+            logic : function():number{
+                if(0.06>random.next()){
+                    return biomesID.jungle ;
+                }else if(0.04>random.next()){
+                    return biomesID.desert ;
+                }else if(0.1<random.next())
+                    return biomesID.leaf ;
+                else
+                    return biomesID.nomalsea ;
+                
+            } ,
+            fortune : function(y:number):number{
+                y
+                return (Math.exp(2*(y)**2))
             },
             base : 200
         },
