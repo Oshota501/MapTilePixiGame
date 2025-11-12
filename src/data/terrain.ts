@@ -111,7 +111,6 @@ export const terrains = new TerrainsDB(
             base : 10
         },{
             name : "jungle_forest" ,
-            // @ts-ignore
             logic : function(p:Vector2,gamedata:GameDatas):number{
                 const [land,_] = gamedata.getAreaBiomeLand25(p);
                 if(land>13){
@@ -132,7 +131,6 @@ export const terrains = new TerrainsDB(
             base : 11
         },{
             name : "taiga_forest" ,
-            // @ts-ignore
             logic : function(p:Vector2,gamedata:GameDatas):number{
                 const [,desert,] = gamedata.getAreaBiomeBreakDownCount(p,2,createList(20,40))
                 if(desert>=4){
@@ -165,8 +163,7 @@ export const terrains = new TerrainsDB(
             base : 20
         },{
             name : "plateau_desert" ,
-            // @ts-ignore
-            logic : function(p:Vector2,gamedata:GameDatas):number{
+            logic : function():number{
                 const r = random.next() ;
                 if(r<0.29)
                     return 21 ;
@@ -183,8 +180,7 @@ export const terrains = new TerrainsDB(
             base : 21
         },{
             name : "savana" ,
-            // @ts-ignore
-            logic : function(p:Vector2,gamedata:GameDatas):number{
+            logic : function():number{
                 return 1 ;
             } ,
             fortune : function(y:number):number{ 
@@ -193,7 +189,6 @@ export const terrains = new TerrainsDB(
             base : 1
         },{
             name : "nomal_mountain" ,
-            // @ts-ignore
             logic : function(p:Vector2,gamedata:GameDatas):number{
                 const r = random.next() ;
                 let [,,notmountain] = gamedata.getAreaBiomeBreakDownCount(p,3,createList(40,50));
@@ -212,15 +207,13 @@ export const terrains = new TerrainsDB(
                 else
                     return 44 ;
             } ,
-            // @ts-ignore
-            fortune : function(y:number){ 
+            fortune : function(){ 
                 return 8
              } ,
              base : 41
         },{
             name : "desert_cold" ,
-            // @ts-ignore
-            logic : function(p:Vector2,gamedata:GameDatas):number{
+            logic : function():number{
                 if(random.next()<0.96)
                     return 42 ;
                 else 
@@ -232,8 +225,7 @@ export const terrains = new TerrainsDB(
             base : 42
         },{
             name : "nomal_snowfield" ,
-            // @ts-ignore
-            logic : function(p:Vector2,gamedata:GameDatas):number{
+            logic : function():number{
                 if(random.next()<0.96)
                     return 40 ;
                 else 
@@ -261,7 +253,21 @@ export const terrains = new TerrainsDB(
             } ,
             fortune : function(y:number):number{
                 y
-                return 20 
+                return 20 ;
+            },
+            base : 200
+        },{
+            name : "leaf_sea" ,
+            logic : function():number{
+                if(0.1<random.next())
+                    return 201 ;
+                else
+                    return 200 ;
+                
+            } ,
+            fortune : function(y:number):number{
+                y
+                return 1;
             },
             base : 200
         },
