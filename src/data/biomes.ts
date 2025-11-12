@@ -8,7 +8,8 @@ export type biome = {
     resource : {
         rName : resource_variety
         in : number ,
-    }[]
+    }[],
+    devcost : number ,
 }
 const d_biomes : biome[] = [
     // 0番台 land
@@ -24,7 +25,8 @@ const d_biomes : biome[] = [
             {rName:"rock",in:1},
             {rName:"beaf",in:1},
             {rName:"chicken",in:1},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "savanna" ,
         img : "savanna_dot",
@@ -34,7 +36,8 @@ const d_biomes : biome[] = [
             {rName:"rock",in:1},
             {rName:"beaf",in:1},
             {rName:"chicken",in:1},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "fertileplank" ,
         img : "fertileplank_dot",
@@ -46,7 +49,8 @@ const d_biomes : biome[] = [
             {rName:"rock",in:1},
             {rName:"beaf",in:1},
             {rName:"chicken",in:1},
-        ]
+        ],
+        devcost:90000,
     },
     // 10~20 森
     {
@@ -59,7 +63,8 @@ const d_biomes : biome[] = [
             {rName:"apple",in:6},
             {rName:"beaf",in:1},
             {rName:"chicken",in:1},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "jungle" ,
         img : "jungle_dot",
@@ -69,7 +74,8 @@ const d_biomes : biome[] = [
             {rName:"wood",in:24},
             {rName:"beaf",in:1},
             {rName:"chicken",in:1},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "taiga" ,
         img : "taiga_dot",
@@ -80,7 +86,8 @@ const d_biomes : biome[] = [
             {rName:"rock",in:4},
             {rName:"beaf",in:1},
             {rName:"chicken",in:1},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "shallow_taiga" ,
         img : "deva_taiga_dot",
@@ -89,7 +96,8 @@ const d_biomes : biome[] = [
         resource : [
             {rName:"wood",in:12},
             {rName:"rock",in:6},
-        ]
+        ],
+        devcost:90000,
     },
     // 20~40 乾燥帯
     {
@@ -97,7 +105,8 @@ const d_biomes : biome[] = [
         img : "desert_dot",
         max_population : 10 ,
         id : 20 ,
-        resource : []
+        resource : [],
+        devcost:90000,
     },{
         name : "rubble" ,
         img : "rock_dot",
@@ -105,7 +114,8 @@ const d_biomes : biome[] = [
         id : 21 ,
         resource : [
             {rName:"rock",in:12},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "grandcanyon" ,
         img : "dirt_dot",
@@ -113,7 +123,8 @@ const d_biomes : biome[] = [
         id : 22 ,
         resource : [
             {rName:"rock",in:9},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "oasis" ,
         img : "wetland_dot",
@@ -122,7 +133,8 @@ const d_biomes : biome[] = [
         resource : [
             {rName:"wood",in:8},
             {rName:"fish",in:2},
-        ]
+        ],
+        devcost:90000,
     },
     // 40~50 山岳、寒帯
     {
@@ -133,7 +145,8 @@ const d_biomes : biome[] = [
         resource : [
             {rName:"beaf",in:1},
             {rName:"chicken",in:1},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "mountain" ,
         img : "rock_dot",
@@ -141,7 +154,8 @@ const d_biomes : biome[] = [
         id : 41 ,
         resource : [
             {rName:"rock",in:12},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "mountain" ,
         img : "m1_dot",
@@ -149,7 +163,8 @@ const d_biomes : biome[] = [
         id : 42 ,
         resource : [
             {rName:"rock",in:12},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "mountain" ,
         img : "m2_dot",
@@ -157,7 +172,8 @@ const d_biomes : biome[] = [
         id : 43 ,
         resource : [
             {rName:"rock",in:12},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "mountain" ,
         img : "m3_dot",
@@ -165,7 +181,8 @@ const d_biomes : biome[] = [
         id : 44 ,
         resource : [
             {rName:"rock",in:12},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "mountain" ,
         img : "m4_dot",
@@ -173,7 +190,8 @@ const d_biomes : biome[] = [
         id : 45 ,
         resource : [
             {rName:"rock",in:12},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "mountainForest" ,
         img : "forest_dot",
@@ -184,7 +202,8 @@ const d_biomes : biome[] = [
             {rName:"apple",in:12},
             {rName:"beaf",in:1},
             {rName:"chicken",in:1},
-        ]
+        ],
+        devcost:90000,
     },
     // 50 ~ 60 川
     {
@@ -195,7 +214,8 @@ const d_biomes : biome[] = [
         resource : [
             {rName:"rock",in:2},
             {rName:"fish",in:2},
-        ]
+        ],
+        devcost:90000,
     },
     // 100 ~ 人工物関係
     // 畑 小麦 100~103
@@ -206,19 +226,22 @@ const d_biomes : biome[] = [
         id : 100,
         resource : [
             {rName:"weat",in:120},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "nomalWeatField" ,
         img : "weatField_dot",
         max_population : 550 ,
         id : 101,
-        resource : []
+        resource : [],
+        devcost:90000,
     },{
         name : "fertileWeatField" ,
         img : "weatField_dot",
         max_population : 750 ,
         id : 102,
-        resource : []
+        resource : [],
+        devcost:90000,
     },
     // 米
     {
@@ -226,13 +249,15 @@ const d_biomes : biome[] = [
         img : "riceField_dot",
         max_population : 650 ,
         id : 101,
-        resource : []
+        resource : [],
+        devcost:90000,
     },{
         name : "fertileRiceField" ,
         img : "riceField_dot",
         max_population : 850 ,
         id : 102,
-        resource : []
+        resource : [],
+        devcost:90000,
     },
     // 190 ~ ゲーム要素
     {
@@ -240,7 +265,8 @@ const d_biomes : biome[] = [
         img : "wall_dot",
         max_population : 0 ,
         id : 190 ,
-        resource : []
+        resource : [],
+        devcost:90000,
     },
     
     // 200番台 sea
@@ -251,7 +277,8 @@ const d_biomes : biome[] = [
         id : 200 ,
         resource : [
             {rName:"fish",in:30},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "leaf" ,
         img : "leaf_dot",
@@ -260,7 +287,8 @@ const d_biomes : biome[] = [
         resource : [
             {rName:"fish",in:35},
             {rName:"rock",in:2},
-        ]
+        ],
+        devcost:90000,
     },{
         name : "deepsea" ,
         img : "deepwater_dot",
@@ -268,7 +296,8 @@ const d_biomes : biome[] = [
         id : 202 ,
         resource : [
             {rName:"fish",in:28},
-        ]
+        ],
+        devcost:1650000,
     },
 ] 
 
@@ -291,14 +320,16 @@ class BiomeDB {
                 img: "water_dot",
                 max_population: 0,
                 id: 254,
-                resource : []
+                resource : [],
+                devcost:0,
             },
             {
                 name: "land",
                 img: "desert_dot",
                 max_population: 20,
                 id: 255,
-                resource : []
+                resource : [],
+                devcost:0,
             },
         );
 
