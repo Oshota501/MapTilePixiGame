@@ -75,15 +75,15 @@ export class MainApp extends Application {
 
     this.viewport.scale = 7 ;
     this.viewport.clampZoom({
-      minScale:0.5,
+      minScale:1,
       maxScale:30,
     })
-    this.viewport.clamp({
-      left: 0 - this.padding ,
-      top: 0 - this.padding ,
-      right: this.worldSize.width*ChunkArea.width + this.padding ,
-      bottom: this.worldSize.height*ChunkArea.height + this.padding 
-    });
+    // this.viewport.clamp({
+    //   left: 0 - this.padding ,
+    //   top: 0 - this.padding ,
+    //   right: this.worldSize.width*ChunkArea.width + this.padding ,
+    //   bottom: this.worldSize.height*ChunkArea.height + this.padding 
+    // });
     this.viewport.on("mousemove",(event)=>{
       const worldPosition = this.viewport.toWorld(event.global);
       this.vieportMousePosition.x = Math.floor(worldPosition.x );

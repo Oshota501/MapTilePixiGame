@@ -356,6 +356,16 @@ export const biomesID = {
     sea : 254 ,
     land : 255 ,
     river : 50 ,
-    weat : [100,101,102] ,
-    rice : [103,104] ,
+
+    forests : [10,11,12,13] ,
+    forest : 10 ,
+    jungle : 11 ,
+
+    seas : [200,201,202] ,
+    nomalsea : 200 ,
+    deepsea : 202 ,
+    leaf : 201 ,
+
+    dry : [20,21,22,23] ,
+    desert : 20 ,
 }

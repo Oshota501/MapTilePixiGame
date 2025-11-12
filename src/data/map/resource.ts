@@ -1,9 +1,9 @@
 import { random } from "../../mt/random";
 import { biomes } from "../biomes";
 
-export type resource_variety = "beaf" | "chicken" | "weat" | "fish" | "rice" | "wood" | "apple" | "rock"|"iron"|"gold"|"copper"|"silver"|"tin"|"coal"|"limestone"|"bauxite" | "bricks" | "wool" | "milk" | "pickaxe" | "axe" | "hoe" | "tea" | "chocolate"
-export type resource_index = "name" | "message" | "in" | "out" | "stock" | "base" | "cost" | "ft"
-export type resource_type = "flesh_foods" | "foods" | "materials" | "mining_resource" | "agriculture" | "tools" | "luxury"
+export type resource_variety = "beaf" | "chicken" | "weat" | "fish" | "rice" | "wood" | "apple" | "rock"|"iron"|"gold"|"copper"|"silver"|"tin"|"coal"|"limestone"|"bauxite" | "bricks" | "wool" | "milk" | "pickaxe" | "axe" | "hoe" | "tea" | "chocolate" ;
+export type resource_index = "name" | "message" | "in" | "out" | "stock" | "base" | "cost" | "ft" ;
+export type resource_type = "flesh_foods" | "foods" | "materials" | "mining_resource" | "agriculture" | "tools" | "luxury" ;
 export type resource_data = {
     name : resource_variety ;
     message : string ;
