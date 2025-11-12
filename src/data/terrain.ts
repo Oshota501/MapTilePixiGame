@@ -286,7 +286,7 @@ export const terrains = new TerrainsDB(
             } ,
             fortune : function(y:number):number{
                 y
-                return (Math.exp(2*(y)**2))
+                return (Math.exp(2*(y-0.5)**2))
             },
             base : 200
         },
