@@ -349,9 +349,9 @@ export class MaterialResource {
             }
         }
         if(count >= this.resourceNames.length/2){
-            this.setHappy(this.happy + random.nextInt(6)-1) ;
+            this.setHappy(this.happy + random.nextInt(6)+1) ;
         }else{
-            this.setHappy(this.happy - random.nextInt(6)+1) ;
+            this.setHappy(this.happy - random.nextInt(6)-1) ;
         }
               
     }
