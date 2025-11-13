@@ -2,8 +2,10 @@ import { Container } from "pixi.js";
 import { DynamicObject } from "./DynamicObject";
 import { game } from "../main";
 import { ChunkArea } from "../data/chunk";
-import Player from "./player/player";
+import Player from "./unit/player";
 import { Vector2 } from "../type";
+import Unit from "./unit/Unit";
+import { isInMapV2 } from "./isInMap";
 
 export class DynamicContainer extends Container {
     public player : Player = new Player(new Vector2(30,30));
@@ -18,8 +20,29 @@ export class DynamicContainer extends Container {
         this.addChild(dobj);
         return true ;
     }
+
+    public addUnit(uobj:Unit) :boolean {
+        if(!isInMapV2(uobj.v2position)){
+            return false ;
+        }
+        this.addChild(uobj);
+        this.setTurnUpdata(uobj.goTurn) ;
+        return true ;
+    }
+
+    public turnUpdataFunc : (()=>void)[] = [] ;
+
+    public setTurnUpdata (func:()=>void){
+        this.turnUpdataFunc.push(func) ;
+    }
+    public goTurn():void{
+        for(let i = 0 ; i < this.turnUpdataFunc.length ; i ++){
+            this.turnUpdataFunc[i]() ;
+        }
+    }
     constructor(){
         super();
-        this.addChild(this.player) ;
+        this.addUnit(this.player)
+
     }
 }

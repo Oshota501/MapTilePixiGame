@@ -28,10 +28,15 @@ export class MainApp extends Application {
 
   public padding : number = 256 ;
 
+  /**
+   * NextTurn
+   * Turnが進む時この関数が呼び出されるようになっています。
+   */
   public nextTurn(){
     this.gamedata.nextTurn() ;
     const [f,q] = queue.town.getQueue() ;
-    if(f)viewCityInfo(q)
+    if(f)viewCityInfo(q);
+    if(this.dynamic)this.dynamic.goTurn();
   }
   constructor(
     worldSize : size ,
