@@ -57,7 +57,8 @@ export class City extends Town{
 
     constructor(arr81_biome:Uint8Array,position:Vector2,population:number, max_population:number,cityName:string){
         const imgname = (function():string{
-            if(population >= 360)return "city.png"
+            if(population >= 5000)return "city.png"
+            if(population >= 1500)return "town.png"
             return "village.png" ;
         })();
         super(position,population,max_population,cityName,imgname);

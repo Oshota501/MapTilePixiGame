@@ -16,6 +16,26 @@ export type resource_data = {
     typ : resource_type
 }
 export class MaterialResource {
+    /**
+     * 幸福度変数　最大値100 変更時は this.setHappy を参照
+     */
+    public happy : number = 100 ;
+    /**
+     * this.happy 幸福度
+     * @param h 0~100の間で自動で切り捨てされます。
+     * @returns void
+     */
+    public setHappy(h:number):void{
+        this.happy = h 
+        if(h >= 100){
+            this.happy = 100
+            return
+        }else if(0 >= h){
+            this.happy = 0;
+            return
+        }
+        return
+    }
     public resource: Record<resource_variety, resource_data> = {
         fish:{
             name : "fish" ,
@@ -320,8 +340,18 @@ export class MaterialResource {
             }
             
         }
+        let count = 0 ;
         for(let i = 0 ; i < this.resourceNames.length ; i ++){
-            setup(this.resource[this.resourceNames[i]])
+            const elm = this.resource[this.resourceNames[i]] ;
+            setup(elm)
+            if(elm.cost-100 > elm.base){
+                count ++ ;
+            }
+        }
+        if(count >= this.resourceNames.length/2){
+            this.setHappy(this.happy + random.nextInt(6)+1) ;
+        }else{
+            this.setHappy(this.happy - random.nextInt(6)-1) ;
         }
               
     }

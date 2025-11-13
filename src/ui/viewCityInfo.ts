@@ -55,6 +55,19 @@ export function viewCityInfo (city:Town) : void{
         
     }
 
+    const handleIsCityResource = () => {
+        if(city instanceof City ){
+            return `
+                <tr>
+                    <td>幸福度</td>
+                    <td>${city.resource.happy}%</td>
+                </tr>
+            `
+        }else{
+            return "" ;
+        }
+    }
+
     if(uiContainer1 && mode == "city"){
         uiContainer1.innerHTML = `
         <style>
@@ -78,6 +91,7 @@ export function viewCityInfo (city:Town) : void{
                     <td>人口上限</td>
                     <td>${city.max_poplation}人</td>
                 </tr>
+                ${handleIsCityResource()}
                 <tr>
                     <td colspan="2" style="font-size:1.3rem;font-weight:700;">価格</td>
                 </tr>

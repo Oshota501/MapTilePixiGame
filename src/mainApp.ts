@@ -9,6 +9,7 @@ import { loadScreen } from "./ui/elms";
 import { viewCityInfo } from "./ui/viewCityInfo";
 import { queue } from "./ui/queue";
 import { viewTileInfo } from "./ui/viewTileInfo";
+import { DynamicContainer } from "./dynamic/DynamicContainer";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -16,11 +17,14 @@ export class MainApp extends Application {
   public viewport!: Viewport ;
     public vieportMousePosition = new Vector2(0,0) ;
 
-  public render10: Container ;
-    public gamedata! : GameDatas ;
-    public maptag20 : MapTag20 ;
+    public render10: Container ;
+      public gamedata! : GameDatas ;
+      public maptag20 : MapTag20 ;
+      public dynamic? : DynamicContainer ;
   
   public worldSize : size ;
+
+ 
 
   public padding : number = 256 ;
 
@@ -61,10 +65,12 @@ export class MainApp extends Application {
     })
     // chunk読み込み
     this.gamedata = new GameDatas(this.worldSize)
+    this.dynamic = new DynamicContainer();
 
     this.render10.addChild(this.gamedata);
-    this.render10.addChild(this.maptag20)
-
+    this.render10.addChild(this.maptag20);
+    this.render10.addChild(this.dynamic);
+    
     this.viewport.addChild(this.render10);
 
     this.viewport
@@ -93,13 +99,14 @@ export class MainApp extends Application {
     });
     this.stage.addChild(this.viewport);
 
-    // @ts-ignore
-    this.ticker.add((time) => {
+    this.ticker.add(() => {
       this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
       if(this.gamedata.cities.visible){
         this.gamedata.cities.major.visible = 2 <= this.viewport.scale.x 
         this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x 
       }
+     
+      // this.gamedata.updata();
     });
 
     if(loadScreen)

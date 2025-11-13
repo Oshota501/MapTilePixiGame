@@ -47,6 +47,10 @@ export function viewTileInfo (v:Vector2) : void{
                     <td>${biome.max_population}人</td>
                 </tr>
                 <tr>
+                    <td>開拓コスト</td>
+                    <td>${biome.devcost}円</td>
+                </tr>
+                <tr>
                     <td colspan="2">生産性</td>
                 </tr>
                 <tr>
