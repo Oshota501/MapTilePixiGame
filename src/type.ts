@@ -44,6 +44,14 @@ export class Vector2 {
             this.y *= vector2.y ;
             return this ;
         }
+
+    }
+    /**
+     * 独立した新しいインスタンスを返します。
+     * @returns Vector2
+     */
+    public copy():Vector2{
+        return new Vector2(this.x,this.y) ;
     }
     /**
      * @param index number

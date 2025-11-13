@@ -4,6 +4,25 @@ import { game } from "../main";
 import { ChunkArea } from "../data/chunk";
 
 export class DynamicObject extends Container {
+    public speed : Vector2 = new Vector2(0,0) ;
+    public move = {
+        x : (dx:number):boolean=>{
+            const x = this.position.x + dx ;
+            if(x>=0 || x<game.worldSize.height * ChunkArea.height){
+                this.position.x = x ;
+                return true;
+            }
+            return false ;
+        } ,
+        y : (dy:number):boolean=>{
+            const y = this.position.y + dy ;
+            if(y>=0 || y<game.worldSize.height * ChunkArea.height){
+                this.position.y = y ;
+                return true;
+            }
+            return false ;
+        }
+    }
     public movePosition(dx:number,dy:number) : boolean {
         const x = this.position.x + dx ;
         const y = this.position.y + dy ;

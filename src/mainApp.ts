@@ -98,8 +98,7 @@ export class MainApp extends Application {
     });
     this.stage.addChild(this.viewport);
 
-    // @ts-ignore
-    this.ticker.add((time) => {
+    this.ticker.add(() => {
       this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
       if(this.gamedata.cities.visible){
         this.gamedata.cities.major.visible = 2 <= this.viewport.scale.x 
