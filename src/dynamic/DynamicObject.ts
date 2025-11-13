@@ -4,7 +4,6 @@ import { game } from "../main";
 import { ChunkArea } from "../data/chunk";
 
 export class DynamicObject extends Container {
-    public speed : Vector2 = new Vector2(0,0) ;
     public move = {
         x : (dx:number):boolean=>{
             const x = this.position.x + dx ;

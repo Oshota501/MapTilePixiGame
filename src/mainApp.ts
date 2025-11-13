@@ -17,13 +17,14 @@ export class MainApp extends Application {
   public viewport!: Viewport ;
     public vieportMousePosition = new Vector2(0,0) ;
 
-  public render10: Container ;
-    public gamedata! : GameDatas ;
-    public maptag20 : MapTag20 ;
+    public render10: Container ;
+      public gamedata! : GameDatas ;
+      public maptag20 : MapTag20 ;
+      public dynamic? : DynamicContainer ;
   
   public worldSize : size ;
 
-  public dynamic? : DynamicContainer ;
+ 
 
   public padding : number = 256 ;
 
@@ -104,6 +105,8 @@ export class MainApp extends Application {
         this.gamedata.cities.major.visible = 2 <= this.viewport.scale.x 
         this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x 
       }
+     
+      // this.gamedata.updata();
     });
 
     if(loadScreen)

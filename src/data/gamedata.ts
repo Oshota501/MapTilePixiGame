@@ -36,7 +36,7 @@ export class GameDatas extends Container{
     public s : size ;
 
     public updata(){
-        // this.allChunkShow();
+        //this.allChunkShow();
     }
 
     public cities : CitiesDB = new CitiesDB () ;
