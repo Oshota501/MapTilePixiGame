@@ -36,10 +36,13 @@ pnpm run dev
 ## app
 
 - render10
-- gamedata
-  - chunk
-  - cities
+- gamedata : GameDatas
+  - chunk : Chunk
+  - (chunkcisual)
+  - cities : Cities
   - lines
+- dynamic : DynamicContainer
+  - player
 - maptag
   - sprite
 - viewport
