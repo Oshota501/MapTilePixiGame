@@ -1,8 +1,8 @@
 import { Assets, Sprite, Texture } from "pixi.js";
 import { Vector2 } from "../../type";
-import { DynamicObject } from "../DynamicObject";
+import Unit from "../unit/Unit";
 
-export default class Player extends DynamicObject {
+export default class Player extends Unit {
     public sprite? : Sprite ;
     public onKeyPress = (event:KeyboardEvent):void => {
         switch(event.key){
@@ -23,7 +23,7 @@ export default class Player extends DynamicObject {
                 break;
         }
     }
-    public v2position : Vector2 ;
+    // public v2position : Vector2 ;
     /**
      * - 必ずVector2の新しく作ったインスタンスを渡してください。
      * ---

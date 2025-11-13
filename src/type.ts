@@ -7,6 +7,18 @@ export class Vector2 {
         this.x = x ;
         this.y = y ;
     }
+    public set (x:number , y:number){
+        this.x = x ;
+        this.y = y ;
+    }
+    public size () : number {
+        return Math.sqrt((this.x**2) + (this.y**2))
+    }
+    public round () : Vector2 {
+        this.x = Math.round(this.x) ;
+        this.y = Math.round(this.y) ;
+        return this ;
+    }
     /**
      * - 戻り値があるがthisそのものに加算されるのであまり使用は推奨されない。
      * @param vector2 Vector2
@@ -23,11 +35,11 @@ export class Vector2 {
      * @param vector2 size
      * @returns 
      */
-    public diff (vector2:Vector2):size{
-        return {
-            width : this.x - vector2.x ,
-            height : this.y - vector2.y
-        }
+    public diff (vector2:Vector2):Vector2{
+        return new Vector2(
+            this.x - vector2.x ,
+            this.y - vector2.y
+        )
     }
     /**
      * - 定数倍にも対応

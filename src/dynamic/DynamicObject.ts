@@ -2,21 +2,25 @@ import { Container } from "pixi.js";
 import { Vector2 } from "../type";
 import { game } from "../main";
 import { ChunkArea } from "../data/chunk";
+import { isInMap } from "./isInMap";
 
 export class DynamicObject extends Container {
+    public v2position : Vector2 = new Vector2(0,0) ;
     public move = {
         x : (dx:number):boolean=>{
             const x = this.position.x + dx ;
-            if(x>=0 || x<game.worldSize.height * ChunkArea.height){
+            if(x>=0 && x<game.worldSize.height * ChunkArea.height){
                 this.position.x = x ;
+                this.v2position.x = x ;
                 return true;
             }
             return false ;
         } ,
         y : (dy:number):boolean=>{
             const y = this.position.y + dy ;
-            if(y>=0 || y<game.worldSize.height * ChunkArea.height){
+            if(y>=0 && y<game.worldSize.height * ChunkArea.height){
                 this.position.y = y ;
+                this.v2position.y = y ;
                 return true;
             }
             return false ;
@@ -25,11 +29,9 @@ export class DynamicObject extends Container {
     public movePosition(dx:number,dy:number) : boolean {
         const x = this.position.x + dx ;
         const y = this.position.y + dy ;
-        if(
-            (x>=0 || x<game.worldSize.width * ChunkArea.width) &&
-            (y>=0 || y<game.worldSize.width * ChunkArea.height)        
-        ){
+        if(isInMap(x,y)){
             this.position.set(x,y) ;
+            this.v2position.set(x,y) ;
             return true ;
         }
         return false ;
@@ -53,6 +55,7 @@ export class DynamicObject extends Container {
             (v2.y>=0 || v2.y<game.worldSize.width * ChunkArea.height)        
         ){
             this.position.set(v2.x,v2.y) ;
+            this.v2position.set(v2.x,v2.y) ;
             return true ;
         }
         return false ;
