@@ -18,12 +18,26 @@ export class DynamicObject extends Container {
     }
     /**
      * 移動する。ワールド範囲の判定にgameをimportしていますが依存関係はそれくらいです。
-     * 直接値を触りたいなら.position.setを参照
+     * 直接値を触りたいならsetVector2を参照
      * @param dx 
      * @param dy 
      */
-    public moveVector2(v2:Vector2) : boolean {
+    public movePositionVector2(v2:Vector2) : boolean {
         return this.movePosition(v2.x ,v2.y) ;
+    }
+    /**
+     * position.セットできます
+     * @param vector2 : Vector2 position
+     */
+    public setPositionVector2(v2:Vector2) : boolean {
+        if(
+            (v2.x>=0 || v2.x<game.worldSize.width * ChunkArea.width) &&
+            (v2.y>=0 || v2.y<game.worldSize.width * ChunkArea.height)        
+        ){
+            this.position.set(v2.x,v2.y) ;
+            return true ;
+        }
+        return false ;
     }
     constructor(vector2?:Vector2){
         super();

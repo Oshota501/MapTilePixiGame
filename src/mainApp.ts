@@ -9,6 +9,7 @@ import { loadScreen } from "./ui/elms";
 import { viewCityInfo } from "./ui/viewCityInfo";
 import { queue } from "./ui/queue";
 import { viewTileInfo } from "./ui/viewTileInfo";
+import { DynamicContainer } from "./dynamic/DynamicContainer";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -21,6 +22,8 @@ export class MainApp extends Application {
     public maptag20 : MapTag20 ;
   
   public worldSize : size ;
+
+  public dynamic? : DynamicContainer ;
 
   public padding : number = 256 ;
 
@@ -61,10 +64,12 @@ export class MainApp extends Application {
     })
     // chunk読み込み
     this.gamedata = new GameDatas(this.worldSize)
+    this.dynamic = new DynamicContainer();
 
     this.render10.addChild(this.gamedata);
-    this.render10.addChild(this.maptag20)
-
+    this.render10.addChild(this.maptag20);
+    this.render10.addChild(this.dynamic);
+    
     this.viewport.addChild(this.render10);
 
     this.viewport
