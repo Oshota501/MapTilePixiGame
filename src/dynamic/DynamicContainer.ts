@@ -1,6 +1,6 @@
 import { Container } from "pixi.js";
 
-export class User extends Container {
+export class DynamicContainer extends Container {
     constructor(){
         super();
     }
