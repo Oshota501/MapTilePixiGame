@@ -8,9 +8,7 @@
 </head>
 
 <body>
-    <div id="app">
-        <div id="pixi-container"></div>
-    </div>
+    
     <div id="ui_container_1">
     </div>
     
@@ -20,10 +18,32 @@
         <div id="city" class="menueButton">City</div>
         <div id="dot" class="menueButton">Dot</div>
     </div>
+
+    <div id="tools">
+        <div class="tools_buttons">
+            <div class="toolsButton">
+                <img src="./public/close_icon.png" width="24px" height="16px">close
+            </div>
+            <div class="toolsButton">
+                <img src="./public/city_icon.png" width="24px" height="16px">city
+            </div>
+            <div class="toolsButton">
+                <img src="./public/road_icon.png" width="24px" height="16px">road
+            </div>
+        </div>
+        <div id="tools_container_1">
+        </div>
+    </div>
+    
     <div id="nextTurn">Next Turn (2)</div>
     <div id="loading-screen">
         <div id="loading-text">Loading...</div>
     </div>
+
+    <div id="app">
+        <div id="pixi-container"></div>
+    </div>
+    
     <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

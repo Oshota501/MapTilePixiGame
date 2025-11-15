@@ -54,7 +54,7 @@ document.addEventListener("keypress",(e)=>{
             console.log("create field is faild") ;
             
             break ;
-        case "v" :
+        case "b" :
             game.gamedata.cities.visible = !game.gamedata.cities.visible ;
             break ;
         default :

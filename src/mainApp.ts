@@ -43,7 +43,7 @@ export class MainApp extends Application {
   ){
     super() ;
     this.render10 = new Container();
-    this. maptag20 = new MapTag20();
+    this.maptag20 = new MapTag20();
     this.worldSize = worldSize ;
     this.start();
   }
