@@ -3,7 +3,7 @@ import { Vector2 } from "../../type";
 import { MaterialResource } from "./resource";
 import { queue } from "../../ui/queue";
 import { biomes } from "../biomes";
-import { viewCityInfo } from "../../ui/viewCityInfo";
+import  viewCityInfo  from "../../ui/viewCityInfo";
 
 export class Town extends Sprite{
     public v2position : Vector2 ;

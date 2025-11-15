@@ -1,11 +1,16 @@
 import { game } from "../main";
-import { modeCityButton , modeDotButton} from "./elms";
+import { modeCitiesButton, modeCityButton , modeDotButton} from "./elms";
 import { queue } from "./queue";
-import { viewCityInfo } from "./viewCityInfo";
-import { viewTileInfo } from "./viewTileInfo";
+import viewCitiesRank from "./viewCitiesRank";
+import  viewCityInfo  from "./viewCityInfo";
+import  viewTileInfo  from "./viewTileInfo";
 
-export type menueMode = "city" | "biome" ;
+export type menueMode = "city" | "biome" | "cities";
 export let mode : menueMode = "city" ;
+
+export const moveViewport = ()=>{
+
+}
 
 modeCityButton?.addEventListener("click",()=>{
     mode = "city" ;
@@ -18,6 +23,10 @@ modeCityButton?.addEventListener("click",()=>{
 modeDotButton?.addEventListener("click",()=>{
     mode = "biome" ;
     viewTileInfo(game.vieportMousePosition) ;
+})
+modeCitiesButton?.addEventListener("click",()=>{
+    mode = "cities" ;
+    viewCitiesRank(game.gamedata.cities,"population");
 })
 
 

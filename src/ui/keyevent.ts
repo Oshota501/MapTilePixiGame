@@ -29,7 +29,7 @@ document.addEventListener("keypress",(e)=>{
             game.gamedata.lines.setLine(game.vieportMousePosition,o1.v2position)
             console.log("line to queue") ;
             break ;
-        case "d" :
+        case "v" :
             const [t2,o2] = queue.town.getQueue() ;
             if(!t2) return ;
             let changeData = {

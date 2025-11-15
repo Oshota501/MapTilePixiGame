@@ -3,7 +3,7 @@ import { resource_index } from "../data/map/resource";
 import { uiContainer1 } from "./elms";
 import { mode } from "./menue";
 
-export function viewCityInfo (city:Town) : void{
+export default function viewCityInfo (city:Town) : void{
     const handleIsCity = (s:resource_index): string =>{
         if(city instanceof City ){
             let result = "" ;

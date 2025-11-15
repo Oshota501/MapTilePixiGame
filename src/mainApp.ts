@@ -6,9 +6,9 @@ import { size, Vector2 } from "./type";
 import { testfunc } from "./test";
 import { MapTag20 } from "./data/map/maptag20";
 import { loadScreen } from "./ui/elms";
-import { viewCityInfo } from "./ui/viewCityInfo";
+import  viewCityInfo  from "./ui/viewCityInfo";
 import { queue } from "./ui/queue";
-import { viewTileInfo } from "./ui/viewTileInfo";
+import  viewTileInfo  from "./ui/viewTileInfo";
 import { DynamicContainer } from "./dynamic/DynamicContainer";
 
 export class MainApp extends Application {

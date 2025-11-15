@@ -1,5 +1,5 @@
 :root {
-    --sidebar-width: 14rem; /* 必要に応じて調整 */
+    --sidebar-width: 21rem; /* 必要に応じて調整 */
     --close-top: 0.3rem;
     --close-height: 2.4rem; /* close ボタンの想定高さ（必要なら調整） */
     --control-gap: 0.4rem;   /* close と menue の間隔 */
