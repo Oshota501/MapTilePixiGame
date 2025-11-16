@@ -28,6 +28,6 @@ class Random {
   }
 }
 
-const seed = Math.floor(233431)
+const seed = Math.floor(1763278987354)
 console.log("world seed = ",seed)
 export const random = new Random(seed) ;

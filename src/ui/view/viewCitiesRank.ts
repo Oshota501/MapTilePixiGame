@@ -3,7 +3,7 @@ import { City } from "../../data/map/city";
 import { uiContainer1 } from "../elms";
 import { mode } from "../menue";
 
-type cities_sort_paramater = "population" | "happy" ;
+type cities_sort_paramater = "population" | "happy"| "mpopulation" ;
 
 export default function viewCitiesRank(cities:CitiesDB,param:cities_sort_paramater){
     const city : City[] = cities.city
@@ -26,6 +26,15 @@ export default function viewCitiesRank(cities:CitiesDB,param:cities_sort_paramat
                 }
             })
             break ;
+        case "mpopulation" :
+            city.sort((a:City,b:City)=>{
+                if(a.max_poplation > b.max_poplation){
+                    return -1 ;
+                }else{
+                    return 1 ;
+                }
+            })
+            break ;
     }   
 
     const handleAllCities = ():string=>{
@@ -35,8 +44,9 @@ export default function viewCitiesRank(cities:CitiesDB,param:cities_sort_paramat
                     return `${c.resource.happy}%` ;
                 case "population" :
                     return `${c.poplation}人` ;
+                case "mpopulation" :
+                    return `${c.max_poplation}人` ;
             }
-            return "" ;
         }
         let result : string = "" ;
         for(let i = 0 ; i < city.length ; i ++){

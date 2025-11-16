@@ -31,7 +31,7 @@ export class MainApp extends Application {
    * NextTurn
    * Turnが進む時この関数が呼び出されるようになっています。
    */
-  public nextTurn(){
+  public nextTurn =()=>{
     this.gamedata.nextTurn() ;
     if(this.dynamic)this.dynamic.goTurn();
     goTurn();
@@ -55,7 +55,6 @@ export class MainApp extends Application {
       inElm.appendChild(this.canvas);
     }
       
-    nextTurnButton?.addEventListener("click",this.nextTurn)
     // ViewPort
     this.viewport = new Viewport({
       screenWidth: this.screen.width,
@@ -115,6 +114,8 @@ export class MainApp extends Application {
     if(loadScreen)
       loadScreen.style.display = "none" ;
 
+    nextTurnButton?.addEventListener("click",this.nextTurn)
+    
     testfunc()
   }
 }

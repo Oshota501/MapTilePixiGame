@@ -61,7 +61,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
                 position.y / (gamedata.s.height*ChunkArea.height )
             )
             if(arr[i] == landid){
-                if(random.next() <= 0.004){
+                if(random.next() <= 0.0075){
                     const b : terrain_CreateLogicType = terrains.getLandTerrainRandom(position_nr);
                     add_terrainsOfLand.push({
                         name : b.name ,
@@ -71,7 +71,7 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
                     // game.maptag20.postText(position,b.name)
                 }
             }else{
-                if(random.next() <= 0.004){
+                if(random.next() <= 0.0075){
                     const b : terrain_CreateLogicType = terrains.getSeaTerrainRandom(position_nr);
                     add_terrainsOfSea.push({
                         name : b.name ,
@@ -238,23 +238,34 @@ const createTerrain = function(gamedata :GameDatas,landid:number,seaid:number,ri
     //     }
     // }
     // 都市
-    let cityCount = 0 ;
+    const cityPosition : Vector2 [] = [] ;
     for(let y = 0 ; y < mapsize.height ; y ++)for(let x = 0 ; x < mapsize.width ; x ++){
         const arr = c[x+y*mapsize.width].geographyData ;
         for(let i = 0 ; i < arr.length ; i ++){
             const b = biomes.getById(arr[i]) ;
             if(typeof b == "undefined")continue ;
-            if(0.00001*b.max_population > random.next() && biomes.isLand(arr[i])){
+            if(0.00002*b.max_population > random.next() && biomes.isLand(arr[i])){
                 const position = new Vector2(
                     x*ChunkArea.width + i%ChunkArea.width ,
                     y*ChunkArea.height + Math.floor(i/ChunkArea.height)
                 )
-                gamedata.postCity(position,`new city ${cityCount}`) ;
-                cityCount ++ ;
+                cityPosition .push(position)
             }
         }
     }
-    
+    for(let i = 0 ; i < cityPosition.length ; i ++){
+        let flag = true ;
+        for(let j = i+1 ; j < cityPosition.length ; j ++){
+            const distance = Vector2.distance(cityPosition[i],cityPosition[j])
+            if(distance<12){
+                flag = false ;
+            }
+        }
+        if(flag ){
+            gamedata.postCity(cityPosition[i],`new city ${i}`) ;
+        }
+        
+    }
 }
 const mapClear = function(gamedata:GameDatas,clearid:number){
     const mapsize = gamedata.s ;
