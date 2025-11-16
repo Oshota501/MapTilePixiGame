@@ -1,10 +1,10 @@
-import { biomes } from "../data/biomes";
-import { game } from "../main";
-import { Vector2 } from "../type";
-import { uiContainer1 } from "./elms";
-import { mode } from "./menue";
+import { biomes } from "../../data/biomes";
+import { game } from "../../main";
+import { Vector2 } from "../../type";
+import { uiContainer1 } from "../elms";
+import { mode } from "../menue";
 
-export function viewTileInfo (v:Vector2) : void{
+export default function viewTileInfo (v:Vector2) : void{
     const [biomeId,flag] = game.gamedata.getPositionBiome(v) ;
     if(!flag || mode != "biome") return ;
     const biome = biomes.getById(biomeId) ;
@@ -23,7 +23,7 @@ export function viewTileInfo (v:Vector2) : void{
         }
         return result ;
     }
-    if(uiContainer1){
+    if(uiContainer1 && mode == "biome"){
         uiContainer1.innerHTML = `
         <style>
         #cityInfo th{

@@ -1,13 +1,16 @@
 import { game } from "../main";
 import { nextTurnButton } from "./elms";
+import { queue } from "./queue";
+import viewCitiesRank from "./view/viewCitiesRank";
+import viewCityInfo from "./view/viewCityInfo";
+import viewPlayerInfo from "./view/viewPlayerStatus";
+import viewTileInfo from "./view/viewTileInfo";
 
 export let turn = 1 ;
-
 let isLoad = false ;
 
-nextTurnButton?.addEventListener("click",function(){
+export const goTurn = function(){
     if(nextTurnButton && !isLoad){
-        game.nextTurn() ;
         isLoad = true ;
         turn ++ ;
         for(let j = 0 ; j < 4 ; j ++){
@@ -26,4 +29,9 @@ nextTurnButton?.addEventListener("click",function(){
             isLoad = false ;
         },12*200)
     }
-})
+    const [f,q] = queue.town.getQueue() ;
+    if(f)viewCityInfo(q);
+    viewCitiesRank(game.gamedata.cities,"population");
+    viewTileInfo(game.vieportMousePosition)
+    viewPlayerInfo();
+}
