@@ -5,9 +5,10 @@ import { ChunkArea } from "./data/chunk";
 import { size, Vector2 } from "./type";
 import { testfunc } from "./test";
 import { MapTag20 } from "./data/map/maptag20";
-import { loadScreen } from "./ui/elms";
+import { loadScreen, nextTurnButton } from "./ui/elms";
 import  viewTileInfo  from "./ui/view/viewTileInfo";
 import { DynamicContainer } from "./dynamic/DynamicContainer";
+import { goTurn } from "./ui/nextTurnButton";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -33,6 +34,7 @@ export class MainApp extends Application {
   public nextTurn(){
     this.gamedata.nextTurn() ;
     if(this.dynamic)this.dynamic.goTurn();
+    goTurn();
   }
   constructor(
     worldSize : size ,
@@ -53,7 +55,7 @@ export class MainApp extends Application {
       inElm.appendChild(this.canvas);
     }
       
-
+    nextTurnButton?.addEventListener("click",this.nextTurn)
     // ViewPort
     this.viewport = new Viewport({
       screenWidth: this.screen.width,

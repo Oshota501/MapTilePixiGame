@@ -1,7 +1,6 @@
 import { MainApp } from "./mainApp";
 import "./ui/keyevent"
 import "./ui/closeSidebarEvent"
-import "./ui/nextTurnButton"
 import "./ui/tools/toolsEventSet"
 
 export let game: MainApp ;

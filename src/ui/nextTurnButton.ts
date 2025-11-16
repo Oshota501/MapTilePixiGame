@@ -7,12 +7,10 @@ import viewPlayerInfo from "./view/viewPlayerStatus";
 import viewTileInfo from "./view/viewTileInfo";
 
 export let turn = 1 ;
-
 let isLoad = false ;
 
-nextTurnButton?.addEventListener("click",function(){
+export const goTurn = function(){
     if(nextTurnButton && !isLoad){
-        game.nextTurn() ;
         isLoad = true ;
         turn ++ ;
         for(let j = 0 ; j < 4 ; j ++){
@@ -36,4 +34,4 @@ nextTurnButton?.addEventListener("click",function(){
     viewCitiesRank(game.gamedata.cities,"population");
     viewTileInfo(game.vieportMousePosition)
     viewPlayerInfo();
-})
+}
