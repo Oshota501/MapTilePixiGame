@@ -146,10 +146,31 @@ html, body {
     display: inline;
 } */
 #tools_container_1{
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(46, 46, 46, 0.905);
     position: fixed;
     bottom: 0px;
     left:0px;
     width: 100%;
     height: var(--tools-height-inf);
+}
+.tools_op_button{
+    background-color: rgb(233, 233, 233);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    height: 1rem;
+}
+.tools_op_button:hover{
+    background-color: rgb(180, 180, 180);
+}
+.tools_op_module{
+    border: 1px solid rgb(180, 180, 180);
+    background-color: rgb(180, 180, 180);
+    height: 100%;
+}
+.tools_op_header{
+    font-weight: 700;
+}
+.tools_table td{
+    margin: 0px;
+    border-top:1px solid;
 }

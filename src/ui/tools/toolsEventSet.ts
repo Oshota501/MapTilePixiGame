@@ -1,10 +1,30 @@
-import handleToolsCity from "./handleToolsCity";
-import handleToolsFood from "./handleToolsFood";
-import handleToolsRoad from "./handleToolsRoad";
-import handleToolsTrain from "./handleToolsTrain";
-import { toolsCity, toolsFood, toolsRoad, toolsTrain } from "./toolsElm";
+import { toolsElms, toolsModuleElms } from "./toolsElm";
+import "./handleToolsCity" ;
+import "./handleToolsFood" ;
+import "./handleToolsRoad" ;
+import "./handleToolsTrain" ;
 
-if(toolsCity)toolsCity.addEventListener("click",handleToolsCity) ;
-if(toolsRoad)toolsRoad.addEventListener("click",handleToolsRoad) ;
-if(toolsTrain)toolsTrain.addEventListener("click",handleToolsTrain) ;
-if(toolsFood)toolsFood.addEventListener("click",handleToolsFood) ;
+function allClearModule():void{
+    for(let j = 0 ; j < toolsModuleElms.length ; j ++){
+        const elm3 = toolsModuleElms[j] ;
+        if(!elm3){
+            continue ;
+        }
+        elm3.style.display ="none" ;
+    }
+}
+
+allClearModule();
+
+for(let i = 0 ; i < toolsElms.length; i ++){
+    const elm1 = toolsElms[i] ;
+    const elm2 = toolsModuleElms[i] ;
+    if(!elm1 || !elm2){
+        continue ;
+    }
+    
+    elm1.addEventListener("click",()=>{
+        allClearModule() ;
+        elm2.style.display = "flex" ;
+    })
+}
