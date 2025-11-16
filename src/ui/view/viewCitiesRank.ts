@@ -1,6 +1,7 @@
 import { CitiesDB } from "../../data/map/cities";
 import { City } from "../../data/map/city";
 import { uiContainer1 } from "../elms";
+import { mode } from "../menue";
 
 type cities_sort_paramater = "population" | "happy" ;
 
@@ -49,7 +50,7 @@ export default function viewCitiesRank(cities:CitiesDB,param:cities_sort_paramat
         }
         return result ;
     }
-    if(uiContainer1){
+    if(uiContainer1 && mode == "cities"){
         uiContainer1.innerHTML = `
         <style>
         #cityInfo th{

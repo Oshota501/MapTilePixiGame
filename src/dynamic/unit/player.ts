@@ -1,8 +1,9 @@
 import { Assets, Sprite, Texture } from "pixi.js";
-import { Vector2 } from "../../type";
+import { UnsignedNumber, Vector2 } from "../../type";
 import Unit from "../unit/Unit";
 
 export default class Player extends Unit {
+    public money = new UnsignedNumber(10000) ;
     public sprite? : Sprite ;
     public onKeyPress = (event:KeyboardEvent):void => {
         switch(event.key){

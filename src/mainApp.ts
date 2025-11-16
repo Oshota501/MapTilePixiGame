@@ -6,8 +6,6 @@ import { size, Vector2 } from "./type";
 import { testfunc } from "./test";
 import { MapTag20 } from "./data/map/maptag20";
 import { loadScreen } from "./ui/elms";
-import  viewCityInfo  from "./ui/view/viewCityInfo";
-import { queue } from "./ui/queue";
 import  viewTileInfo  from "./ui/view/viewTileInfo";
 import { DynamicContainer } from "./dynamic/DynamicContainer";
 
@@ -34,8 +32,6 @@ export class MainApp extends Application {
    */
   public nextTurn(){
     this.gamedata.nextTurn() ;
-    const [f,q] = queue.town.getQueue() ;
-    if(f)viewCityInfo(q);
     if(this.dynamic)this.dynamic.goTurn();
   }
   constructor(

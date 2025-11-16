@@ -23,7 +23,7 @@ export default function viewTileInfo (v:Vector2) : void{
         }
         return result ;
     }
-    if(uiContainer1){
+    if(uiContainer1 && mode == "biome"){
         uiContainer1.innerHTML = `
         <style>
         #cityInfo th{

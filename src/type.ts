@@ -1,5 +1,38 @@
 import { ChunkArea } from "./data/chunk";
 
+export class UnsignedNumber {
+    private int : number = 0 ;
+    constructor(num?:number){
+        if(num){
+            this.int = num ;
+        }
+    }
+    /**
+     * 自動で絶対値が設定されます。
+     * @param num 
+     */
+    public set(num:number):void{
+        this.int = Math.abs(num) ;
+    }
+    /**
+     * 負の値になる時にfalseを返して実行できなかった事を示します。
+     * @param num 
+     * @returns boolean
+     */
+    public add(num:number):boolean{
+        if(this.int+num >= 0){
+            this.int += num ;
+            return true ;
+        }else{
+            return false ;
+        }  
+    }
+    public get():number{
+        return this.int ;
+    }
+
+}
+
 export class Vector2 {
     public x : number ;
     public y : number ;
