@@ -1,6 +1,6 @@
-import { CitiesDB } from "../data/map/cities";
-import { City } from "../data/map/city";
-import { uiContainer1 } from "./elms";
+import { CitiesDB } from "../../data/map/cities";
+import { City } from "../../data/map/city";
+import { uiContainer1 } from "../elms";
 
 type cities_sort_paramater = "population" | "happy" ;
 

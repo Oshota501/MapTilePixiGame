@@ -9,3 +9,4 @@ export const nextTurnButton = document.getElementById("nextTurn");
 export const modeCityButton = document.getElementById("city");
 export const modeCitiesButton = document.getElementById("cities");
 export const modeDotButton = document.getElementById("dot");
+export const modeStatusButton = document.getElementById("status");

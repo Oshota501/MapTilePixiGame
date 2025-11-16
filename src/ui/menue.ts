@@ -1,11 +1,12 @@
 import { game } from "../main";
-import { modeCitiesButton, modeCityButton , modeDotButton} from "./elms";
+import { modeCitiesButton, modeCityButton , modeDotButton, modeStatusButton} from "./elms";
 import { queue } from "./queue";
-import viewCitiesRank from "./viewCitiesRank";
-import  viewCityInfo  from "./viewCityInfo";
-import  viewTileInfo  from "./viewTileInfo";
+import viewCitiesRank from "./view/viewCitiesRank";
+import  viewCityInfo  from "./view/viewCityInfo";
+import viewPlayerInfo from "./view/viewPlayerStatus";
+import  viewTileInfo  from "./view/viewTileInfo";
 
-export type menueMode = "city" | "biome" | "cities";
+export type menueMode = "city" | "biome" | "cities" | "status";
 export let mode : menueMode = "city" ;
 
 export const moveViewport = ()=>{
@@ -30,3 +31,7 @@ modeCitiesButton?.addEventListener("click",()=>{
 })
 
 
+modeStatusButton?.addEventListener("click",()=>{
+    mode = "status" ;
+    viewPlayerInfo();
+})

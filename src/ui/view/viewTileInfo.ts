@@ -1,8 +1,8 @@
-import { biomes } from "../data/biomes";
-import { game } from "../main";
-import { Vector2 } from "../type";
-import { uiContainer1 } from "./elms";
-import { mode } from "./menue";
+import { biomes } from "../../data/biomes";
+import { game } from "../../main";
+import { Vector2 } from "../../type";
+import { uiContainer1 } from "../elms";
+import { mode } from "../menue";
 
 export default function viewTileInfo (v:Vector2) : void{
     const [biomeId,flag] = game.gamedata.getPositionBiome(v) ;
