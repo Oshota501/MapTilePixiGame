@@ -105,6 +105,8 @@ html, body {
 }
 
 #tools{
+    user-select: none;
+    cursor: pointer;
     background-color: rgba(239, 239, 239, 0.613);
     position: fixed;
     bottom: 0px ;
@@ -119,6 +121,7 @@ html, body {
     display: flex;
 }
 .toolsButton{
+    cursor: pointer;
     border-radius: 3px;
     margin-top: 2px;
     margin-left: 2px;
@@ -140,6 +143,7 @@ html, body {
     background-color: black;
 }
 .toolsButton:hover {
+    
     background-color: rgba(17, 19, 23, 0.219);
 }
 /* .toolsButton:hover .tools_word{
