@@ -1,4 +1,4 @@
-import { Application , Assets, Container } from "pixi.js";
+import { Application , Assets, Container, Ticker } from "pixi.js";
 import { Viewport } from "pixi-viewport";
 import { GameDatas } from "./data/gamedata" ;
 import { ChunkArea } from "./data/chunk";
@@ -9,6 +9,7 @@ import { loadScreen, nextTurnButton } from "./ui/elms";
 import  viewTileInfo  from "./ui/view/viewTileInfo";
 import { DynamicContainer } from "./dynamic/DynamicContainer";
 import { goTurn } from "./ui/nextTurnButton";
+import { AnimContainer } from "./anim/AnimContainer";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -20,6 +21,7 @@ export class MainApp extends Application {
       public gamedata! : GameDatas ;
       public maptag20 : MapTag20 ;
       public dynamic? : DynamicContainer ;
+      public anim : AnimContainer = new AnimContainer();
   
   public worldSize : size ;
 
@@ -72,6 +74,7 @@ export class MainApp extends Application {
     this.render10.addChild(this.gamedata);
     this.render10.addChild(this.maptag20);
     this.render10.addChild(this.dynamic);
+    this.render10.addChild(this.anim);
     
     this.viewport.addChild(this.render10);
 
@@ -101,13 +104,14 @@ export class MainApp extends Application {
     });
     this.stage.addChild(this.viewport);
 
-    this.ticker.add(() => {
+    this.ticker.add((time:Ticker) => {
       this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
       if(this.gamedata.cities.visible){
         this.gamedata.cities.major.visible = 2 <= this.viewport.scale.x 
         this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x 
       }
      
+      this.anim.tickUpdata(time.deltaMS);
       // this.gamedata.updata();
     });
 

@@ -8,7 +8,7 @@ export class Select extends AnimObject{
      * deltatimeを与えてください。
      * @param time number
      */
-    public moveTickUpdata (time:number){
+    override moveTickUpdata (time:number):void{
         super.moveTickUpdata(time);
         if(this.isSelect){
             this.position.set(
@@ -16,12 +16,14 @@ export class Select extends AnimObject{
                 game.vieportMousePosition.y
             )
         }
+        //console.log("tick")
+    }
+    public onclickFunc ():void{
+        this.isSelect = !this.isSelect ;
     }
     constructor(){
         super();
-        this.on("click",()=>{
-            this.isSelect = !this.isSelect ;
-        })
+        this.on("click",this.onclickFunc)
     }
 
 }
