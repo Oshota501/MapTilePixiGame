@@ -56,6 +56,10 @@ export class MainApp extends Application {
     if(inElm != null){
       inElm.appendChild(this.canvas);
     }
+
+    this.canvas.addEventListener("click",()=>{
+      this.anim.onclickFunc();
+    })
       
     // ViewPort
     this.viewport = new Viewport({

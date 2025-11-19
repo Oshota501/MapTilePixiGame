@@ -1,4 +1,3 @@
-import { FederatedPointerEvent } from "pixi.js";
 import { game } from "../../main";
 import { AnimObject } from "../AnimObject";
 
@@ -19,14 +18,8 @@ export class Select extends AnimObject{
         }
         //console.log("tick")
     }
-    public onclickFunc (event:FederatedPointerEvent):void{
-        event.stopPropagation();
-        console.log("oncl")
-        this.isSelect = !this.isSelect ;
-    }
     constructor(){
         super();
-        this.on("click",this.onclickFunc)
     }
 
 }
