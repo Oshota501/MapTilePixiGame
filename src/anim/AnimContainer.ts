@@ -27,9 +27,8 @@ export class AnimContainer extends Container {
     public onclickFunc : ()=>void = ()=>{
         for(let i = 0 ; i < this.tickSelect.length ; i ++){
             const elm = this.tickSelect[i] ;
-            if(elm.isSelect){
-                elm.isSelect = false ;
-            }
+            elm.selectingOnClick();
+            
         }
     }
 
