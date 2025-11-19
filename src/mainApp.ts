@@ -1,4 +1,4 @@
-import { Application , Assets, Container } from "pixi.js";
+import { Application , Assets, Container, Ticker } from "pixi.js";
 import { Viewport } from "pixi-viewport";
 import { GameDatas } from "./data/gamedata" ;
 import { ChunkArea } from "./data/chunk";
@@ -9,6 +9,8 @@ import { loadScreen, nextTurnButton } from "./ui/elms";
 import  viewTileInfo  from "./ui/view/viewTileInfo";
 import { DynamicContainer } from "./dynamic/DynamicContainer";
 import { goTurn } from "./ui/nextTurnButton";
+import { AnimContainer } from "./anim/AnimContainer";
+import { LinesContainer } from "./anim/lines/LinesContainer";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -20,6 +22,8 @@ export class MainApp extends Application {
       public gamedata! : GameDatas ;
       public maptag20 : MapTag20 ;
       public dynamic? : DynamicContainer ;
+      public anim : AnimContainer = new AnimContainer();
+      public lines : LinesContainer = new LinesContainer();
   
   public worldSize : size ;
 
@@ -31,7 +35,7 @@ export class MainApp extends Application {
    * NextTurn
    * Turnが進む時この関数が呼び出されるようになっています。
    */
-  public nextTurn(){
+  public nextTurn =()=>{
     this.gamedata.nextTurn() ;
     if(this.dynamic)this.dynamic.goTurn();
     goTurn();
@@ -54,8 +58,11 @@ export class MainApp extends Application {
     if(inElm != null){
       inElm.appendChild(this.canvas);
     }
+
+    this.canvas.addEventListener("click",()=>{
+      this.anim.onclickFunc();
+    })
       
-    nextTurnButton?.addEventListener("click",this.nextTurn)
     // ViewPort
     this.viewport = new Viewport({
       screenWidth: this.screen.width,
@@ -73,6 +80,8 @@ export class MainApp extends Application {
     this.render10.addChild(this.gamedata);
     this.render10.addChild(this.maptag20);
     this.render10.addChild(this.dynamic);
+    this.render10.addChild(this.anim);
+    this.render10.addChild(this.lines);
     
     this.viewport.addChild(this.render10);
 
@@ -102,19 +111,22 @@ export class MainApp extends Application {
     });
     this.stage.addChild(this.viewport);
 
-    this.ticker.add(() => {
+    this.ticker.add((time:Ticker) => {
       this.maptag20.visible = 5 <= this.viewport.scale.x  && this.viewport.scale.x < 11
       if(this.gamedata.cities.visible){
         this.gamedata.cities.major.visible = 2 <= this.viewport.scale.x 
         this.gamedata.cities.satellite.visible = 8 <= this.viewport.scale.x 
       }
      
+      this.anim.tickUpdata(time.deltaMS);
       // this.gamedata.updata();
     });
 
     if(loadScreen)
       loadScreen.style.display = "none" ;
 
+    nextTurnButton?.addEventListener("click",this.nextTurn)
+    
     testfunc()
   }
 }

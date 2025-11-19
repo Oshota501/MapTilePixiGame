@@ -45,10 +45,10 @@ export class CitiesDB extends Container {
         this.addChild(this.major) ;
         this.addChild(this.satellite) ;
     }
-    public postCity(arr81_biome:Uint8Array,p:Vector2,poplation:number,max_poplation:number,name:string){
+    public postCity(arr81_biome:Uint8Array,p:Vector2,poplation:number,max_poplation:number,name:string):City{
         const newCity = new City(arr81_biome,p,poplation,max_poplation,name) ;
         this.major.addChild (newCity) ;
         this.city.push(newCity) ;
-        
+        return newCity ;
     }
 }

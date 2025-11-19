@@ -7,7 +7,7 @@ import { biomes } from "./biomes";
 import { CitiesDB } from "./map/cities";
 import { LineContainer } from "./map/line";
 import { random } from "../mt/random";
-import { Town } from "./map/city";
+import { City, Town } from "./map/city";
 
 type pos = {
     x : number
@@ -45,25 +45,23 @@ export class GameDatas extends Container{
      * @param p 
      * @returns isSuccess
      */
-    public postCity(p:Vector2,cityName:string): boolean{
+    public postCity(p:Vector2,cityName:string): [true,City]|[false,undefined]{
         const [arr,flag] = this.getAreaBiome(p,4) ;
         if(flag){
             let max_poplation = 0 ;
             for(let i = 0 ; i < arr.length ; i ++){
                 const b = biomes.getById(arr[i]) ;
-                if(typeof b == "undefined")return false ;
+                if(typeof b == "undefined")return [false,undefined] ;
                 max_poplation += b.max_population ;
             }
             const [arr81,isSuccess] = this.getAreaBiome(p,4) ;
-            if(isSuccess){
-                this.cities.postCity(arr81,p,Math.floor((max_poplation/3)*random.next())+20,max_poplation,cityName)
-            }else{
-                return false ;
+            if(!isSuccess){
+                return [false,undefined] ;
             }
             
-            return true ;
+            return [true,this.cities.postCity(arr81,p,Math.floor((max_poplation/3)*random.next())+20,max_poplation,cityName)] ;
         }else{
-            return false ;
+            return [false,undefined] ;
         }
     }
     public postSubCity(p:Vector2,parentCityName:string,satelliteCityName:string){
