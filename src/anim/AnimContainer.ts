@@ -6,7 +6,7 @@ import { Select } from "./select/Select";
 export class AnimContainer extends Container {
     public tickAnim : AnimObject[] = [] ;
     public tickSelect : Select[] = [] ;
-
+    
     public tickUpdata (time:number):void {
         for(let i = 0 ; i < this.tickAnim.length ; i ++){
             this.tickAnim[i].moveTickUpdata(time) ;

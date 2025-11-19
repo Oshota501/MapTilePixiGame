@@ -10,6 +10,7 @@ import  viewTileInfo  from "./ui/view/viewTileInfo";
 import { DynamicContainer } from "./dynamic/DynamicContainer";
 import { goTurn } from "./ui/nextTurnButton";
 import { AnimContainer } from "./anim/AnimContainer";
+import { LinesContainer } from "./anim/lines/LinesContainer";
 
 export class MainApp extends Application {
   public fpsCounter : number = 0 ;
@@ -22,6 +23,7 @@ export class MainApp extends Application {
       public maptag20 : MapTag20 ;
       public dynamic? : DynamicContainer ;
       public anim : AnimContainer = new AnimContainer();
+      public lines : LinesContainer = new LinesContainer();
   
   public worldSize : size ;
 
@@ -79,6 +81,7 @@ export class MainApp extends Application {
     this.render10.addChild(this.maptag20);
     this.render10.addChild(this.dynamic);
     this.render10.addChild(this.anim);
+    this.render10.addChild(this.lines);
     
     this.viewport.addChild(this.render10);
 
