@@ -117,6 +117,20 @@ export class Vector2 {
         return this ;
     }
     /**
+     * 一致しているか検証
+     * @returns boolean
+     */
+    public isSame(v2:Vector2):boolean{
+        if(
+            v2.x === this.x &&
+            v2.y === this.y
+        ){
+            return true ;
+        }else{
+            return false ;
+        }
+    }
+    /**
      * 独立した新しいインスタンスを返します。
      * @returns Vector2
      */

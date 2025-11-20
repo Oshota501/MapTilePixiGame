@@ -1,6 +1,6 @@
 import { Graphics } from "pixi.js";
-import { Vector2 } from "../../type";
 import { OnLineAnimation } from "./onLineAnimation";
+import { LineNode } from "./Node";
 
 /**
  * ## 属性
@@ -10,20 +10,16 @@ import { OnLineAnimation } from "./onLineAnimation";
  */
 export class Line {
     public id : number ;
-    public node : Vector2[] ;
-    public tag : number[][] = [];
+    public node : LineNode[] ;
     public graphic : Graphics = new Graphics();
+   
 
-    constructor(id:number,...v:Vector2[]){
+    constructor(id:number,...v:LineNode[]){
         this.id = id ;
         if(v.length <= 1){
-            this.node = [v[0],new Vector2(0,0)] ;
-            this.tag = [[],[]] ;
+            this.node = [LineNode.toV2(v[0]),new LineNode(0,0)] ;
         }else{
             this.node =v ;
-            for(let i = 0 ; i < v.length ; i ++){
-                this.tag.push([]) ;
-            }
         }
         this.updataGraphic();
     }
