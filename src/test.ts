@@ -4,6 +4,9 @@ import { game } from "./main"
 import { Vector2 } from "./type"
 // @ts-ignore
 import { random } from "./mt/random"
+import { Line } from "./anim/lines/Line"
+import { OnLineAnimation } from "./anim/lines/onLineAnimation"
+import { LineNode } from "./anim/lines/Node"
 
 export async function testfunc(){ 
     if(game.dynamic){
@@ -15,4 +18,14 @@ export async function testfunc(){
     // const arr = game.gamedata.getAreaBiomeBreakDownCount(new Vector2(25,4),2,createList(20,40));
     // console.log(arr)
    //  console.log(game.gamedata.getAreaBiomeBreakDownCount(new Vector2(2,2),2,createList(200,240)))
+   const line = new Line(0,
+        new LineNode(0,0),
+        new LineNode(20,20),
+        new LineNode(50,20),
+        new LineNode(50,50),
+   )
+   game.lines.setLine(line)
+   line.setAnim(new OnLineAnimation(
+        game.anim
+   ),false)
 }
