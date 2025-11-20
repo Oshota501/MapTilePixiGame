@@ -41,6 +41,11 @@ export class Line {
         if(isFin){
             const v2 = this.node[this.node.length-1] ;
             anim.position.set(v2.x,v2.y) ;
+            anim.setAnimation(this.node) ;
+        }else{
+            const v2 = this.node[0] ;
+            anim.position.set(v2.x,v2.y) ;
+            anim.setAnimation(this.node) ;
         }
     }
 }

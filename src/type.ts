@@ -81,15 +81,40 @@ export class Vector2 {
      */
     public cum (vector2:Vector2|number):Vector2{
         if(typeof vector2 == "number"){
-            this.x *= vector2 ;
-            this.y *= vector2 ;
-            return this ;
+            return new Vector2(
+                this.x * vector2 ,
+                this.y * vector2 
+            )
         }else{
-            this.x *= vector2.x ;
-            this.y *= vector2.y ;
-            return this ;
+            return new Vector2(
+                this.x * vector2.x,
+                this.y * vector2.y
+            )
         }
-
+    }
+    /**
+     * 割り算
+     * @param vector2 
+     */
+    public division(vector2:Vector2):Vector2{
+        return new Vector2(
+            this.x / vector2.x ,
+            this.y / vector2.y
+        )
+    }
+    /**
+     * 正規化関数
+     * @returns this
+     */
+    public normarization():Vector2{
+        const s = this.size() ;
+        if( s === 0 ){
+            this.set(0,0);
+            return this;
+        }
+        this.x /= s ;
+        this.y /= s ;
+        return this ;
     }
     /**
      * 独立した新しいインスタンスを返します。
