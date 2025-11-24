@@ -8,7 +8,7 @@ export class OnLineAnimation extends AnimObject{
     public v2 :Vector2[] = [] ;
     constructor(ac:AnimContainer){
         super(ac.nextId());
-        this.zIndex = 1000 ;
+        this.zIndex = 100000 ;
         ac.addAnim(this);
         this.loadImg() ;
     }
@@ -38,6 +38,7 @@ export class OnLineAnimation extends AnimObject{
         
         sprite.on("click",(event:FederatedPointerEvent)=>{
             event.stopPropagation();
+            console.log("train");
         });
         tex.source.scaleMode ='nearest'
         sprite.texture = tex ;

@@ -18,11 +18,12 @@ export async function testfunc(){
     // const arr = game.gamedata.getAreaBiomeBreakDownCount(new Vector2(25,4),2,createList(20,40));
     // console.log(arr)
    //  console.log(game.gamedata.getAreaBiomeBreakDownCount(new Vector2(2,2),2,createList(200,240)))
+   const arrln : LineNode [] = [] ;
+   for(let i = 0 ; i < game.gamedata.cities.city.length ; i++){
+       arrln.push( LineNode.toV2(game.gamedata.cities.city[i].v2position) );
+   }    
    const line = new Line(0,
-        new LineNode(0,0),
-        new LineNode(20,20),
-        new LineNode(50,20),
-        new LineNode(50,50),
+        ...arrln  
    )
    game.lines.setLine(line)
    line.setAnim(new OnLineAnimation(
