@@ -12,7 +12,7 @@ export class Line {
     public id : number ;
     public node : LineNode[] ;
     public graphic : Graphics = new Graphics();
-   
+    public color : number = 0X000000 ;
 
     constructor(id:number,...v:LineNode[]){
         this.id = id ;
@@ -30,7 +30,7 @@ export class Line {
         for(let i = 1 ; i < this.node.length ; i ++){
             this.graphic.lineTo(this.node[i].x , this.node[i].y );
         }
-        this.graphic.stroke({ color: 0xff0000, pixelLine: true });
+        this.graphic.stroke({ color: this.color, pixelLine: true });
     }
 
     public setAnim(anim:OnLineAnimation,isFin:boolean):void{
